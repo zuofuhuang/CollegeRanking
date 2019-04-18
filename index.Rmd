@@ -1,0 +1,27 @@
+---
+title: '454 Bayesian Statistics Project - College Ranking'
+author: 'Zuofu Huang and Kavya Shetty, Spring 2019 Macalester College'
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    split_by: chapter
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: yes
+documentclass: book  
+github-repo: zuofuhuang/CollegeRanking
+---
+  
+# Preface
+
+Hello! Welcome to the bookdown of our MATH 454 Bayesian Statistics Project!
+
+We **are having** a lot of fun doing this project, and you are always welcome to come back at any point for our progress!
+
+![](StartingComic.png)
+
+
+Credit to xkcd: https://xkcd.com/1236/
+
+
