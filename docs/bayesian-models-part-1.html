@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking</title>
+  <meta name="description" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="zuofuhuang/CollegeRanking" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  
+  
+  
+
+<meta name="author" content="Zuofu Huang and Kavya Shetty" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="visualization.html">
+<link rel="next" href="bayesian-models-part-2.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="motivation.html"><a href="motivation.html"><i class="fa fa-check"></i><b>2</b> Motivation</a><ul>
+<li class="chapter" data-level="2.1" data-path="motivation.html"><a href="motivation.html#why-this"><i class="fa fa-check"></i><b>2.1</b> Why this?</a></li>
+<li class="chapter" data-level="2.2" data-path="motivation.html"><a href="motivation.html#a-snapshot"><i class="fa fa-check"></i><b>2.2</b> A snapshot</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-source.html"><a href="data-source.html"><i class="fa fa-check"></i><b>3</b> Data source</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-source.html"><a href="data-source.html#data-that-makes-our-work-possible"><i class="fa fa-check"></i><b>3.1</b> Data that makes our work possible</a></li>
+<li class="chapter" data-level="3.2" data-path="data-source.html"><a href="data-source.html#our-data-dictionary"><i class="fa fa-check"></i><b>3.2</b> Our data dictionary</a></li>
+<li class="chapter" data-level="3.3" data-path="data-source.html"><a href="data-source.html#changes-to-datasets"><i class="fa fa-check"></i><b>3.3</b> Changes to datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>4</b> Data cleaning</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-cleaning.html"><a href="data-cleaning.html#what-did-we-do"><i class="fa fa-check"></i><b>4.1</b> What <strong>did</strong> we do?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-cleaning.html"><a href="data-cleaning.html#load-data-select-and-rename-columns"><i class="fa fa-check"></i><b>4.1.1</b> Load data, select and rename columns</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-cleaning.html"><a href="data-cleaning.html#filter-schools-that-have-a-rank"><i class="fa fa-check"></i><b>4.1.2</b> Filter schools that have a rank</a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-cleaning.html"><a href="data-cleaning.html#join-datasets"><i class="fa fa-check"></i><b>4.1.3</b> Join datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>5</b> Visualization</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualization.html"><a href="visualization.html#st-2nd-peeks"><i class="fa fa-check"></i><b>5.1</b> 1st &amp; 2nd Peeks</a></li>
+<li class="chapter" data-level="5.2" data-path="visualization.html"><a href="visualization.html#rd-peek"><i class="fa fa-check"></i><b>5.2</b> 3rd Peek</a></li>
+<li class="chapter" data-level="5.3" data-path="visualization.html"><a href="visualization.html#th-peek"><i class="fa fa-check"></i><b>5.3</b> 4th Peek</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html"><i class="fa fa-check"></i><b>6</b> Bayesian Models Part 1</a><ul>
+<li class="chapter" data-level="6.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-0"><i class="fa fa-check"></i><b>6.1</b> Model 0</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model"><i class="fa fa-check"></i><b>6.1.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary"><i class="fa fa-check"></i><b>6.1.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference"><i class="fa fa-check"></i><b>6.1.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-1"><i class="fa fa-check"></i><b>6.2</b> Model 1</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model-1"><i class="fa fa-check"></i><b>6.2.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary-1"><i class="fa fa-check"></i><b>6.2.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.2.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference-1"><i class="fa fa-check"></i><b>6.2.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-2"><i class="fa fa-check"></i><b>6.3</b> Model 2</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model-2"><i class="fa fa-check"></i><b>6.3.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary-2"><i class="fa fa-check"></i><b>6.3.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference-2"><i class="fa fa-check"></i><b>6.3.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#future-steps"><i class="fa fa-check"></i><b>6.4</b> Future steps</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html"><i class="fa fa-check"></i><b>7</b> Bayesian Models Part 2</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">454 Bayesian Statistics Project - College Ranking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian-models-part-1" class="section level1">
+<h1><span class="header-section-number">Chapter6</span> Bayesian Models Part 1</h1>
+<p>How will we simulate what we want to know?</p>
+<p><strong>HINT: Start SIMPLE</strong></p>
+<div id="model-0" class="section level2">
+<h2><span class="header-section-number">6.1</span> Model 0</h2>
+<p>Ranking by one year of SAT score: with intuition from <span class="math inline">\(\text{hist}(\sqrt{1/rgamma(10000,a,b)})\)</span>.</p>
+<div id="building-the-model" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Building the model</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DEFINE the model</span>
+university_model_<span class="dv">0</span> &lt;-<span class="st"> &quot;model{</span>
+<span class="st">    for(i in 1:length(y)) {</span>
+<span class="st">        # Data model</span>
+<span class="st">        y[i] ~ dnorm(beta0 + beta1 * x[i], tau0)</span>
+<span class="st">    }</span>
+
+<span class="st">    # Priors for theta</span>
+<span class="st">    beta0 ~ dnorm(300,1/250000)</span>
+<span class="st">    beta1 ~ dnorm(0, 1/100)</span>
+<span class="st">    tau0 ~ dgamma(7,4000)</span>
+
+<span class="st">}&quot;</span>
+
+
+<span class="co"># COMPILE the model</span>
+model_data0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> fullUniversity<span class="op">$</span>Y2018, <span class="dt">x =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)
+model_data0 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data0)
+
+university_jags_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">0</span>), 
+    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data0<span class="op">$</span>y, <span class="dt">x =</span> model_data0<span class="op">$</span>x),
+    <span class="dt">inits =</span> <span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 114
+##    Unobserved stochastic nodes: 3
+##    Total graph size: 440
+## 
+## Initializing model</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
+university_sim_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">0</span>,
+    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>, <span class="st">&quot;beta1&quot;</span>, <span class="st">&quot;tau0&quot;</span>),
+    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
+
+<span class="co"># STORE the chains in a data frame</span>
+university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">0</span>[[<span class="dv">1</span>]])</code></pre></div>
+</div>
+<div id="model-summary" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Model summary</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">0</span>)</code></pre></div>
+<pre><code>## 
+## Iterations = 1:10000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 10000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##             Mean        SD  Naive SE Time-series SE
+## beta0 403.411563 3.227e+01 3.227e-01      4.714e+00
+## beta1  -0.263423 2.472e-02 2.472e-04      3.617e-03
+## tau0    0.002421 3.279e-04 3.279e-06      1.303e-05
+## 
+## 2. Quantiles for each variable:
+## 
+##            2.5%        25%        50%        75%      97.5%
+## beta0 355.59133 390.793008 405.743679 421.198553 447.191343
+## beta1  -0.29699  -0.277127  -0.265219  -0.253713  -0.226779
+## tau0    0.00182   0.002212   0.002415   0.002628   0.003062</code></pre>
+</div>
+<div id="posterior-inference" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Posterior inference</h3>
+<p>For an unknown university with a mean student SAT score of 1450 (e.g. Bvictor University), we could predict its ranking from our rjags simulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
+## 1                    -19.52518                     61.70322</code></pre>
+<p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
+</div>
+</div>
+<div id="model-1" class="section level2">
+<h2><span class="header-section-number">6.2</span> Model 1</h2>
+<p>Ranking by three years of SAT score. By analysis, the three predictors are multicollinear, meaning that this may not be a significantly better model than Model 0.</p>
+<div id="building-the-model-1" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Building the model</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">1</span> &lt;-<span class="st"> &quot;model{  </span>
+<span class="st">    # Data: observations</span>
+<span class="st">    for(i in 1:length(y)) {</span>
+<span class="st">        y[i] ~ dnorm(beta0 + beta1*x1[i] + beta2*x2[i] + beta3*x3[i], tau_big)</span>
+<span class="st">    }</span>
+
+<span class="st">        # Data: subjects</span>
+<span class="st">        beta0 ~ dnorm(0,1/250000)</span>
+<span class="st">        beta1 ~ dnorm(0,100)</span>
+<span class="st">        beta2 ~ dnorm(0,100)</span>
+<span class="st">        beta3 ~ dnorm(0,100)</span>
+<span class="st">        tau_big ~ dgamma(7,1000)</span>
+
+<span class="st">}&quot;</span>
+
+<span class="co"># COMPILE</span>
+
+y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018
+
+model_data1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1415</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1516</span>, <span class="dt">x3 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>))
+model_data1 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data1)
+
+university_jags_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">1</span>), 
+    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data1<span class="op">$</span>y, <span class="dt">x1 =</span> model_data1<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data1<span class="op">$</span>x2, <span class="dt">x3 =</span> model_data1<span class="op">$</span>x3),
+    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 114
+##    Unobserved stochastic nodes: 5
+##    Total graph size: 876
+## 
+## Initializing model</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
+university_sim_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">1</span>,
+    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;tau_big&quot;</span>),
+    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
+
+<span class="co"># STORE the chains in a data frame</span>
+university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">1</span>[[<span class="dv">1</span>]])</code></pre></div>
+</div>
+<div id="model-summary-1" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Model summary</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">1</span>)</code></pre></div>
+<pre><code>## 
+## Iterations = 1:10000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 10000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##               Mean        SD  Naive SE Time-series SE
+## beta0   409.864989 3.553e+01 3.553e-01      5.783e+00
+## beta1     0.001373 1.078e-01 1.078e-03      1.120e-01
+## beta2    -0.179656 7.938e-02 7.938e-04      4.684e-02
+## beta3    -0.090932 7.417e-02 7.417e-04      5.086e-02
+## tau_big   0.002781 4.008e-04 4.008e-06      2.714e-05
+## 
+## 2. Quantiles for each variable:
+## 
+##               2.5%        25%        50%        75%      97.5%
+## beta0   345.977738 400.686962 414.807439 427.055384 447.427911
+## beta1    -0.224077  -0.074142   0.033869   0.084271   0.127709
+## beta2    -0.304552  -0.247353  -0.181364  -0.127231  -0.006660
+## beta3    -0.212426  -0.151206  -0.106569  -0.025275   0.034454
+## tau_big   0.002051   0.002538   0.002778   0.003029   0.003556</code></pre>
+</div>
+<div id="posterior-inference-1" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Posterior inference</h3>
+<p>For an unknown university with three years’ mean student SAT score of 1450, 1440, 1420 (e.g. Cvictor University), we could predict its ranking from our rjags simulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2<span class="op">*</span><span class="dv">1440</span> <span class="op">+</span>beta3<span class="op">*</span><span class="dv">1420</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
+## 1                    -14.50881                      62.8556</code></pre>
+<p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
+</div>
+</div>
+<div id="model-2" class="section level2">
+<h2><span class="header-section-number">6.3</span> Model 2</h2>
+<p>2018 U.S. News Ranking by average SAT score and admissions rate of Year 2017.</p>
+<div id="building-the-model-2" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Building the model</h3>
+<div id="step-1" class="section level4">
+<h4><span class="header-section-number">6.3.1.1</span> Step 1</h4>
+<p>A linear model provides some intuition about how the priors might be constructed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(fullUniversity<span class="op">$</span>Y2018 <span class="op">~</span><span class="st"> </span>fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span> <span class="op">+</span><span class="st"> </span>fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = fullUniversity$Y2018 ~ fullUniversity$SAT_AVG_1617 + 
+##     fullUniversity$ADM_RATE_1617)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -78.978  -9.142  -1.986   8.865  43.380 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                  172.5262    45.1297   3.823 0.000218 ***
+## fullUniversity$SAT_AVG_1617   -0.1150     0.0301  -3.822 0.000219 ***
+## fullUniversity$ADM_RATE_1617  84.8854    14.8094   5.732 8.66e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.42 on 111 degrees of freedom
+##   (6 observations deleted due to missingness)
+## Multiple R-squared:  0.7858, Adjusted R-squared:  0.7819 
+## F-statistic: 203.6 on 2 and 111 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="step-2" class="section level4">
+<h4><span class="header-section-number">6.3.1.2</span> Step 2</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">2</span> &lt;-<span class="st"> &quot;model{  </span>
+<span class="st">    # Data: observations</span>
+<span class="st">    for(i in 1:length(y)) {</span>
+<span class="st">        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])</span>
+
+<span class="st">        # Data: subjects</span>
+<span class="st">        beta0[i] ~ dnorm(b0, tau0)</span>
+<span class="st">        beta1[i] ~ dnorm(b1,tau1)</span>
+<span class="st">        beta2[i] ~ dnorm(b2,tau2)</span>
+<span class="st">        tau_big[i] ~ dgamma(s,r)</span>
+<span class="st">    }</span>
+
+<span class="st">    # Hyperpriors</span>
+<span class="st">    b0 ~ dnorm(180,1/4000)</span>
+<span class="st">    tau0 ~ dnorm(30, 1/9)</span>
+<span class="st">    b1 ~ dnorm(-0.1,1000)</span>
+<span class="st">    tau1 ~ dnorm(1000,1000) </span>
+<span class="st">    b2 ~ dnorm(80,1/100)</span>
+<span class="st">    tau2 ~ dnorm(10,1)</span>
+<span class="st">    s ~ dnorm(7,1)</span>
+<span class="st">    r ~ dnorm(10000, 1/10000)</span>
+<span class="st">}&quot;</span>
+
+<span class="co"># COMPILE</span>
+
+y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018
+
+model_data2 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))
+model_data2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data2)
+
+university_jags_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">2</span>), 
+    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data2<span class="op">$</span>y, <span class="dt">x1 =</span> model_data2<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data2<span class="op">$</span>x2),
+    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 114
+##    Unobserved stochastic nodes: 464
+##    Total graph size: 1165
+## 
+## Initializing model</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
+university_sim_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">2</span>,
+    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;b0&quot;</span>,<span class="st">&quot;tau0&quot;</span>,<span class="st">&quot;b1&quot;</span>,<span class="st">&quot;tau1&quot;</span>,<span class="st">&quot;b2&quot;</span>,<span class="st">&quot;tau2&quot;</span>,<span class="st">&quot;s&quot;</span>,<span class="st">&quot;r&quot;</span>),
+    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
+
+<span class="co"># STORE the chains in a data frame</span>
+university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">2</span>[[<span class="dv">1</span>]])</code></pre></div>
+</div>
+</div>
+<div id="model-summary-2" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Model summary</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">2</span>)</code></pre></div>
+<pre><code>## 
+## Iterations = 1001:11000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 10000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##          Mean        SD  Naive SE Time-series SE
+## b0    181.003  0.866642 8.666e-03      0.4845152
+## b1     -0.122  0.003986 3.986e-05      0.0001962
+## b2     86.978  2.748797 2.749e-02      2.0167560
+## r    9978.437 98.495695 9.850e-01      1.3555384
+## s       9.367  0.854744 8.547e-03      0.0428560
+## tau0   29.903  3.051727 3.052e-02      0.0544687
+## tau1 1000.000  0.031393 3.139e-04      0.0003934
+## tau2   10.021  1.000127 1.000e-02      0.0179231
+## 
+## 2. Quantiles for each variable:
+## 
+##           2.5%       25%      50%        75%      97.5%
+## b0    179.2258  180.2942  181.163   181.6543   182.5227
+## b1     -0.1298   -0.1247   -0.122    -0.1193    -0.1143
+## b2     80.6675   85.0648   87.714    89.2203    90.5414
+## r    9784.6197 9912.1376 9978.523 10044.9089 10170.4126
+## s       7.7114    8.7880    9.345     9.9331    11.0906
+## tau0   23.8816   27.8340   29.879    31.9392    35.9038
+## tau1  999.9366  999.9792 1000.000  1000.0208  1000.0615
+## tau2    8.0599    9.3477   10.030    10.6819    12.0006</code></pre>
+</div>
+<div id="posterior-inference-2" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Posterior inference</h3>
+<p>For an unknown university with student mean SAT score of 1450 and an admission rate of <span class="math inline">\(30\%\)</span> (e.g. Dvictor University), we could predict its ranking from our rjags simulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">beta0_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b0,(<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta1_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b1,(<span class="dv">1</span><span class="op">/</span>tau1)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta2_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b2,(<span class="dv">1</span><span class="op">/</span>tau2)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">tau_big_new =</span> <span class="kw">rgamma</span>(<span class="dv">10000</span>,s,r)) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0_new <span class="op">+</span><span class="st"> </span>beta1_new <span class="op">*</span><span class="st"> </span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2_new <span class="op">*</span><span class="st"> </span><span class="fl">0.3</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big_new)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
+## 1                    -83.75616                     145.3569</code></pre>
+<p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
+</div>
+</div>
+<div id="future-steps" class="section level2">
+<h2><span class="header-section-number">6.4</span> Future steps</h2>
+<p>Next, we plan to incorporate more predictive variables of ranking <span class="math inline">\(y_i\)</span>. Since some predictors we choose are correlated, we will also emphasize on reflecting that in our models.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-models-part-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter4 Data cleaning | 454 Bayesian Statistics Project - College Ranking</title>
+  <meta name="description" content="Chapter4 Data cleaning | 454 Bayesian Statistics Project - College Ranking" />
+  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter4 Data cleaning | 454 Bayesian Statistics Project - College Ranking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="zuofuhuang/CollegeRanking" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter4 Data cleaning | 454 Bayesian Statistics Project - College Ranking" />
+  
+  
+  
+
+<meta name="author" content="Zuofu Huang and Kavya Shetty" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-source.html">
+<link rel="next" href="visualization.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="motivation.html"><a href="motivation.html"><i class="fa fa-check"></i><b>2</b> Motivation</a><ul>
+<li class="chapter" data-level="2.1" data-path="motivation.html"><a href="motivation.html#why-this"><i class="fa fa-check"></i><b>2.1</b> Why this?</a></li>
+<li class="chapter" data-level="2.2" data-path="motivation.html"><a href="motivation.html#a-snapshot"><i class="fa fa-check"></i><b>2.2</b> A snapshot</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-source.html"><a href="data-source.html"><i class="fa fa-check"></i><b>3</b> Data source</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-source.html"><a href="data-source.html#data-that-makes-our-work-possible"><i class="fa fa-check"></i><b>3.1</b> Data that makes our work possible</a></li>
+<li class="chapter" data-level="3.2" data-path="data-source.html"><a href="data-source.html#our-data-dictionary"><i class="fa fa-check"></i><b>3.2</b> Our data dictionary</a></li>
+<li class="chapter" data-level="3.3" data-path="data-source.html"><a href="data-source.html#changes-to-datasets"><i class="fa fa-check"></i><b>3.3</b> Changes to datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>4</b> Data cleaning</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-cleaning.html"><a href="data-cleaning.html#what-did-we-do"><i class="fa fa-check"></i><b>4.1</b> What <strong>did</strong> we do?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-cleaning.html"><a href="data-cleaning.html#load-data-select-and-rename-columns"><i class="fa fa-check"></i><b>4.1.1</b> Load data, select and rename columns</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-cleaning.html"><a href="data-cleaning.html#filter-schools-that-have-a-rank"><i class="fa fa-check"></i><b>4.1.2</b> Filter schools that have a rank</a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-cleaning.html"><a href="data-cleaning.html#join-datasets"><i class="fa fa-check"></i><b>4.1.3</b> Join datasets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>5</b> Visualization</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualization.html"><a href="visualization.html#st-2nd-peeks"><i class="fa fa-check"></i><b>5.1</b> 1st &amp; 2nd Peeks</a></li>
+<li class="chapter" data-level="5.2" data-path="visualization.html"><a href="visualization.html#rd-peek"><i class="fa fa-check"></i><b>5.2</b> 3rd Peek</a></li>
+<li class="chapter" data-level="5.3" data-path="visualization.html"><a href="visualization.html#th-peek"><i class="fa fa-check"></i><b>5.3</b> 4th Peek</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html"><i class="fa fa-check"></i><b>6</b> Bayesian Models Part 1</a><ul>
+<li class="chapter" data-level="6.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-0"><i class="fa fa-check"></i><b>6.1</b> Model 0</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model"><i class="fa fa-check"></i><b>6.1.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.1.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary"><i class="fa fa-check"></i><b>6.1.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.1.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference"><i class="fa fa-check"></i><b>6.1.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-1"><i class="fa fa-check"></i><b>6.2</b> Model 1</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model-1"><i class="fa fa-check"></i><b>6.2.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary-1"><i class="fa fa-check"></i><b>6.2.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.2.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference-1"><i class="fa fa-check"></i><b>6.2.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-2"><i class="fa fa-check"></i><b>6.3</b> Model 2</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#building-the-model-2"><i class="fa fa-check"></i><b>6.3.1</b> Building the model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#model-summary-2"><i class="fa fa-check"></i><b>6.3.2</b> Model summary</a></li>
+<li class="chapter" data-level="6.3.3" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#posterior-inference-2"><i class="fa fa-check"></i><b>6.3.3</b> Posterior inference</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="bayesian-models-part-1.html"><a href="bayesian-models-part-1.html#future-steps"><i class="fa fa-check"></i><b>6.4</b> Future steps</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html"><i class="fa fa-check"></i><b>7</b> Bayesian Models Part 2</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">454 Bayesian Statistics Project - College Ranking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-cleaning" class="section level1">
+<h1><span class="header-section-number">Chapter4</span> Data cleaning</h1>
+<div id="what-did-we-do" class="section level2">
+<h2><span class="header-section-number">4.1</span> What <strong>did</strong> we do?</h2>
+<p>If you don’t want to look at all the lengthy work, Kavya and Zuofu are excited to talk through the process with you!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+<span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(rjags)</code></pre></div>
+<pre><code>## Loading required package: coda</code></pre>
+<pre><code>## Linked to JAGS 4.3.0</code></pre>
+<pre><code>## Loaded modules: basemod,bugs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)
+<span class="kw">library</span>(gridExtra)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<div id="load-data-select-and-rename-columns" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Load data, select and rename columns</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv&quot;</span>)
+
+myData1617_sub &lt;-<span class="st"> </span>myData1617 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(INSTNM,REGION,LOCALE,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1617_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>, <span class="st">&quot;REGION&quot;</span>,<span class="st">&quot;LOCALE&quot;</span>,<span class="st">&quot;UGDS_1617&quot;</span>,<span class="st">&quot;ADM_RATE_1617&quot;</span>,<span class="st">&quot;ACTCMMID_1617&quot;</span>,<span class="st">&quot;SAT_AVG_1617&quot;</span>,<span class="st">&quot;UGDS_WHITE_1617&quot;</span>,<span class="st">&quot;COSTT4_A_1617&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv&quot;</span>)
+
+myData1516_sub &lt;-<span class="st"> </span>myData1516 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1516_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1516&quot;</span>,<span class="st">&quot;ADM_RATE_1516&quot;</span>,<span class="st">&quot;ACTCMMID_1516&quot;</span>,<span class="st">&quot;SAT_AVG_1516&quot;</span>,<span class="st">&quot;UGDS_WHITE_1516&quot;</span>,<span class="st">&quot;COSTT4_A_1516&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv&quot;</span>)
+
+myData1415_sub &lt;-<span class="st"> </span>myData1415 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1415_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1415&quot;</span>,<span class="st">&quot;ADM_RATE_1415&quot;</span>,<span class="st">&quot;ACTCMMID_1415&quot;</span>,<span class="st">&quot;SAT_AVG_1415&quot;</span>,<span class="st">&quot;UGDS_WHITE_1415&quot;</span>,<span class="st">&quot;COSTT4_A_1415&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USNewsUniversity &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx&quot;</span>)
+newUniversity &lt;-<span class="st"> </span>USNewsUniversity <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(UniversityName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USNewsLiberalArts &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx&quot;</span>)
+newLiberalArts &lt;-<span class="st"> </span>USNewsLiberalArts <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(CollegeName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+</div>
+<div id="filter-schools-that-have-a-rank" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Filter schools that have a rank</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">college &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">149</span>){
+  college[i] =<span class="st"> </span>newLiberalArts[i,]<span class="op">$</span>CollegeName
+}
+university &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">120</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">120</span>){
+  university[i] =<span class="st"> </span>newUniversity[i,]<span class="op">$</span>UniversityName
+}
+schools &lt;-<span class="st"> </span><span class="kw">c</span>(college, university)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run tests to make sure that datasets are consistent:</span>
+check_1_Data1617 &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
+<span class="kw">dim</span>(check_1_Data1617)
+check_3_Data1415 &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
+<span class="kw">dim</span>(check_3_Data1415)
+check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
+<span class="kw">dim</span>(check_2_Data1516)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Identify class of each variable, in preparation for transformations.</span>
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>ACTCMMID_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1617_sub<span class="op">$</span>COSTT4_A_<span class="dv">1617</span>)
+<span class="kw">class</span>(myData1415_sub<span class="op">$</span>INSTNM)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415_sub_characterCollege &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1415)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1415)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ADM_RATE_1415)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516_sub_characterCollege &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1516)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1516)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617_sub_characterCollege &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1617)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1617)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To recheck that all three datasets are the same with regard to college names.</span>
+<span class="kw">dim</span>(myData1415_sub_characterCollege) 
+<span class="kw">dim</span>(myData1516_sub_characterCollege)
+<span class="kw">dim</span>(myData1617_sub_characterCollege)</code></pre></div>
+</div>
+<div id="join-datasets" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Join datasets</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullLiberalArts &lt;-<span class="st"> </span>newLiberalArts <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) 
+
+<span class="kw">dim</span>(fullLiberalArts)</code></pre></div>
+<pre><code>## [1] 175  30</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_LiberalArts &lt;-<span class="st"> </span>fullLiberalArts[<span class="op">!</span><span class="kw">duplicated</span>(fullLiberalArts<span class="op">$</span>CollegeName), ]
+<span class="kw">dim</span>(full_LiberalArts) <span class="co"># After we removed the repetitive entries.</span></code></pre></div>
+<pre><code>## [1] 149  30</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415_sub_characterUniversity &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1415)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1415)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516_sub_characterUniversity &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1516)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1516)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
+<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1617)), &lt;environment&gt;): 强
+## 制改变过程中产生了NA</code></pre>
+<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1617)), &lt;environment&gt;):
+## 强制改变过程中产生了NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullUniversity &lt;-<span class="st"> </span>newUniversity <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>))
+
+<span class="kw">dim</span>(fullUniversity)</code></pre></div>
+<pre><code>## [1] 120  30</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-source.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
