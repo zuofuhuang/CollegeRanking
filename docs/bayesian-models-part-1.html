@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking</title>
-  <meta name="description" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  <title>Chapter 6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking</title>
+  <meta name="description" content="Chapter 6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
   <meta name="generator" content="bookdown  and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  <meta property="og:title" content="Chapter 6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   <meta name="github-repo" content="zuofuhuang/CollegeRanking" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
+  <meta name="twitter:title" content="Chapter 6 Bayesian Models Part 1 | 454 Bayesian Statistics Project - College Ranking" />
   
   
   
 
-<meta name="author" content="Zuofu Huang and Kavya Shetty" />
+<meta name="author" content="Zuofu Huang and Kavya Shetty, Spring 2019 Macalester College" />
 
 
 
@@ -157,7 +157,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="bayesian-models-part-1" class="section level1">
-<h1><span class="header-section-number">Chapter6</span> Bayesian Models Part 1</h1>
+<h1><span class="header-section-number">Chapter 6</span> Bayesian Models Part 1</h1>
 <p>How will we simulate what we want to know?</p>
 <p><strong>HINT: Start SIMPLE</strong></p>
 <div id="model-0" class="section level2">
@@ -236,7 +236,7 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -19.45566                      62.9676</code></pre>
+## 1                    -19.06727                     62.43797</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -323,7 +323,7 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -14.13776                     63.98271</code></pre>
+## 1                     -15.4858                     62.62344</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
 </div>
 </div>
@@ -457,7 +457,7 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -86.22855                     143.3416</code></pre>
+## 1                    -83.82773                     146.9251</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
 </div>
 </div>
