@@ -236,7 +236,7 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -19.52518                     61.70322</code></pre>
+## 1                    -18.42477                     62.94967</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -323,7 +323,7 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -14.50881                      62.8556</code></pre>
+## 1                    -14.64284                     62.82936</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
 </div>
 </div>
@@ -457,7 +457,7 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -83.75616                     145.3569</code></pre>
+## 1                    -82.73487                     142.9803</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
 </div>
 </div>
