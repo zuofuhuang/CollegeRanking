@@ -1,0 +1,10 @@
+# Motivation
+
+## Why this?
+
+Why have Princeton and Williams topped the US News and World Report ranking charts for so long? What factors are considered when we create college rankings? Though reductionary, college rankings are often what parents and prospective students consider in some way when approaching their college search process. Rankings do not often change a great deal and there are many aspects that play into how a ranking is constructed based on what the compiler deems important. In our report, we aim to investigate how these rankings are constructed and eventually provide a specialized tool for students to tailor a college’s “rank” to their own set of criteria.
+
+
+## A snapshot
+
+In our project, we aim to look at the factors that play into college rankings and use our findings to create a specialized ranking tool for students. Factors like region, setting, size, admissions rate, diversity, and standardized testing scores play into the score a given school will receive.

@@ -1,0 +1,262 @@
+# Bayesian Models Part 1.1 University
+
+How will we simulate what we want to know?
+
+**HINT: Start SIMPLE**
+
+## Model 0
+
+Ranking by one year of SAT score: with intuition from $\text{hist}(\sqrt{1/rgamma(10000,a,b)})$.
+
+### First Impression
+
+```{r}
+ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlim(1000,1600) +
+  ylim(1,150) +
+  xlab("Average SAT Score") +
+  ylab("School Ranking 2018")
+```
+
+It appears to be a linear relationship!
+
+### Building the model
+
+```{r}
+# DEFINE the model
+university_model_0 <- "model{
+    for(i in 1:length(y)) {
+        # Data model
+        y[i] ~ dnorm(beta0 + beta1 * x[i], tau0)
+    }
+
+    # Priors for theta
+    beta0 ~ dnorm(300,1/250000)
+    beta1 ~ dnorm(0, 1/100)
+    tau0 ~ dgamma(7,4000)
+
+}"
+
+
+# COMPILE the model
+model_data0 <- data.frame(y = fullUniversity$Y2018, x = fullUniversity$SAT_AVG_1617)
+model_data0 <- na.omit(model_data0)
+
+university_jags_0 <- jags.model(textConnection(university_model_0), 
+    data = list(y = model_data0$y, x = model_data0$x),
+    inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+university_sim_0 <- coda.samples(university_jags_0,
+    variable.names = c("beta0", "beta1", "tau0"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+university_chains_0 <- data.frame(university_sim_0[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(university_sim_0)
+```
+
+### Posterior inference 
+
+For an unknown university with a mean student SAT score of 1450 (e.g. Bvictor University), we could predict its ranking from our rjags simulation.
+
+```{r}
+university_chains_0 <- university_chains_0 %>%
+  mutate(ranking_new = rnorm(10000, mean = beta0 + beta1*1450, sd = (1/tau0)^(1/2)))
+```
+
+```{r}
+university_chains_0 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+A $95\%$ credible interval is $(-20,62)$. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.
+
+## Model 1
+
+Ranking by three years of SAT score. By analysis, the three predictors are multicollinear, meaning that this may not be a significantly better model than Model 0.
+
+### First Impression
+
+It's harder to make predictions (and as it turns out, hard to make visualizations as well) with three years' SAT score in the same linear model, as we can foresee significant multicollinearity. This is clearly seen that the coefficient for SAT average of Year 2014-15 (SAT_AVG_1415) variable is positive, meaning that school ranking worsens as the average SAT score increases. 
+
+To further test our thinking, we created a linear model *university_linear_1*. From the ANOVA summary, we see that any one of these variables should be sufficient.
+
+```{r}
+university_linear_1 <- lm(as.numeric(Y2018) ~ SAT_AVG_1617 + SAT_AVG_1516 + SAT_AVG_1415, fullUniversity)
+
+summary(university_linear_1)
+anova(university_linear_1)
+```
+
+**For the sake of scientific experiment (and to catch the audience's interest)**, we still did a Bayesian model and Bayesian posterior inference. We found out that this model does a slightly better job at predicting college rankings (by eliminating negative rankings) because it naturally contains more information as we increase the number of predictors. The change is **not** significant enough to call it an improvement.
+
+### Building the model
+
+```{r}
+university_model_1 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dnorm(beta0 + beta1*x1[i] + beta2*x2[i] + beta3*x3[i], tau_big)
+    }
+
+        # Data: subjects
+        beta0 ~ dnorm(0,1/250000)
+        beta1 ~ dnorm(0,100)
+        beta2 ~ dnorm(0,100)
+        beta3 ~ dnorm(0,100)
+        tau_big ~ dgamma(7,1000)
+
+}"
+
+# COMPILE
+
+y <- fullUniversity$Y2018
+
+model_data1 <- as.data.frame(cbind(y, x1 = fullUniversity$SAT_AVG_1415, x2 = fullUniversity$SAT_AVG_1516, x3 = fullUniversity$SAT_AVG_1617))
+model_data1 <- na.omit(model_data1)
+
+university_jags_1 <- jags.model(textConnection(university_model_1), 
+    data = list(y = model_data1$y, x1 = model_data1$x1, x2 = model_data1$x2, x3 = model_data1$x3),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+university_sim_1 <- coda.samples(university_jags_1,
+    variable.names = c("beta0","beta1","beta2","beta3","tau_big"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+university_chains_1 <- data.frame(university_sim_1[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(university_sim_1)
+```
+
+### Posterior inference
+
+For an unknown university with three years' mean student SAT score of 1450, 1440, 1420 (e.g. Cvictor University), we could predict its ranking from our rjags simulation.
+
+```{r}
+university_chains_1 <- university_chains_1 %>%
+  mutate(ranking_new = rnorm(10000, mean = beta0 + beta1*1450 + beta2*1440 +beta3*1420, sd = (1/tau_big)^(1/2)))
+```
+
+```{r}
+university_chains_1 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+A $95\%$ credible interval is $(-14,64)$. The $95\%$ credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.
+
+## Model 2
+
+2018 U.S. News Ranking by average SAT score and admissions rate of Year 2017.
+
+### First Impression
+
+```{r}
+ggplot(fullUniversity, aes(x = ADM_RATE_1617, y = as.numeric(Y2018), color = SAT_AVG_1617)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("Admission rate of Year 2016-2017") +
+  ylab("School Ranking 2018") + 
+  ggtitle("University ranking by SAT and admission rate")
+```
+
+There's a strong positive relationship between the admission rate of colleges and college ranking (a larger number in college ranking is *worse*). From color gradient of points, we can see that schools with higher SAT averages tend to be better ranked.
+
+### Building the model
+
+#### Step 1
+
+A linear model provides some intuition about how the priors might be constructed.
+
+```{r}
+summary(lm(fullUniversity$Y2018 ~ fullUniversity$SAT_AVG_1617 + fullUniversity$ADM_RATE_1617))
+```
+
+#### Step 2
+
+```{r}
+university_model_2 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])
+
+        # Data: subjects
+        beta0[i] ~ dnorm(b0, tau0)
+        beta1[i] ~ dnorm(b1,tau1)
+        beta2[i] ~ dnorm(b2,tau2)
+        tau_big[i] ~ dgamma(s,r)
+    }
+
+    # Hyperpriors
+    b0 ~ dnorm(180,1/4000)
+    tau0 ~ dnorm(30, 1/9)
+    b1 ~ dnorm(-0.1,1000)
+    tau1 ~ dnorm(1000,1000) 
+    b2 ~ dnorm(80,1/100)
+    tau2 ~ dnorm(10,1)
+    s ~ dnorm(7,1)
+    r ~ dnorm(10000, 1/10000)
+}"
+
+# COMPILE
+
+y <- fullUniversity$Y2018
+
+model_data2 <- as.data.frame(cbind(y, x1 = fullUniversity$SAT_AVG_1617, x2 = fullUniversity$ADM_RATE_1617))
+model_data2 <- na.omit(model_data2)
+
+university_jags_2 <- jags.model(textConnection(university_model_2), 
+    data = list(y = model_data2$y, x1 = model_data2$x1, x2 = model_data2$x2),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+university_sim_2 <- coda.samples(university_jags_2,
+    variable.names = c("b0","tau0","b1","tau1","b2","tau2","s","r"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+university_chains_2 <- data.frame(university_sim_2[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(university_sim_2)
+```
+
+### Posterior inference
+
+For an unknown university with student mean SAT score of 1450 and an admission rate of $30\%$ (e.g. Dvictor University), we could predict its ranking from our rjags simulation.
+
+```{r}
+university_chains_2 <- university_chains_2 %>%
+  mutate(beta0_new = rnorm(10000,b0,(1/tau0)^(1/2))) %>%
+           mutate(beta1_new = rnorm(10000,b1,(1/tau1)^(1/2))) %>%
+           mutate(beta2_new = rnorm(10000,b2,(1/tau2)^(1/2))) %>%
+           mutate(tau_big_new = rgamma(10000,s,r)) %>%
+           mutate(ranking_new = rnorm(10000, mean = beta0_new + beta1_new * 1450 + beta2_new * 0.3, sd = (1/tau_big_new)^(1/2)))
+```
+
+```{r}
+university_chains_2 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+A $95\%$ credible interval is $(-86,142)$. The $95\%$ credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.
+
+## Future steps
+
+Next, we plan to incorporate more predictive variables of ranking $y_i$. Since some predictors we choose are correlated, we will also emphasize on reflecting that in our models.

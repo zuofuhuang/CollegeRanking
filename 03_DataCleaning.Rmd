@@ -1,0 +1,193 @@
+# Data cleaning
+
+## What **did** we do?
+
+If you don't want to look at all the lengthy work, Kavya and Zuofu are excited to talk through the process with you!
+
+```{r}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(rjags)
+library(forcats)
+library(gridExtra)
+```
+
+### Load data, select and rename columns
+
+```{r}
+myData1617 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv")
+
+myData1617_sub <- myData1617 %>%
+  select(INSTNM,REGION,LOCALE,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
+```
+
+```{r}
+names(myData1617_sub) <- c("INSTNM", "REGION","LOCALE","UGDS_1617","ADM_RATE_1617","ACTCMMID_1617","SAT_AVG_1617","UGDS_WHITE_1617","COSTT4_A_1617")
+```
+
+```{r}
+myData1516 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv")
+
+myData1516_sub <- myData1516 %>%
+  select(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
+```
+
+```{r}
+names(myData1516_sub) <- c("INSTNM","UGDS_1516","ADM_RATE_1516","ACTCMMID_1516","SAT_AVG_1516","UGDS_WHITE_1516","COSTT4_A_1516")
+```
+
+```{r}
+myData1415 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv")
+
+myData1415_sub <- myData1415 %>%
+  select(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
+```
+
+```{r}
+names(myData1415_sub) <- c("INSTNM","UGDS_1415","ADM_RATE_1415","ACTCMMID_1415","SAT_AVG_1415","UGDS_WHITE_1415","COSTT4_A_1415")
+```
+
+```{r}
+USNewsUniversity <- read_excel("/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx")
+newUniversity <- USNewsUniversity %>%
+ select(c(UniversityName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) %>%
+  na.omit()
+```
+
+```{r}
+USNewsLiberalArts <- read_excel("/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx")
+newLiberalArts <- USNewsLiberalArts %>%
+ select(c(CollegeName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) %>%
+  na.omit()
+```
+
+### Filter schools that have a rank
+
+```{r}
+college <- rep(NA,149)
+for (i in 1:149){
+  college[i] = newLiberalArts[i,]$CollegeName
+}
+university <- rep(NA,120)
+for (i in 1:120){
+  university[i] = newUniversity[i,]$UniversityName
+}
+schools <- c(college, university)
+```
+
+```{r eval = FALSE}
+# Run tests to make sure that datasets are consistent:
+check_1_Data1617 <- myData1617_sub %>% 
+  filter(INSTNM %in% college)
+dim(check_1_Data1617)
+check_3_Data1415 <- myData1415_sub %>%
+  filter(INSTNM %in% college)
+dim(check_3_Data1415)
+check_2_Data1516 <- myData1516_sub %>%
+  filter(INSTNM %in% college)
+dim(check_2_Data1516)
+```
+
+```{r eval = FALSE}
+# Identify class of each variable, in preparation for transformations.
+class(myData1617_sub$UGDS_1617)
+class(myData1617_sub$ADM_RATE_1617)
+class(myData1617_sub$ACTCMMID_1617)
+class(myData1617_sub$SAT_AVG_1617)
+class(myData1617_sub$UGDS_WHITE_1617)
+class(myData1617_sub$COSTT4_A_1617)
+class(myData1415_sub$INSTNM)
+```
+
+
+```{r}
+myData1415_sub_characterCollege <- myData1415_sub %>%
+  filter(INSTNM %in% college) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1415 = as.numeric(as.character(UGDS_1415))) %>%
+  mutate(UGDS_WHITE_1415 = as.numeric(as.character(UGDS_WHITE_1415))) %>%
+  mutate(SAT_AVG_1415 = as.numeric(as.character(SAT_AVG_1415))) %>%
+  mutate(ACTCMMID_1415 = as.numeric(as.character(ACTCMMID_1415))) %>%
+  mutate(ADM_RATE_1415 = as.numeric(as.character(ADM_RATE_1415))) %>%
+  mutate(COSTT4_A_1415 = as.numeric(as.character(COSTT4_A_1415)))
+myData1516_sub_characterCollege <- myData1516_sub %>%
+  filter(INSTNM %in% college) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1516 = as.numeric(as.character(UGDS_1516))) %>%
+  mutate(UGDS_WHITE_1516 = as.numeric(as.character(UGDS_WHITE_1516))) %>%
+  mutate(SAT_AVG_1516 = as.numeric(as.character(SAT_AVG_1516))) %>%
+  mutate(ACTCMMID_1516 = as.numeric(as.character(ACTCMMID_1516))) %>%
+  mutate(ADM_RATE_1516 = as.numeric(as.character(ADM_RATE_1516))) %>%
+  mutate(COSTT4_A_1516 = as.numeric(as.character(COSTT4_A_1516)))
+myData1617_sub_characterCollege <- myData1617_sub %>%
+  filter(INSTNM %in% college) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1617 = as.numeric(as.character(UGDS_1617))) %>%
+  mutate(UGDS_WHITE_1617 = as.numeric(as.character(UGDS_WHITE_1617))) %>%
+  mutate(SAT_AVG_1617 = as.numeric(as.character(SAT_AVG_1617))) %>%
+  mutate(ACTCMMID_1617 = as.numeric(as.character(ACTCMMID_1617))) %>%
+  mutate(ADM_RATE_1617 = as.numeric(as.character(ADM_RATE_1617))) %>%
+  mutate(COSTT4_A_1617 = as.numeric(as.character(COSTT4_A_1617)))
+  
+```
+
+```{r eval = FALSE}
+# To recheck that all three datasets are the same with regard to college names.
+dim(myData1415_sub_characterCollege) 
+dim(myData1516_sub_characterCollege)
+dim(myData1617_sub_characterCollege)
+```
+
+### Join datasets
+
+```{r}
+fullLiberalArts <- newLiberalArts %>%
+  full_join(myData1415_sub_characterCollege, by = c("CollegeName" = "INSTNM")) %>%
+  full_join(myData1516_sub_characterCollege, by = c("CollegeName" = "INSTNM")) %>%
+  full_join(myData1617_sub_characterCollege, by = c("CollegeName" = "INSTNM")) 
+
+dim(fullLiberalArts)
+
+full_LiberalArts <- fullLiberalArts[!duplicated(fullLiberalArts$CollegeName), ]
+dim(full_LiberalArts) # After we removed the repetitive entries.
+```
+
+```{r}
+myData1415_sub_characterUniversity <- myData1415_sub %>%
+  filter(INSTNM %in% university) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1415 = as.numeric(as.character(UGDS_1415))) %>%
+  mutate(UGDS_WHITE_1415 = as.numeric(as.character(UGDS_WHITE_1415))) %>%
+  mutate(SAT_AVG_1415 = as.numeric(as.character(SAT_AVG_1415))) %>%
+  mutate(ACTCMMID_1415 = as.numeric(as.character(ACTCMMID_1415))) %>%
+  mutate(ADM_RATE_1415 = as.numeric(as.character(ADM_RATE_1415))) %>%
+  mutate(COSTT4_A_1415 = as.numeric(as.character(COSTT4_A_1415)))
+myData1516_sub_characterUniversity <- myData1516_sub %>%
+  filter(INSTNM %in% university) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1516 = as.numeric(as.character(UGDS_1516))) %>%
+  mutate(UGDS_WHITE_1516 = as.numeric(as.character(UGDS_WHITE_1516))) %>%
+  mutate(SAT_AVG_1516 = as.numeric(as.character(SAT_AVG_1516))) %>%
+  mutate(ACTCMMID_1516 = as.numeric(as.character(ACTCMMID_1516))) %>%
+  mutate(ADM_RATE_1516 = as.numeric(as.character(ADM_RATE_1516))) %>%
+  mutate(COSTT4_A_1516 = as.numeric(as.character(COSTT4_A_1516)))
+myData1617_sub_characterUniversity <- myData1617_sub %>%
+  filter(INSTNM %in% university) %>%
+  mutate(INSTNM = as.character(INSTNM)) %>%
+  mutate(UGDS_1617 = as.numeric(as.character(UGDS_1617))) %>%
+  mutate(UGDS_WHITE_1617 = as.numeric(as.character(UGDS_WHITE_1617))) %>%
+  mutate(SAT_AVG_1617 = as.numeric(as.character(SAT_AVG_1617))) %>%
+  mutate(ACTCMMID_1617 = as.numeric(as.character(ACTCMMID_1617))) %>%
+  mutate(ADM_RATE_1617 = as.numeric(as.character(ADM_RATE_1617))) %>%
+  mutate(COSTT4_A_1617 = as.numeric(as.character(COSTT4_A_1617)))
+```
+
+```{r}
+fullUniversity <- newUniversity %>%
+  full_join(myData1415_sub_characterUniversity, by = c("UniversityName" = "INSTNM")) %>%
+  full_join(myData1516_sub_characterUniversity, by = c("UniversityName" = "INSTNM")) %>%
+  full_join(myData1617_sub_characterUniversity, by = c("UniversityName" = "INSTNM"))
+
+dim(fullUniversity)
+```

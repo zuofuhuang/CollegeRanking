@@ -1,0 +1,22 @@
+# Bayesian Models Part 2
+
+How will we simulate what we want to know?
+
+**HINT: After you start SIMPLE, everything suddenly goes really complicated.**
+
+After the last checkpoint, we realize that ranking is not the sole factor in students' choice (sometimes not even an important factor). To accurately represent the school selection process, we find it more appropriate to create a new concept called **Fitness Index** that measures the level of fitness between the student and schools.
+
+We intend to create a Shiny App for students interested in finding colleges. Finding inputing predictive variables, the system will provide a list of top liberal arts colleges and universities.
+
+User Input in the Shiny App       | Description                                             | How users input
+----------------------------------| --------------------------------------------------------|--------------------------------------------------
+Size of school (UGDS)             | number of undergraduate degree-seeking students         | Users can select one or more ranges below: (0,1000); (1000,1800); (1800,2500); (2500+)
+SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with SAT  | Users can input their own SAT score. Our system will compare it with average SAT scores of each college and calculate students' compatibility. (ACT score will be automatically transformed.)
+A college's region (REGION)       | region-wise (e.g. Minnesota is in the Plains region)    | This is a decisive check-off box. Users can filter away regions where they don't want to attend college.
+Setting (LOCALE)                  | setting (large city, small town, etc.)                  | This is a low weight variable where students can state their preference of the geographical location of colleges. Colleges that fit their description will be considered more **compatible** with students; schools will not be eliminated solely by this factor.
+Average Cost Per Year (COSTT4_A)  | average cost of attendance per year                     | Users can use a slidebar to set their preferred full tuition range.
+Racial diversity (UGDS_WHITE)     | racial diversity by the percentage of white students    | Users can select a preferred percentage. Schools with an incompatible percentage (>20% net difference) will be punished by the algorithm; schools will only be eliminated solely by this factor if net difference > 40%.
+
+&nbsp;
+
+But still, ranking plays an important role in students' decision making process! We will keep working on predicting rankings and fitness with these in mind.

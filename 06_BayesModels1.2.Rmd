@@ -1,0 +1,197 @@
+# Bayesian Models Part 1.2 Liberal Arts Colleges
+
+Hint AGAIN: Start simple
+
+**The real question:** why do we repeat the process on liberal arts colleges again?
+
+**Answer:** Liberal arts colleges fall under an entirely separate ranking list and often have different characteristics (e.g. size and location, private vs public). We repeat the process to observe the similarity and differences between universities and liberal arts colleges.
+
+## Model 0
+
+Ranking by one year of SAT score: with intuition from $\text{hist}(\sqrt{1/rgamma(10000,a,b)})$.
+
+### First Impression
+
+```{r}
+ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlim(1000,1600) +
+  ylim(1,150) +
+  xlab("Average SAT Score") +
+  ylab("School Ranking 2018")
+```
+
+It appears to be a linear relationship!
+
+### Building the model
+
+```{r}
+# DEFINE the model
+liberal_model_0 <- "model{
+    for(i in 1:length(y)) {
+        # Data model
+        y[i] ~ dnorm(beta0 + beta1 * x[i], tau0)
+    }
+
+    # Priors for theta
+    beta0 ~ dnorm(300,1/250000)
+    beta1 ~ dnorm(0, 1/100)
+    tau0 ~ dgamma(7,4000)
+
+}"
+
+
+# COMPILE the model
+model_data4 <- data.frame(y = full_LiberalArts$Y2018, x = full_LiberalArts$SAT_AVG_1617)
+model_data4 <- na.omit(model_data4)
+
+liberal_jags_0 <- jags.model(textConnection(liberal_model_0), 
+    data = list(y = model_data4$y, x = model_data4$x),
+    inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+liberal_sim_0 <- coda.samples(liberal_jags_0,
+    variable.names = c("beta0", "beta1", "tau0"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+liberal_chains_0 <- data.frame(liberal_sim_0[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(liberal_sim_0)
+```
+
+### Posterior inference 
+
+For an unknown liberal arts college with a mean student SAT score of 1450 (e.g. Bvictor College), we could predict its ranking from our rjags simulation.
+
+```{r}
+liberal_chains_0 <- liberal_chains_0 %>%
+  mutate(ranking_new = rnorm(10000, mean = beta0 + beta1*1450, sd = (1/tau0)^(1/2)))
+```
+
+```{r}
+liberal_chains_0 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+A $95\%$ credible interval is $(-1,63)$. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.
+
+## Model 1
+
+Ranking by three years of SAT score. This is the best Bayesian model one can ever come up with.
+
+&nbsp;
+
+**Just Kidding.**
+
+&nbsp;
+
+As we discussed earlier in Chapter 6, Model 1 is overwhelmingly multicollinear; Model 1 is a sufficient sustitute if we want to look at the relationship between ranking and SAT score.
+
+## Model 2
+
+2018 U.S. News Ranking by average SAT score and admissions rate of Year 2017.
+
+### First Impression
+
+```{r}
+ggplot(full_LiberalArts, aes(x = ADM_RATE_1617, y = as.numeric(Y2018), color = SAT_AVG_1617)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("Admission rate of Year 2016-2017") +
+  ylab("School Ranking 2018") + 
+  ggtitle("Liberal Arts College ranking by SAT and admission rate")
+```
+
+There's a strong positive relationship between the admission rate of colleges and college ranking (a larger number in college ranking is *worse*). From color gradient of points, we can see that schools with higher SAT averages tend to be better ranked.
+
+### Building the model
+
+#### Step 1
+
+A linear model provides some intuition about how the priors might be constructed.
+
+```{r}
+summary(lm(full_LiberalArts$Y2018 ~ full_LiberalArts$SAT_AVG_1617 + full_LiberalArts$ADM_RATE_1617))
+```
+
+#### Step 2
+
+```{r}
+liberal_model_2 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])
+
+        # Data: subjects
+        beta0[i] ~ dnorm(b0, tau0)
+        beta1[i] ~ dnorm(b1,tau1)
+        beta2[i] ~ dnorm(b2,tau2)
+        tau_big[i] ~ dgamma(s,r)
+    }
+
+    # Hyperpriors
+    b0 ~ dnorm(180,1/4000)
+    tau0 ~ dnorm(30, 1/9)
+    b1 ~ dnorm(-0.1,1000)
+    tau1 ~ dnorm(1000,1000) 
+    b2 ~ dnorm(80,1/100)
+    tau2 ~ dnorm(10,1)
+    s ~ dnorm(7,1)
+    r ~ dnorm(10000, 1/10000)
+}"
+
+# COMPILE
+
+y <- full_LiberalArts$Y2018
+
+model_data5 <- as.data.frame(cbind(y, x1 = full_LiberalArts$SAT_AVG_1617, x2 = full_LiberalArts$ADM_RATE_1617))
+model_data5 <- na.omit(model_data5)
+
+liberal_jags_2 <- jags.model(textConnection(liberal_model_2), 
+    data = list(y = model_data5$y, x1 = model_data5$x1, x2 = model_data5$x2),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+liberal_sim_2 <- coda.samples(liberal_jags_2,
+    variable.names = c("b0","tau0","b1","tau1","b2","tau2","s","r"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+liberal_chains_2 <- data.frame(liberal_sim_2[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(liberal_sim_2)
+```
+
+### Posterior inference
+
+For an unknown Liberal Arts College with student mean SAT score of 1450 and an admission rate of $30\%$ (e.g. Dvictor college), we could predict its ranking from our rjags simulation.
+
+```{r}
+liberal_chains_2 <- liberal_chains_2 %>%
+  mutate(beta0_new = rnorm(10000,b0,(1/tau0)^(1/2))) %>%
+           mutate(beta1_new = rnorm(10000,b1,(1/tau1)^(1/2))) %>%
+           mutate(beta2_new = rnorm(10000,b2,(1/tau2)^(1/2))) %>%
+           mutate(tau_big_new = rgamma(10000,s,r)) %>%
+           mutate(ranking_new = rnorm(10000, mean = beta0_new + beta1_new * 1450 + beta2_new * 0.3, sd = (1/tau_big_new)^(1/2)))
+```
+
+```{r}
+liberal_chains_2 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+A $95\%$ credible interval is **not pretty!** This means that we over-evaluate the variability of a lot of predictors.
+
+## Future steps
+
+Given the problem that we encounter at Dvictor College, we also need to pay attention to narrowing the variability in our Bayesian models!

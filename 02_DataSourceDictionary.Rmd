@@ -1,0 +1,62 @@
+# Data source
+
+## Data that makes our work possible
+
+Our dataset was collected from College Scorecard, which is a tool from the College Affordability and Transparency Center. The data is held on data.gov from the Department of Education and maintained by Brian Fu. The last update was September 29, 2017 and our years of interest include 2014-2017. This dataset includes all the aforementioned variables and provides a profile for each school. In order to cross-reference these with ranking data, we scraped data from Andre G. Reiter’s U.S. News & World Report Historical Liberal Arts College and University Rankings datasets, which he compiled from both print and digital records. There were some data missing and we filled that with information compiled on the website Public University Honors. The dataset was called “Average U.S. News Rankings for 123 Universities: 2012-2019” and was posted September 18, 2016 and was most recently updated on September 10, 2018 to include the 2019 rankings.
+
+&nbsp;
+
+**It's only possible to do what we do because of the awesome data!**
+
+1. http://andyreiter.com/datasets/ (A base of University and Liberal Arts ranking datasets)
+
+2. https://publicuniversityhonors.com/2016/09/18/average-u-s-news-rankings-for-126-universities-2010-1017/ (Where we have access to missing University rankings that allow us to input manually)
+
+3. https://catalog.data.gov/dataset/college-scorecard (Three big datasets that founds our analysis)
+
+4. https://collegescorecard.ed.gov/data/documentation/ (Big dataset dictionary)
+
+&nbsp;
+
+## Our data dictionary
+
+Variable Name                     | Description
+----------------------------------| -------------
+Institution Name (INSTNM)         | name of college/university
+Region (REGION)                   | region-wise (e.g. Minnesota is in the Plains region)
+Setting (LOCALE)                  | setting (large city, small town, etc.)
+Size of School (UGDS)             | number of undergraduate degree-seeking students
+Admission Rate (ADM_RATE)         | college's admission rate
+SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with SAT
+Racial Diversity (UGDS_WHITE)     | racial diversity by percent of white students
+Average Cost Per Year (COSTT4_A)  | average cost of attendance per year
+
+&nbsp;
+
+## Changes to datasets
+
+To ensure the consistency among datasets, we made a few necessary changes to the original datasets.
+&nbsp;
+
+For University ranking datasets:
+
+1. We collected and manually added rankings of 60 universities between 2012 and 2019.
+&nbsp;
+
+For Liberal Arts College ranking datasets:
+
+1. To avoid repetition, we changed Westminster College in Pennsylvania to "Westminster College-PA"; changed Wheaton College in Massachusetts to "Wheaton College-MA".
+
+2. We deleted US Military Academy, US Air Force Academy, US Naval Academy because the infomration is not disclosed to the public and thus not available for viewing.
+
+3. We deleted Grove City College and Principia College because their information were not available in the mega datasets.
+
+4. We made slight changes on a few colleges, such as "St. Norbert College" to "Saint Norbert College" in order to match with the name in mega datasets.
+&nbsp;
+
+For Mega datasets:
+
+1. To avoid repetition, we changed Westminster College in Pennsylvania to "Westminster College-PA"; changed Wheaton College in Massachusetts to "Wheaton College-MA".
+
+2. We renamed the unranked St. John's College by its geographic location; renamed the two unranked Union Colleges by their geographic locations.
+

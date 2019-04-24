@@ -1,0 +1,138 @@
+# Visualization
+
+**Intuitively, what's going on?**
+
+## 1st & 2nd Peeks
+
+In our first and second peeks, we are interested in **geographical locations** of universities and colleges. It is surprising to learn that students, when choosing schools, give much weight to a school's geographical location. We investigate two variables that contribute to prospective students' choice, giving side-by-side plots that reflect how the variables vary between universities and liberal arts colleges.
+
+```{r}
+REGION_collapse <- fct_collapse(as.character(full_LiberalArts$REGION), NewEngland = "1", MidEast = "2", GreatLakes = "3", Plains = "4", Southeast = "5", Southwest = "6", RockyMountains = "7", FarWest = "8")
+
+full_LiberalArts$REGION_collapse <- REGION_collapse
+```
+
+```{r}
+LOCALE_collapse_lac1 <- fct_collapse(full_LiberalArts$LOCALE, City = c("11","12","13"), Suburb = c("21","22","23"), Town = c("31","32","33"), Rural = c("41","42","43"))
+
+LOCALE_collapse_lac2 <- fct_collapse(full_LiberalArts$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
+
+full_LiberalArts$LOCALE_collapse_lac1 <- LOCALE_collapse_lac1
+full_LiberalArts$LOCALE_collapse_lac2 <- LOCALE_collapse_lac2
+```
+
+```{r}
+REGION_collapse <- fct_collapse(as.character(fullUniversity$REGION), NewEngland = "1", MidEast = "2", GreatLakes = "3", Plains = "4", Southeast = "5", Southwest = "6", RockyMountains = "7", FarWest = "8")
+
+fullUniversity$REGION_collapse <- REGION_collapse
+```
+
+```{r}
+LOCALE_collapse <- fct_collapse(fullUniversity$LOCALE, City = c("11","12","13"), Suburb = c("21","22","23"), Town = c("31","32","33"), Rural = c("41","42","43"))
+
+LOCALE_collapse2 <- fct_collapse(fullUniversity$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
+
+fullUniversity$LOCALE_collapse <- LOCALE_collapse
+fullUniversity$LOCALE_collapse2 <- LOCALE_collapse2
+```
+
+```{r}
+g1 <- ggplot(fullUniversity, aes(x = REGION_collapse, fill = LOCALE_collapse)) +
+  geom_bar() +
+  xlab("Region") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
+  ggtitle("Region of Universities, broken down by location") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+g2 <- ggplot(full_LiberalArts, aes(x = REGION_collapse, fill = LOCALE_collapse_lac1)) +
+  geom_bar() +
+  xlab("Region") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
+  ggtitle("Region of Liberal Arts Colleges, broken down by location") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+grid.arrange(g1, g2, nrow = 2)
+```
+
+```{r}
+g3 <- ggplot(fullUniversity, aes(x = LOCALE_collapse, fill = LOCALE_collapse2)) +
+  geom_bar() +
+  xlab("Geographical Location") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
+  ggtitle("Location of Universities, broken down by size") +
+  theme(plot.title = element_text(size = 10))
+
+g4 <- ggplot(full_LiberalArts, aes(x = LOCALE_collapse_lac1, fill = LOCALE_collapse_lac2)) +
+  geom_bar() +
+  xlab("Geographical Location") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
+  ggtitle("Location of Liberal Arts Colleges, broken down by size") +
+  theme(plot.title = element_text(size = 9.5))  +
+  theme(axis.text.x = element_text(angle = 30))
+  
+grid.arrange(g3, g4, nrow = 1)
+```
+ 
+&nbsp;
+
+&nbsp;
+
+## 3rd Peek
+
+"In a utilitarian age, of all other times, it is a matter of grave importance that fairy tales should be respected." -Charles Dickens
+&nbsp;
+
+Here's when people tend to (have the excuse to) get a little more utilitarian. Studies find that people pay more attention to ranking when ranking data is available. We (or more precisely, Zuofu) are just like that. 
+
+SAT is usually one of the major indicators of students' fitness with certain colleges, both from students' and colleges' perspective. We do a bi-variate visualization between average SAT score of 2016-2017 academic year and university ranking of Year 2018. If you look further in our project (which hopefully you do!), you will see this is the basis of our first introductory model.
+
+```{r}
+p1 <- ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlim(1000,1600) +
+  ylim(1,150) +
+  xlab("Average SAT Score") +
+  ylab("School Ranking 2018") +
+  ggtitle("Universities")
+
+p2 <- ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlim(1000,1600) +
+  ylim(1,150) +
+  xlab("Average SAT Score") +
+  ylab("School Ranking 2018") +
+  ggtitle("Liberal Arts Colleges")
+
+grid.arrange(p1, p2, nrow = 1)
+```
+
+## 4th Peek
+
+"Diversity: the art of thinking independently together." -Malcolm Forbes
+&nbsp;
+
+In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the cmommon trend between the size of the student body and diversity factors (namely, the precentage of white students and the cost of attending college).
+
+```{r}
+fullUniversity$UGDS_WHITE_1617_categ = cut(fullUniversity$UGDS_WHITE_1617, c(0,0.2,0.4,0.6,0.8,1))
+```
+
+```{r}
+ggplot(fullUniversity, aes(x = UGDS_1617, y = UGDS_WHITE_1617, color = COSTT4_A_1617)) +
+  geom_point() +
+  xlab("Size of Undergraduate Student Body") + scale_fill_discrete(name = "Cost for Year 2017") + ylab("Percentage of White Students") +
+  ggtitle("Economic and Racial Diversity of Universities")
+```
+
+We didn't see an observable relationship between cost and the percentage of white students; we did observe that universities of a smaller size tend to correlate with a much larger cost.
+
+```{r}
+full_LiberalArts$UGDS_WHITE_1617_categ = cut(full_LiberalArts$UGDS_WHITE_1617, c(0,0.2,0.4,0.6,0.8,1))
+```
+
+```{r}
+ggplot(full_LiberalArts, aes(x = UGDS_1617, y = UGDS_WHITE_1617, color = COSTT4_A_1617)) +
+  geom_point() +
+  xlab("Size of Undergraduate Student Body") + scale_fill_discrete(name = "Cost for Year 2017") + ylab("Percentage of White Students") +
+  ggtitle("Economic and Racial Diversity of Liberal Arts Colleges")
+```
+
+In terms of liberal arts colleges, we can see that the data points (schools) are more clustered at the top section of the plot. This makes sense to us given that most liberal arts colleges are private compared to universities. We didn't see an observable relationship between cost and the percentage of white students
