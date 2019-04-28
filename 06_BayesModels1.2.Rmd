@@ -1,6 +1,4 @@
-# Bayesian Models Part 1.2 Liberal Arts Colleges
-
-Hint AGAIN: Start simple
+# Bayesian Models Part 1.2 Liberal Arts
 
 **The real question:** why do we repeat the process on liberal arts colleges again?
 

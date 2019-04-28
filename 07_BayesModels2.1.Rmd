@@ -20,3 +20,18 @@ Racial diversity (UGDS_WHITE)     | racial diversity by the percentage of white 
 &nbsp;
 
 But still, ranking plays an important role in students' decision making process! We will keep working on predicting rankings and fitness with these in mind.
+
+## Data cleaning (Unexpected)
+
+**"Zuofu was on his way to create the best Bayesian model in the world when his dream got crushed."** 
+--Zuofu
+
+We were experimenting with our final model of rankings ~ predictors when we found out that more schools than we estimated had NA in their SAT score section (do not provide standardized test scores). We subsequently found that NAs exist throughout our dataset. 
+
+Since our final goal is to create an interactive tool for students to evaluate their compatibility with colleges, we decide to *leave these NAs alone* until the final phase. The working plan is to re-weigh variables when building our fitness index algorithm. The weight of NA variables will be set to $0$ by an if statement, and other variables will have a higher weight proportionally in correspondence.
+
+**"Wait for it. We will come back later to deal with you!"** --Zuofu again
+
+## On the way to Final Model
+
+
