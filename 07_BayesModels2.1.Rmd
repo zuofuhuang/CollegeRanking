@@ -34,5 +34,48 @@ Since our final goal is to create an interactive tool for students to evaluate t
 
 ## On the way to Final Model
 
+```{r}
+university_model_2 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])
+
+        # Data: subjects
+        beta0[i] ~ dnorm(b0, tau0)
+        beta1[i] ~ dnorm(b1,tau1)
+        beta2[i] ~ dnorm(b2,tau2)
+        tau_big[i] ~ dgamma(s,r)
+    }
+
+    # Hyperpriors
+    b0 ~ dnorm(180,1/4000)
+    tau0 ~ dnorm(30, 1/9)
+    b1 ~ dnorm(-0.1,1000)
+    tau1 ~ dnorm(1000,1000) 
+    b2 ~ dnorm(80,1/100)
+    tau2 ~ dnorm(10,1)
+    s ~ dnorm(7,1)
+    r ~ dnorm(10000, 1/10000)
+}"
+
+# COMPILE
+
+y <- fullUniversity$Y2018
+
+model_data2 <- as.data.frame(cbind(y, x1 = fullUniversity$SAT_AVG_1617, x2 = fullUniversity$ADM_RATE_1617))
+model_data2 <- na.omit(model_data2)
+
+university_jags_2 <- jags.model(textConnection(university_model_2), 
+    data = list(y = model_data2$y, x1 = model_data2$x1, x2 = model_data2$x2),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+university_sim_2 <- coda.samples(university_jags_2,
+    variable.names = c("b0","tau0","b1","tau1","b2","tau2","s","r"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+university_chains_2 <- data.frame(university_sim_2[[1]])
+```
 
 
