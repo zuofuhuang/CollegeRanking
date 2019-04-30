@@ -161,7 +161,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#data-cleaning-unexpected"><i class="fa fa-check"></i><b>8.1</b> Data cleaning (Unexpected)</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#on-the-way-to-final-model"><i class="fa fa-check"></i><b>8.2</b> On the way to Final Model</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>9</b> A Little Shiny</a></li>
+<li class="chapter" data-level="9" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>9</b> A Little Shiny</a><ul>
+<li class="chapter" data-level="9.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>9.1</b> Shiny App</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="keep-shining.html"><a href="keep-shining.html"><i class="fa fa-check"></i><b>10</b> Keep Shining</a></li>
 </ul>
 
@@ -182,7 +184,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="a-little-shiny" class="section level1">
 <h1><span class="header-section-number">Chapter 9</span> A Little Shiny</h1>
+<p>Like we promised, students will be able to input their personal information and get a list of colleges and universities ranked top according to our <strong>fitness index</strong> system.</p>
+<p>(In that way, Zuofu could pretend that there’s such person <strong>Zafo</strong> with a 1580 SAT and want to go to a big school in the city.)</p>
+<div id="shiny-app" class="section level2">
+<h2><span class="header-section-number">9.1</span> Shiny App</h2>
+<p>We are still working on it!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#build the server</span>
+server4 &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session) {
+  
+  
+  
+}
 
+
+<span class="co">#build the user interface</span>
+ui4 &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">headerPanel</span>(<span class="st">&quot;Choose your inputs&quot;</span>),
+    <span class="kw">sidebarLayout</span>(
+        <span class="kw">sidebarPanel</span>(
+          <span class="kw">selectInput</span>(<span class="st">&quot;schoolsize&quot;</span>,<span class="dt">label =</span> <span class="st">&quot;School Size:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;0-1000&quot;</span>,<span class="st">&quot;1000-1800&quot;</span>,<span class="st">&quot;1800-2500&quot;</span>,<span class="st">&quot;2500+&quot;</span>), <span class="dt">multiple =</span> <span class="ot">TRUE</span>),
+          <span class="kw">numericInput</span>(<span class="st">&quot;sat&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your SAT score:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1600</span>, <span class="dt">step =</span> <span class="ot">NA</span>),
+          <span class="kw">selectInput</span>(<span class="st">&quot;region&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Select off regions:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;NewEngland&quot;</span>,<span class="st">&quot;MidEast&quot;</span>,<span class="st">&quot;GreatLakes&quot;</span>,<span class="st">&quot;Plains&quot;</span>,<span class="st">&quot;Southeast&quot;</span>,<span class="st">&quot;Southwest&quot;</span>,<span class="st">&quot;RockyMountains&quot;</span>,<span class="st">&quot;FarWest&quot;</span>,<span class="st">&quot;NA&quot;</span>), <span class="dt">multiple =</span> <span class="ot">TRUE</span>),
+          <span class="kw">selectInput</span>(<span class="st">&quot;location&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Geographical Location:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;City&quot;</span>,<span class="st">&quot;Suburb&quot;</span>,<span class="st">&quot;Town&quot;</span>,<span class="st">&quot;Rural&quot;</span>)),
+          <span class="kw">numericInput</span>(<span class="st">&quot;cost&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your ideal cost/yr:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100000</span>, <span class="dt">step =</span> <span class="ot">NA</span>),
+          <span class="kw">numericInput</span>(<span class="st">&quot;diversity&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your ideal school racial diversity:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>, <span class="dt">step =</span> <span class="fl">0.01</span>)
+        ),
+        <span class="kw">mainPanel</span>(
+          <span class="kw">h4</span>(<span class="st">&quot;fitnessIndex&quot;</span>),
+          <span class="kw">tableOutput</span>(<span class="st">&quot;output_table&quot;</span>),
+          <span class="kw">h4</span>(<span class="st">&quot;List of Schools&quot;</span>),
+          <span class="kw">tableOutput</span>(<span class="st">&quot;output_table2&quot;</span>)
+        )
+    )
+)
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui4, <span class="dt">server =</span> server4)</code></pre></div>
+
+</div>
 </div>
             </section>
 
