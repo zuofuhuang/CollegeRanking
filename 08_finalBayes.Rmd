@@ -1,0 +1,149 @@
+# Becoming a proud Bayesian
+
+For our finalized Bayesian model, we intend to build predictive models for universities and liberal arts colleges. Then we'll compare the similarities and differences of the two models. (i.e. is some factor important for universities and less so for liberal arts colleges?)
+
+## University Model
+
+### Get some intuition
+
+To reasonably set our priors, we received some intuition from a frequentist linear model.
+
+```{r}
+summary(lm(fullUniversity$Y2018 ~ fullUniversity$UGDS_1617 + fullUniversity$LOCALE_collapse + fullUniversity$SAT_AVG_1617 + fullUniversity$ADM_RATE_1617))
+```
+
+### Building the model
+
+```{r}
+university_model_3 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dpois(beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i])
+    }
+        # Data: subjects
+        beta0 ~ dnorm(200, 0.01)
+        beta1 ~ dnorm(0, 100)
+        beta2[1] <- 0 
+        beta2[2] ~ dnorm(-2, 10)
+        beta2[3] ~ dnorm(7, 10)
+        beta3 ~ dnorm(0, 10)
+        beta4 ~ dnorm(90, 10)
+
+}"
+
+# COMPILE
+
+y <- fullUniversity$Y2018
+
+model_data9 <- as.data.frame(cbind(y, x1 = fullUniversity$UGDS_1617, z = fullUniversity$LOCALE_collapse, x3 = fullUniversity$SAT_AVG_1617, x4 = fullUniversity$ADM_RATE_1617))
+
+model_data9 <- na.omit(model_data9)
+
+university_jags_3 <- jags.model(textConnection(university_model_3), 
+    data = list(y = model_data9$y, x1 = model_data9$x1, z = factor(model_data9$z), x3 = model_data9$x3, x4 = model_data9$x4),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+university_sim_3 <- coda.samples(university_jags_3,
+    variable.names = c("beta0","beta1","beta2","beta3","beta4"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+university_chains_3 <- data.frame(university_sim_3[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(university_sim_3)
+```
+
+
+### Posterior inference
+
+For an unknown university located in the city with 10000 undergraduates, student mean SAT score of 1550 and an admission rate of $23\%$ (e.g. Gvictor University), we could predict its ranking from our rjags simulation.
+
+```{r}
+university_chains_3 <- university_chains_3 %>%
+  mutate(ranking_new = rpois(10000, lambda = (beta0 + beta1 * 10000 + beta3 * 1550 + beta4 * 0.23)))
+
+university_chains_3 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+This is **totally reasonable** and **fantastic**! The interval truly reflects the intuitive estimate of Gvictor University's ranking.
+
+## Liberal Arts Colleges
+
+### Get some more intuition
+
+Similar to what we do with universities, we get some intuition for our liberal arts college model.
+
+```{r}
+summary(lm(full_LiberalArts$Y2018 ~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617 + full_LiberalArts$ADM_RATE_1617))
+```
+
+### Building the model
+
+```{r}
+liberal_model_3 <- "model{  
+    # Data: observations
+    for(i in 1:length(y)) {
+        y[i] ~ dpois(beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i])
+    }
+        # Data: subjects
+        beta0 ~ dnorm(400, 0.001)
+        beta1 ~ dnorm(0, 10000)
+        beta2[1] <- 0 
+        beta2[2] ~ dnorm(0, 0.04)
+        beta2[3] ~ dnorm(-10, 0.04)
+        beta2[4] ~ dnorm(-15, 0.01)
+        beta3 ~ dnorm(-0.3, 100)
+        beta4 ~ dnorm(36, 10)
+
+}"
+
+# COMPILE
+
+y <- full_LiberalArts$Y2018
+
+model_data8 <- as.data.frame(cbind(y, x1 = full_LiberalArts$UGDS_1617, z = full_LiberalArts$LOCALE_collapse_lac1, x3 = full_LiberalArts$SAT_AVG_1617, x4 = full_LiberalArts$ADM_RATE_1617))
+
+model_data8 <- na.omit(model_data8)
+
+liberal_jags_3 <- jags.model(textConnection(liberal_model_3), 
+    data = list(y = model_data8$y, x1 = model_data8$x1, z = factor(model_data8$z), x3 = model_data8$x3, x4 = model_data8$x4),
+    inits=list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 454))
+
+# SIMULATE the model
+liberal_sim_3 <- coda.samples(liberal_jags_3,
+    variable.names = c("beta0","beta1","beta2","beta3","beta4"),
+    n.iter = 10000)
+
+# STORE the chains in a data frame
+liberal_chains_3 <- data.frame(liberal_sim_3[[1]])
+```
+
+### Model summary
+
+```{r}
+summary(liberal_sim_3)
+```
+
+
+### Posterior inference
+
+For an unknown liberal arts college in a rural setting with 2000 undergraduates, student mean SAT score of 1400 and an admission rate of $35\%$ (e.g. Hvictor College), we could predict its ranking from our rjags simulation.
+
+```{r eval = FALSE}
+liberal_chains_3 <- liberal_chains_3 %>%
+  mutate(ranking_new = rpois(10000, lambda = (beta0 + beta1 * 2000 + beta2.4. + beta3 * 1400 + beta4 * 0.35)))
+
+liberal_chains_3 %>%
+  summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
+```
+
+The interval also truly reflects the intuitive estimate of Hvictor College's ranking!
+
+## Comparison
+

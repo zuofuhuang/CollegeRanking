@@ -192,4 +192,4 @@ A $95\%$ credible interval is **not pretty!** This means that we over-evaluate t
 
 ## Future steps
 
-Given the problem that we encounter at Dvictor College, we also need to pay attention to narrowing the variability in our Bayesian models!
+Given the problem that we encounter at Dvictor College, we also need to pay attention to narrowing the variability in our Bayesian models. (which really teaches us a lesson: simple is good; a complicated hierarchical model is not always helpful!)

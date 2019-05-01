@@ -27,7 +27,7 @@ Region (REGION)                   | region-wise (e.g. Minnesota is in the Plains
 Setting (LOCALE)                  | setting (large city, small town, etc.)
 Size of School (UGDS)             | number of undergraduate degree-seeking students
 Admission Rate (ADM_RATE)         | college's admission rate
-SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with SAT
+SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with ACT
 Racial Diversity (UGDS_WHITE)     | racial diversity by percent of white students
 Average Cost Per Year (COSTT4_A)  | average cost of attendance per year
 
