@@ -4,7 +4,7 @@
 
 If you don't want to look at all the lengthy work, Kavya and Zuofu are excited to talk through the process with you!
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(readxl)
 library(dplyr)
 library(ggplot2)
@@ -64,7 +64,7 @@ newLiberalArts <- USNewsLiberalArts %>%
 
 ### Filter schools that have a rank
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 college <- rep(NA,149)
 for (i in 1:149){
   college[i] = newLiberalArts[i,]$CollegeName
@@ -101,7 +101,7 @@ class(myData1415_sub$INSTNM)
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 myData1415_sub_characterCollege <- myData1415_sub %>%
   filter(INSTNM %in% college) %>%
   mutate(INSTNM = as.character(INSTNM)) %>%
@@ -153,7 +153,7 @@ full_LiberalArts <- fullLiberalArts[!duplicated(fullLiberalArts$CollegeName), ]
 dim(full_LiberalArts) # After we removed the repetitive entries.
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 myData1415_sub_characterUniversity <- myData1415_sub %>%
   filter(INSTNM %in% university) %>%
   mutate(INSTNM = as.character(INSTNM)) %>%

@@ -165,12 +165,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html"><i class="fa fa-check"></i><b>9</b> Becoming a proud Bayesian</a><ul>
 <li class="chapter" data-level="9.1" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#university-model"><i class="fa fa-check"></i><b>9.1</b> University Model</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#get-some-intuition"><i class="fa fa-check"></i><b>9.1.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.1.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.2</b> Building the model</a></li>
-<li class="chapter" data-level="9.1.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.3</b> Model summary</a></li>
-<li class="chapter" data-level="9.1.4" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.4</b> Posterior inference</a></li>
+<li class="chapter" data-level="9.1.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#some-additional-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some additional intuition</a></li>
+<li class="chapter" data-level="9.1.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#even-more-intuition"><i class="fa fa-check"></i><b>9.1.3</b> Even more intuition</a></li>
+<li class="chapter" data-level="9.1.4" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.4</b> Building the model</a></li>
+<li class="chapter" data-level="9.1.5" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.5</b> Model summary</a></li>
+<li class="chapter" data-level="9.1.6" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.6</b> Posterior inference</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#liberal-arts-colleges"><i class="fa fa-check"></i><b>9.2</b> Liberal Arts Colleges</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#get-some-more-intuition"><i class="fa fa-check"></i><b>9.2.1</b> Get some more intuition</a></li>
+<li class="chapter" data-level="9.2.1" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#get-some-intuition-1"><i class="fa fa-check"></i><b>9.2.1</b> Get some intuition</a></li>
 <li class="chapter" data-level="9.2.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#building-the-model-6"><i class="fa fa-check"></i><b>9.2.2</b> Building the model</a></li>
 <li class="chapter" data-level="9.2.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#model-summary-6"><i class="fa fa-check"></i><b>9.2.3</b> Model summary</a></li>
 <li class="chapter" data-level="9.2.4" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#posterior-inference-6"><i class="fa fa-check"></i><b>9.2.4</b> Posterior inference</a></li>
@@ -204,27 +206,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">4.1</span> What <strong>did</strong> we do?</h2>
 <p>If you don’t want to look at all the lengthy work, Kavya and Zuofu are excited to talk through the process with you!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-<span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(rjags)</code></pre></div>
-<pre><code>## Loading required package: coda</code></pre>
-<pre><code>## Linked to JAGS 4.3.0</code></pre>
-<pre><code>## Loaded modules: basemod,bugs</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(rjags)
+<span class="kw">library</span>(forcats)
 <span class="kw">library</span>(gridExtra)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;gridExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
 <div id="load-data-select-and-rename-columns" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Load data, select and rename columns</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv&quot;</span>)
@@ -288,14 +274,8 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1415)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1415)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ADM_RATE_1415)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516_sub_characterCollege &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))
+myData1516_sub_characterCollege &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
@@ -303,12 +283,8 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1516)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1516)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617_sub_characterCollege &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))
+myData1617_sub_characterCollege &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
@@ -317,10 +293,6 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1617)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1617)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To recheck that all three datasets are the same with regard to college names.</span>
 <span class="kw">dim</span>(myData1415_sub_characterCollege) 
 <span class="kw">dim</span>(myData1516_sub_characterCollege)
@@ -346,12 +318,8 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1415)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1415)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516_sub_characterUniversity &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))
+myData1516_sub_characterUniversity &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
@@ -359,12 +327,8 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1516)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1516)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))
+myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
@@ -373,10 +337,6 @@ check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
-<pre><code>## Warning in evalq(as.numeric(as.character(SAT_AVG_1617)), &lt;environment&gt;): 强
-## 制改变过程中产生了NA</code></pre>
-<pre><code>## Warning in evalq(as.numeric(as.character(ACTCMMID_1617)), &lt;environment&gt;):
-## 强制改变过程中产生了NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullUniversity &lt;-<span class="st"> </span>newUniversity <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>

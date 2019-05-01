@@ -10,7 +10,7 @@ Ranking by one year of SAT score: with intuition from $\text{hist}(\sqrt{1/rgamm
 
 ### First Impression
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
   geom_point() +
   geom_smooth(method = "lm") +

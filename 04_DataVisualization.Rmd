@@ -36,7 +36,7 @@ fullUniversity$LOCALE_collapse <- LOCALE_collapse
 fullUniversity$LOCALE_collapse2 <- LOCALE_collapse2
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 g1 <- ggplot(fullUniversity, aes(x = REGION_collapse, fill = LOCALE_collapse)) +
   geom_bar() +
   xlab("Region") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
@@ -52,7 +52,7 @@ g2 <- ggplot(full_LiberalArts, aes(x = REGION_collapse, fill = LOCALE_collapse_l
 grid.arrange(g1, g2, nrow = 2)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 g3 <- ggplot(fullUniversity, aes(x = LOCALE_collapse, fill = LOCALE_collapse2)) +
   geom_bar() +
   xlab("Geographical Location") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
@@ -82,7 +82,7 @@ Here's when people tend to (have the excuse to) get a little more utilitarian. S
 
 SAT is usually one of the major indicators of students' fitness with certain colleges, both from students' and colleges' perspective. We do a bi-variate visualization between average SAT score of 2016-2017 academic year and university ranking of Year 2018. If you look further in our project (which hopefully you do!), you will see this is the basis of our first introductory model.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 p1 <- ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
   geom_point() +
   geom_smooth(method = "lm") +
