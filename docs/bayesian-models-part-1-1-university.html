@@ -173,11 +173,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#liberal-arts-colleges"><i class="fa fa-check"></i><b>9.2</b> Liberal Arts Colleges</a><ul>
 <li class="chapter" data-level="9.2.1" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#get-some-intuition-1"><i class="fa fa-check"></i><b>9.2.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.2.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#building-the-model-6"><i class="fa fa-check"></i><b>9.2.2</b> Building the model</a></li>
-<li class="chapter" data-level="9.2.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#model-summary-6"><i class="fa fa-check"></i><b>9.2.3</b> Model summary</a></li>
-<li class="chapter" data-level="9.2.4" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#posterior-inference-6"><i class="fa fa-check"></i><b>9.2.4</b> Posterior inference</a></li>
+<li class="chapter" data-level="9.2.2" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#some-additional-intuition-1"><i class="fa fa-check"></i><b>9.2.2</b> Some additional intuition</a></li>
+<li class="chapter" data-level="9.2.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#building-the-model-6"><i class="fa fa-check"></i><b>9.2.3</b> Building the model</a></li>
+<li class="chapter" data-level="9.2.4" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#model-summary-6"><i class="fa fa-check"></i><b>9.2.4</b> Model summary</a></li>
+<li class="chapter" data-level="9.2.5" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#posterior-inference-6"><i class="fa fa-check"></i><b>9.2.5</b> Posterior inference</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#comparison"><i class="fa fa-check"></i><b>9.3</b> Comparison</a></li>
+<li class="chapter" data-level="9.3" data-path="becoming-a-proud-bayesian.html"><a href="becoming-a-proud-bayesian.html#comparison-and-discussion"><i class="fa fa-check"></i><b>9.3</b> Comparison and discussion</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>10</b> A Little Shiny</a><ul>
 <li class="chapter" data-level="10.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>10.1</b> Shiny App</a></li>
@@ -292,7 +293,7 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -19.95446                     63.09917</code></pre>
+## 1                    -19.17646                     62.89475</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -421,7 +422,7 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -14.32954                     63.73658</code></pre>
+## 1                    -14.82561                     63.55043</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
 </div>
 </div>
@@ -566,7 +567,7 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -86.52852                     141.6147</code></pre>
+## 1                    -84.48039                     144.1416</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
 </div>
 </div>

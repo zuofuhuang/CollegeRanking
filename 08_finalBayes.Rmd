@@ -6,15 +6,45 @@ For our finalized Bayesian model, we intend to build predictive models for unive
 
 ### Get some intuition
 
+To get some intuition of our Bayesian model, we could check out a regression model to see what's going on.
 
+```{r eval = FALSE}
+summary(glm(full_LiberalArts$Y2018~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617  + full_LiberalArts$ADM_RATE_1617, family = "poisson"))
+```
 
 ### Some additional intuition
 
+We could also build bi-variate visualizations that help us understand the individual trends: 
 
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+c1 <- ggplot(fullUniversity, aes(x = UGDS_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,120) +
+  xlab("Undergraduate student size") +
+  ylab("School Ranking 2018") +
+  ggtitle("Universities")
+
+c2 <- ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,120) +
+  xlab("Average SAT score") +
+  ylab("School Ranking 2018")
+  
+c3 <- ggplot(fullUniversity, aes(x = ADM_RATE_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,120) +
+  xlab("Admission rate") +
+  ylab("School Ranking 2018")
+
+grid.arrange(c1,c2,c3,nrow = 2)
+```
 
 ### Even more intuition
 
-For additional 
+For even more intuition, we start with more vague priors and slightly adjust the priors based on the summary table. It's important to note that the priors cannot be set too close to the means of the summary table in case of **overfitting**.
 
 ### Building the model
 
@@ -67,11 +97,11 @@ summary(university_sim_3)
 
 ### Posterior inference
 
-For an unknown university located in the city with 10000 undergraduates, student mean SAT score of 1550 and an admission rate of $23\%$ (e.g. Gvictor University), we could predict its ranking from our rjags simulation.
+For an unknown university located in the city with 10000 undergraduates, student mean SAT score of 1400 and an admission rate of $25\%$ (e.g. Gvictor University), we could predict its ranking from our rjags simulation.
 
 ```{r}
 university_chains_3 <- university_chains_3 %>%
-  mutate(ranking_new = rpois(10000, lambda = exp(beta0 + beta1 * 10000 + beta3 * 1550 + beta4 * 0.23)))
+  mutate(ranking_new = rpois(10000, lambda = exp(beta0 + beta1 * 10000 + beta3 * 1400 + beta4 * 0.25)))
 
 university_chains_3 %>%
   summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
@@ -85,14 +115,46 @@ The interval is more reflective of the intuitive estimate of Gvictor University'
 
 Similar to what we do with universities, we get some intuition for our liberal arts college model.
 
-```{r}
-summary(lm(full_LiberalArts$Y2018 ~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617 + full_LiberalArts$ADM_RATE_1617))
+```{r eval = FALSE}
+summary(glm(full_LiberalArts$Y2018 ~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617 + full_LiberalArts$ADM_RATE_1617, family = "poisson"))
 ```
+
+### Some additional intuition
+
+We could also build bi-variate visualizations that help us understand the individual trends: 
+
+```{r echo = FALSE, warning = FALSE, message=FALSE}
+d1 <- ggplot(full_LiberalArts, aes(x = UGDS_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,150) +
+  xlab("Undergraduate student size") +
+  ylab("School Ranking 2018") +
+  ggtitle("Liberal Arts Colleges")
+
+d2 <- ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,150) +
+  xlab("Average SAT score") +
+  ylab("School Ranking 2018")
+  
+d3 <- ggplot(full_LiberalArts, aes(x = ADM_RATE_1617, y = as.numeric(Y2018))) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  ylim(1,150) +
+  xlab("Admission rate") +
+  ylab("School Ranking 2018")
+
+grid.arrange(d1,d2,d3,nrow = 2)
+```
+
+
 
 ### Building the model
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 liberal_model_3 <- "model{  
     # Data: observations
     for(i in 1:length(y)) {
@@ -141,16 +203,22 @@ summary(liberal_sim_3)
 
 ### Posterior inference
 
-For an unknown liberal arts college in a rural setting with 2000 undergraduates, student mean SAT score of 1400 and an admission rate of $35\%$ (e.g. Hvictor College), we could predict its ranking from our rjags simulation.
+For an unknown liberal arts college in a rural setting with 2000 undergraduates, student mean SAT score of 1400 and an admission rate of $25\%$ (e.g. Hvictor College), we could predict its ranking from our rjags simulation.
 
 ```{r}
 liberal_chains_3 <- liberal_chains_3 %>%
-  mutate(ranking_new = rpois(10000, exp(beta0 + beta1 * 2000 + beta2.4. + beta3 * 1400 + beta4 * 0.35)))
+  mutate(ranking_new = rpois(10000, exp(beta0 + beta1 * 2000 + beta2.4. + beta3 * 1400 + beta4 * 0.25)))
 
 liberal_chains_3 %>%
   summarize(quantile(ranking_new,0.025),quantile(ranking_new,0.975))
 ```
 
-This is **totally reasonable** and **fantastic**! The interval reflects the intuitive estimate of Hvictor College's ranking.
+This is **totally reasonable**! The interval roughly reflects the intuitive estimate of Hvictor College's ranking.
 
-## Comparison
+## Comparison and discussion
+
+Compared to the last attempts, our final model gives reasonable predictions, which is a huge progress! However, the 95% credible interval it provides doesn't provide an accurate enough interval as desired; we will keep working on adjusting priors.
+
+By creating different imaginery universities and colleges, we will be able to summarize the most important factors for universities and colleges to respectively increase their rankings. (We are still working on this!)
+
+
