@@ -6,12 +6,78 @@ Like we promised, students will be able to input their personal information and 
 
 ## Shiny App
 
-We are still working on it! 
-
 ```{R eval = FALSE}
 #build the server
 server4 <- function(input, output, session) {
-  
+  output$output_table <- renderTable({
+    datasize <- input$size
+    lowersize <- datasize[0]
+    uppersize <- datasize[1]
+    full_LiberalArts1 <- full_LiberalArts %>%
+      filter(UGDS_1617 > lowersize) %>%
+      filter(UGDS_1617 < uppersize)
+    
+    datasat <- input$sat
+    if (datasat > 36){
+      datasat = datasat
+    } else {
+      datasat = datasat * 40 + 160
+    }
+    satvector <- rep(NA,149)
+    for i in (0:149){
+      satvector[i] <- datasat - full_LiberalArts[i,]$SAT_AVG_1617 
+    }
+    
+    dataregion <- input$region
+    full_LiberalArts2 <- full_LiberalArts1 %>%
+      filter
+    
+    datalocation <- input$location
+    if (datalocation == "City"){
+      datalocation <- 3
+    } else if (datalocation == "Suburb"){
+      datalocation <- 2
+    } else if (datalocation == "Town"){
+      datalocation <- 1
+    } else{
+      datalocation <- 0
+    }
+    locationvector <- rep(NA,149)
+    for i in (0:149){
+      locationvector[i] <- abs(datalocation - full_LiberalArts[i,]$LOCALE_collapse_lac3)
+    }
+    
+    datacost <- input$cost
+    lowercost <- datacost[0]
+    uppercost <- datacost[1]
+    full_LiberalArts3 <- full_LiberalArts2 %>%
+      filter(COSTT4_A_1617 > lowercost) %>%
+      filter(COSTT4_A_1617 < uppercost)
+    
+    datadiversity <- input$diversity
+    datadiversitylow <- datadiversity - 0.2
+    datadiversityhigh <- datadiversity + 0.2
+    datadiversitylower <- datadiversity - 0.4
+    datadiversityhigher <- datadiversity + 0.4
+    full_LiberalArts4 <- full_LiberalArts3 %>%
+      filter(UGDS_WHITE_1617 < datadiversityhigher) %>%
+      filter(UGDS_WHITE_1617 > datadiversitylower)
+    diversityvector <- rep(NA,149)
+    for i in (0:149){
+      if (full_LiberalArts[i,]$UGDS_WHITE_1617 > datadiversityhigh){
+        diversityvector[i] <- abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversityhigh)
+      } else if (full_LiberalArts[i,]$UGDS_WHITE_1617 < datadiversitylow){
+        diversityvector[i] <- abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversitylow)
+      } else{
+        diversityvector[i] <- 0
+      }
+    
+    fitnessvector <- rep(NA,149)
+    # The code is combining the ith entry in the vectors together
+    
+    # output should be the top 5 colleges in the filtered dataset that has the highest fitness index.
+
+  })
   
   
 }
@@ -22,18 +88,16 @@ ui4 <- fluidPage(
   headerPanel("Choose your inputs"),
     sidebarLayout(
         sidebarPanel(
-          selectInput("schoolsize",label = "School Size:", choices = c("0-1000","1000-1800","1800-2500","2500+"), multiple = TRUE),
-          numericInput("sat", label = "Input your SAT score:", min = 0, max = 1600, step = NA),
-          selectInput("region", label = "Select off regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest","NA"), multiple = TRUE),
+          numericInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 4000, step = 50, value = c(1000,2000)),
+          numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, step = NA),
+          selectInput("region", label = "Select **off** regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest","NA"), multiple = TRUE),
           selectInput("location", label = "Geographical Location:", choices = c("City","Suburb","Town","Rural")),
-          numericInput("cost", label = "Input your ideal cost/yr:", min = 0, max = 100000, step = NA),
+          numericInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
           numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, step = 0.01)
         ),
         mainPanel(
-          h4("fitnessIndex"),
-          tableOutput("output_table"),
           h4("List of Schools"),
-          tableOutput("output_table2")
+          tableOutput("output_table")
         )
     )
 )

@@ -2,7 +2,7 @@ book_filename: "CollegeRanking"
 language:
   ui:
     chapter_name: "Chapter "
-rmd_files: ['index.Rmd','01_Motivation.Rmd','02_DataSourceDictionary.Rmd','03_DataCleaning.Rmd','04_DataVisualization.Rmd','05_BayesModels1.1.Rmd','06_BayesModels1.2.Rmd','07_BayesModels2.1.Rmd','08_finalBayes.Rmd','09_ALittleShiny.Rmd','10_KeepShining.Rmd']
+rmd_files: ['index.Rmd','01_Motivation.Rmd','02_DataSourceDictionary.Rmd','03_DataCleaning.Rmd','04_DataVisualization.Rmd','05_BayesModels1.1.Rmd','06_BayesModels1.2.Rmd','07_BayesModels2.1.Rmd','08_finalBayes.Rmd','09_ALittleShiny.Rmd']
 delete_merged_file: true
 output_dir: "docs"
 

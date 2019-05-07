@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="becoming-a-proud-bayesian.html">
-<link rel="next" href="keep-shining.html">
+<link rel="next" href="section.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -183,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>10</b> A Little Shiny</a><ul>
 <li class="chapter" data-level="10.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>10.1</b> Shiny App</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="keep-shining.html"><a href="keep-shining.html"><i class="fa fa-check"></i><b>11</b> Keep Shining</a></li>
+<li class="chapter" data-level="11" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>11</b> 11</a></li>
 </ul>
 
       </nav>
@@ -207,10 +207,77 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>(In that way, Zuofu could pretend that there’s such person <strong>Zafo</strong> with a 1580 SAT and want to go to a big school in the city.)</p>
 <div id="shiny-app" class="section level2">
 <h2><span class="header-section-number">10.1</span> Shiny App</h2>
-<p>We are still working on it!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#build the server</span>
 server4 &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session) {
-  
+  output<span class="op">$</span>output_table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({
+    datasize &lt;-<span class="st"> </span>input<span class="op">$</span>size
+    lowersize &lt;-<span class="st"> </span>datasize[<span class="dv">0</span>]
+    uppersize &lt;-<span class="st"> </span>datasize[<span class="dv">1</span>]
+    full_LiberalArts1 &lt;-<span class="st"> </span>full_LiberalArts <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(UGDS_<span class="dv">1617</span> <span class="op">&gt;</span><span class="st"> </span>lowersize) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(UGDS_<span class="dv">1617</span> <span class="op">&lt;</span><span class="st"> </span>uppersize)
+    
+    datasat &lt;-<span class="st"> </span>input<span class="op">$</span>sat
+    <span class="cf">if</span> (datasat <span class="op">&gt;</span><span class="st"> </span><span class="dv">36</span>){
+      datasat =<span class="st"> </span>datasat
+    } <span class="cf">else</span> {
+      datasat =<span class="st"> </span>datasat <span class="op">*</span><span class="st"> </span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span><span class="dv">160</span>
+    }
+    satvector &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
+    <span class="cf">for</span> i <span class="cf">in</span> (<span class="dv">0</span><span class="op">:</span><span class="dv">149</span>){
+      satvector[i] &lt;-<span class="st"> </span>datasat <span class="op">-</span><span class="st"> </span>full_LiberalArts[i,]<span class="op">$</span>SAT_AVG_<span class="dv">1617</span> 
+    }
+    
+    dataregion &lt;-<span class="st"> </span>input<span class="op">$</span>region
+    full_LiberalArts2 &lt;-<span class="st"> </span>full_LiberalArts1 <span class="op">%&gt;%</span>
+<span class="st">      </span>filter
+    
+    datalocation &lt;-<span class="st"> </span>input<span class="op">$</span>location
+    <span class="cf">if</span> (datalocation <span class="op">==</span><span class="st"> &quot;City&quot;</span>){
+      datalocation &lt;-<span class="st"> </span><span class="dv">3</span>
+    } <span class="cf">else</span> <span class="cf">if</span> (datalocation <span class="op">==</span><span class="st"> &quot;Suburb&quot;</span>){
+      datalocation &lt;-<span class="st"> </span><span class="dv">2</span>
+    } <span class="cf">else</span> <span class="cf">if</span> (datalocation <span class="op">==</span><span class="st"> &quot;Town&quot;</span>){
+      datalocation &lt;-<span class="st"> </span><span class="dv">1</span>
+    } <span class="cf">else</span>{
+      datalocation &lt;-<span class="st"> </span><span class="dv">0</span>
+    }
+    locationvector &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
+    <span class="cf">for</span> i <span class="cf">in</span> (<span class="dv">0</span><span class="op">:</span><span class="dv">149</span>){
+      locationvector[i] &lt;-<span class="st"> </span><span class="kw">abs</span>(datalocation <span class="op">-</span><span class="st"> </span>full_LiberalArts[i,]<span class="op">$</span>LOCALE_collapse_lac3)
+    }
+    
+    datacost &lt;-<span class="st"> </span>input<span class="op">$</span>cost
+    lowercost &lt;-<span class="st"> </span>datacost[<span class="dv">0</span>]
+    uppercost &lt;-<span class="st"> </span>datacost[<span class="dv">1</span>]
+    full_LiberalArts3 &lt;-<span class="st"> </span>full_LiberalArts2 <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(COSTT4_A_<span class="dv">1617</span> <span class="op">&gt;</span><span class="st"> </span>lowercost) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(COSTT4_A_<span class="dv">1617</span> <span class="op">&lt;</span><span class="st"> </span>uppercost)
+    
+    datadiversity &lt;-<span class="st"> </span>input<span class="op">$</span>diversity
+    datadiversitylow &lt;-<span class="st"> </span>datadiversity <span class="op">-</span><span class="st"> </span><span class="fl">0.2</span>
+    datadiversityhigh &lt;-<span class="st"> </span>datadiversity <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>
+    datadiversitylower &lt;-<span class="st"> </span>datadiversity <span class="op">-</span><span class="st"> </span><span class="fl">0.4</span>
+    datadiversityhigher &lt;-<span class="st"> </span>datadiversity <span class="op">+</span><span class="st"> </span><span class="fl">0.4</span>
+    full_LiberalArts4 &lt;-<span class="st"> </span>full_LiberalArts3 <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(UGDS_WHITE_<span class="dv">1617</span> <span class="op">&lt;</span><span class="st"> </span>datadiversityhigher) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(UGDS_WHITE_<span class="dv">1617</span> <span class="op">&gt;</span><span class="st"> </span>datadiversitylower)
+    diversityvector &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
+    <span class="cf">for</span> i <span class="cf">in</span> (<span class="dv">0</span><span class="op">:</span><span class="dv">149</span>){
+      <span class="cf">if</span> (full_LiberalArts[i,]<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span> <span class="op">&gt;</span><span class="st"> </span>datadiversityhigh){
+        diversityvector[i] &lt;-<span class="st"> </span><span class="kw">abs</span>(full_LiberalArts[i,]<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span> <span class="op">-</span><span class="st"> </span>datadiversityhigh)
+      } <span class="cf">else</span> <span class="cf">if</span> (full_LiberalArts[i,]<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span> <span class="op">&lt;</span><span class="st"> </span>datadiversitylow){
+        diversityvector[i] &lt;-<span class="st"> </span><span class="kw">abs</span>(full_LiberalArts[i,]<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span> <span class="op">-</span><span class="st"> </span>datadiversitylow)
+      } <span class="cf">else</span>{
+        diversityvector[i] &lt;-<span class="st"> </span><span class="dv">0</span>
+      }
+    
+    fitnessvector &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
+    <span class="co"># The code is combining the ith entry in the vectors together</span>
+    
+    <span class="co"># output should be the top 5 colleges in the filtered dataset that has the highest fitness index.</span>
+
+  }<span class="er">)</span>
   
   
 }
@@ -221,18 +288,16 @@ ui4 &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
   <span class="kw">headerPanel</span>(<span class="st">&quot;Choose your inputs&quot;</span>),
     <span class="kw">sidebarLayout</span>(
         <span class="kw">sidebarPanel</span>(
-          <span class="kw">selectInput</span>(<span class="st">&quot;schoolsize&quot;</span>,<span class="dt">label =</span> <span class="st">&quot;School Size:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;0-1000&quot;</span>,<span class="st">&quot;1000-1800&quot;</span>,<span class="st">&quot;1800-2500&quot;</span>,<span class="st">&quot;2500+&quot;</span>), <span class="dt">multiple =</span> <span class="ot">TRUE</span>),
-          <span class="kw">numericInput</span>(<span class="st">&quot;sat&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your SAT score:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1600</span>, <span class="dt">step =</span> <span class="ot">NA</span>),
-          <span class="kw">selectInput</span>(<span class="st">&quot;region&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Select off regions:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;NewEngland&quot;</span>,<span class="st">&quot;MidEast&quot;</span>,<span class="st">&quot;GreatLakes&quot;</span>,<span class="st">&quot;Plains&quot;</span>,<span class="st">&quot;Southeast&quot;</span>,<span class="st">&quot;Southwest&quot;</span>,<span class="st">&quot;RockyMountains&quot;</span>,<span class="st">&quot;FarWest&quot;</span>,<span class="st">&quot;NA&quot;</span>), <span class="dt">multiple =</span> <span class="ot">TRUE</span>),
+          <span class="kw">numericInput</span>(<span class="st">&quot;schoolsize&quot;</span>,<span class="dt">label =</span> <span class="st">&quot;Acceptable range of school size:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">4000</span>, <span class="dt">step =</span> <span class="dv">50</span>, <span class="dt">value =</span> <span class="kw">c</span>(<span class="dv">1000</span>,<span class="dv">2000</span>)),
+          <span class="kw">numericInput</span>(<span class="st">&quot;sat&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Your standardized test score:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1600</span>, <span class="dt">step =</span> <span class="ot">NA</span>),
+          <span class="kw">selectInput</span>(<span class="st">&quot;region&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Select **off** regions:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;NewEngland&quot;</span>,<span class="st">&quot;MidEast&quot;</span>,<span class="st">&quot;GreatLakes&quot;</span>,<span class="st">&quot;Plains&quot;</span>,<span class="st">&quot;Southeast&quot;</span>,<span class="st">&quot;Southwest&quot;</span>,<span class="st">&quot;RockyMountains&quot;</span>,<span class="st">&quot;FarWest&quot;</span>,<span class="st">&quot;NA&quot;</span>), <span class="dt">multiple =</span> <span class="ot">TRUE</span>),
           <span class="kw">selectInput</span>(<span class="st">&quot;location&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Geographical Location:&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">&quot;City&quot;</span>,<span class="st">&quot;Suburb&quot;</span>,<span class="st">&quot;Town&quot;</span>,<span class="st">&quot;Rural&quot;</span>)),
-          <span class="kw">numericInput</span>(<span class="st">&quot;cost&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your ideal cost/yr:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100000</span>, <span class="dt">step =</span> <span class="ot">NA</span>),
+          <span class="kw">numericInput</span>(<span class="st">&quot;cost&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Ideal cost/yr range excluding scholarships:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100000</span>, <span class="dt">step =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100000</span>)),
           <span class="kw">numericInput</span>(<span class="st">&quot;diversity&quot;</span>, <span class="dt">label =</span> <span class="st">&quot;Input your ideal school racial diversity:&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>, <span class="dt">step =</span> <span class="fl">0.01</span>)
         ),
         <span class="kw">mainPanel</span>(
-          <span class="kw">h4</span>(<span class="st">&quot;fitnessIndex&quot;</span>),
-          <span class="kw">tableOutput</span>(<span class="st">&quot;output_table&quot;</span>),
           <span class="kw">h4</span>(<span class="st">&quot;List of Schools&quot;</span>),
-          <span class="kw">tableOutput</span>(<span class="st">&quot;output_table2&quot;</span>)
+          <span class="kw">tableOutput</span>(<span class="st">&quot;output_table&quot;</span>)
         )
     )
 )
@@ -247,7 +312,7 @@ ui4 &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
         </div>
       </div>
 <a href="becoming-a-proud-bayesian.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="keep-shining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="section.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

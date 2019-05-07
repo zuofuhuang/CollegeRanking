@@ -17,8 +17,11 @@ LOCALE_collapse_lac1 <- fct_collapse(full_LiberalArts$LOCALE, City = c("11","12"
 
 LOCALE_collapse_lac2 <- fct_collapse(full_LiberalArts$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
 
+LOCALE_collapse_lac3 <- fct_collapse(full_LiberalArts$LOCALE, "3" = c("11","12","13"), "2" = c("21","22","23"), "1" = c("31","32","33"), "0" = c("41","42","43"))
+
 full_LiberalArts$LOCALE_collapse_lac1 <- LOCALE_collapse_lac1
 full_LiberalArts$LOCALE_collapse_lac2 <- LOCALE_collapse_lac2
+full_LiberalArts$LOCALE_collapse_lac3 <- as.numeric(as.character(LOCALE_collapse_lac3))
 ```
 
 ```{r}
@@ -32,8 +35,11 @@ LOCALE_collapse <- fct_collapse(fullUniversity$LOCALE, City = c("11","12","13"),
 
 LOCALE_collapse2 <- fct_collapse(fullUniversity$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
 
+LOCALE_collapse3 <- fct_collapse(fullUniversity$LOCALE, "3" = c("11","12","13"), "2" = c("21","22","23"), "1" = c("31","32","33"), "0" = c("41","42","43"))
+
 fullUniversity$LOCALE_collapse <- LOCALE_collapse
 fullUniversity$LOCALE_collapse2 <- LOCALE_collapse2
+fullUniversity$LOCALE_collapse3 <- as.numeric(as.character(LOCALE_collapse3))
 ```
 
 ```{r message=FALSE, warning=FALSE}
