@@ -6,15 +6,7 @@ For our finalized Bayesian model, we intend to build predictive models for unive
 
 ### Get some intuition
 
-To get some intuition of our Bayesian model, we could check out a regression model to see what's going on.
-
-```{r eval = FALSE}
-summary(glm(full_LiberalArts$Y2018~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617  + full_LiberalArts$ADM_RATE_1617, family = "poisson"))
-```
-
-### Some additional intuition
-
-We could also build bi-variate visualizations that help us understand the individual trends: 
+We could build bi-variate visualizations that help us understand the individual trends: 
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
 c1 <- ggplot(fullUniversity, aes(x = UGDS_1617, y = as.numeric(Y2018))) +
@@ -42,9 +34,9 @@ c3 <- ggplot(fullUniversity, aes(x = ADM_RATE_1617, y = as.numeric(Y2018))) +
 grid.arrange(c1,c2,c3,nrow = 2)
 ```
 
-### Even more intuition
+### Some additional intuition
 
-For even more intuition, we start with more vague priors and slightly adjust the priors based on the summary table. It's important to note that the priors cannot be set too close to the means of the summary table in case of **overfitting**.
+For more intuition, we start with more vague priors and slightly adjust the priors based on the summary table. It's important to note that the priors cannot be set too close to the means of the summary table in case of **overfitting**.
 
 ### Building the model
 
@@ -113,15 +105,7 @@ The interval is more reflective of the intuitive estimate of Gvictor University'
 
 ### Get some intuition
 
-Similar to what we do with universities, we get some intuition for our liberal arts college model.
-
-```{r eval = FALSE}
-summary(glm(full_LiberalArts$Y2018 ~ full_LiberalArts$UGDS_1617 + full_LiberalArts$LOCALE_collapse_lac1 + full_LiberalArts$SAT_AVG_1617 + full_LiberalArts$ADM_RATE_1617, family = "poisson"))
-```
-
-### Some additional intuition
-
-We could also build bi-variate visualizations that help us understand the individual trends: 
+Similar to what we do with universities, we could build bi-variate visualizations that help us understand the individual trends: 
 
 ```{r echo = FALSE, warning = FALSE, message=FALSE}
 d1 <- ggplot(full_LiberalArts, aes(x = UGDS_1617, y = as.numeric(Y2018))) +
@@ -217,8 +201,8 @@ This is **totally reasonable**! The interval roughly reflects the intuitive esti
 
 ## Comparison and discussion
 
-Compared to the last attempts, our final model gives reasonable predictions, which is a huge progress! However, the 95% credible interval it provides doesn't provide an accurate enough interval as desired; we will keep working on adjusting priors.
+Compared to the last attempts, our final model gives reasonable predictions, which is a huge progress! However, the 95% credible interval it provides doesn't provide an accurate enough interval as desired.
 
-By creating different imaginery universities and colleges, we will be able to summarize the most important factors for universities and colleges to respectively increase their rankings. (We are still working on this!)
+By creating different imaginery universities and colleges, we are able to summarize the most important factors for universities and colleges respectively. We find that universities value SAT score as a more decisive indicator of both students' admission and their own ranking.
 
 

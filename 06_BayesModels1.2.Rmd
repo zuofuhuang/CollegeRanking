@@ -10,7 +10,7 @@ Ranking by one year of SAT score: with intuition from $\text{hist}(\sqrt{1/rgamm
 
 ### First Impression
 
-```{r}
+```{r message=FALSE,warning=FALSE,echo=FALSE}
 ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -97,7 +97,7 @@ As we discussed earlier in Chapter 6, Model 1 is overwhelmingly multicollinear; 
 
 ### First Impression
 
-```{r}
+```{r message=FALSE,warning=FALSE,echo=FALSE}
 ggplot(full_LiberalArts, aes(x = ADM_RATE_1617, y = as.numeric(Y2018), color = SAT_AVG_1617)) +
   geom_point() +
   geom_smooth(method = "lm") +

@@ -82,6 +82,7 @@ grid.arrange(g3, g4, nrow = 1)
 ## 3rd Peek
 
 "In a utilitarian age, of all other times, it is a matter of grave importance that fairy tales should be respected." -Charles Dickens
+
 &nbsp;
 
 Here's when people tend to (have the excuse to) get a little more utilitarian. Studies find that people pay more attention to ranking when ranking data is available. We (or more precisely, Zuofu) are just like that. 
@@ -110,9 +111,12 @@ p2 <- ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
 grid.arrange(p1, p2, nrow = 1)
 ```
 
+&nbsp;
+
 ## 4th Peek
 
 "Diversity: the art of thinking independently together." -Malcolm Forbes
+
 &nbsp;
 
 In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the cmommon trend between the size of the student body and diversity factors (namely, the precentage of white students and the cost of attending college).

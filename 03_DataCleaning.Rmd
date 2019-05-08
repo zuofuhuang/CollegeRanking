@@ -11,6 +11,9 @@ library(ggplot2)
 library(rjags)
 library(forcats)
 library(gridExtra)
+library(shiny)
+library(data.table)
+library(knitr)
 ```
 
 ### Load data, select and rename columns

@@ -1,5 +1,5 @@
 ---
-title: '454 Bayesian Statistics Project - College Ranking'
+title: 'MATH 454 Bayesian Statistics - College Ranking'
 author: 'Zuofu Huang and Kavya Shetty, Spring 2019 Macalester College'
 site: bookdown::bookdown_site
 output: 

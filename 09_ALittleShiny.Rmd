@@ -6,31 +6,80 @@ Like we promised, students will be able to input their personal information and 
 
 ## Shiny App
 
+Because of the difficulty of embedding a Shiny App in the bookdown, we instead include a link of our Shiny App that you could play around. Check out which colleges fit you the most!
+
+https://zuofuhuang.shinyapps.io/collegeranking/
+
 ```{R eval = FALSE}
-#build the server
-server4 <- function(input, output, session) {
+iframe(width="450", height="400", scrolling="no", frameborder="no",  url_link="https://zuofuhuang.shinyapps.io/collegeranking/")
+```
+
+## In case you are curious
+
+If you are curious about the code (which is somehow complicated), here it is! Email Zuofu for more details about the code.
+
+```{R message=FALSE, warning=FALSE, eval = FALSE}
+server4 <- function(input, output) {
   output$output_table <- renderTable({
-    datasize <- input$size
-    lowersize <- datasize[0]
-    uppersize <- datasize[1]
+    datasize <- req(input$schoolsize)
+    lowersize <- datasize[1]
+    uppersize <- datasize[2]
     full_LiberalArts1 <- full_LiberalArts %>%
       filter(UGDS_1617 > lowersize) %>%
       filter(UGDS_1617 < uppersize)
     
-    datasat <- input$sat
+    datasat <- req(input$sat)
     if (datasat > 36){
       datasat = datasat
     } else {
       datasat = datasat * 40 + 160
     }
-    satvector <- rep(NA,149)
-    for i in (0:149){
-      satvector[i] <- datasat - full_LiberalArts[i,]$SAT_AVG_1617 
+    satvector <- rep(0,149)
+    for (i in 1:149){
+      if (is.na(full_LiberalArts[i,]$SAT_AVG_1617) == TRUE){
+        satvector[i] <- NA
+      } else if (datasat - full_LiberalArts[i,]$SAT_AVG_1617 > 0 & datasat - full_LiberalArts[i,]$SAT_AVG_1617 <= 130){
+        satvector[i] <- datasat - full_LiberalArts[i,]$SAT_AVG_1617
+      } else if (datasat - full_LiberalArts[i,]$SAT_AVG_1617 > 130){
+        satvector[i] <- 130 - (datasat - full_LiberalArts[i,]$SAT_AVG_1617)*0.5
+      } else {
+        satvector[i] <- datasat - full_LiberalArts[i,]$SAT_AVG_1617
+      }
     }
     
     dataregion <- input$region
-    full_LiberalArts2 <- full_LiberalArts1 %>%
-      filter
+    if ("NewEngland" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "NewEngland")
+    }
+    if ("GreatLakes" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "GreatLakes")
+    }
+    if ("Plains" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "Plains")
+    }
+    if ("Southeast" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "Southeast")
+    }
+    if ("Southwest" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "Southwest")
+    }
+    if ("RockyMountains" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "RockyMountains")
+    }
+    if ("Farwest" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "Farwest")
+    }
+    if ("NA" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "NA")
+    }
     
     datalocation <- input$location
     if (datalocation == "City"){
@@ -39,46 +88,95 @@ server4 <- function(input, output, session) {
       datalocation <- 2
     } else if (datalocation == "Town"){
       datalocation <- 1
-    } else{
+    } else {
       datalocation <- 0
     }
     locationvector <- rep(NA,149)
-    for i in (0:149){
-      locationvector[i] <- abs(datalocation - full_LiberalArts[i,]$LOCALE_collapse_lac3)
+    for (i in 1:149){
+      locationvector[i] <- 15 * abs(datalocation - full_LiberalArts[i,]$LOCALE_collapse_lac3)
     }
     
     datacost <- input$cost
-    lowercost <- datacost[0]
-    uppercost <- datacost[1]
-    full_LiberalArts3 <- full_LiberalArts2 %>%
+    lowercost <- datacost[1]
+    uppercost <- datacost[2]
+    full_LiberalArts2 <- full_LiberalArts1 %>%
       filter(COSTT4_A_1617 > lowercost) %>%
       filter(COSTT4_A_1617 < uppercost)
     
     datadiversity <- input$diversity
-    datadiversitylow <- datadiversity - 0.2
-    datadiversityhigh <- datadiversity + 0.2
-    datadiversitylower <- datadiversity - 0.4
-    datadiversityhigher <- datadiversity + 0.4
-    full_LiberalArts4 <- full_LiberalArts3 %>%
+    datadiversitylow <- datadiversity - 0.15
+    datadiversityhigh <- datadiversity + 0.15
+    datadiversitylower <- datadiversity - 0.35
+    datadiversityhigher <- datadiversity + 0.35
+    full_LiberalArts3 <- full_LiberalArts2 %>%
       filter(UGDS_WHITE_1617 < datadiversityhigher) %>%
       filter(UGDS_WHITE_1617 > datadiversitylower)
     diversityvector <- rep(NA,149)
-    for i in (0:149){
-      if (full_LiberalArts[i,]$UGDS_WHITE_1617 > datadiversityhigh){
-        diversityvector[i] <- abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversityhigh)
+    for (i in 1:149){
+      if (is.na(full_LiberalArts[i,]$UGDS_WHITE_1617) == TRUE){
+        diversityvector[i] <- NA
+      } else if (full_LiberalArts[i,]$UGDS_WHITE_1617 > datadiversityhigh){
+        diversityvector[i] <- -500*abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversityhigh)
       } else if (full_LiberalArts[i,]$UGDS_WHITE_1617 < datadiversitylow){
-        diversityvector[i] <- abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversitylow)
-      } else{
+        diversityvector[i] <- -500*abs(full_LiberalArts[i,]$UGDS_WHITE_1617 - datadiversitylow)
+      } else {
         diversityvector[i] <- 0
       }
+    }
     
-    fitnessvector <- rep(NA,149)
-    # The code is combining the ith entry in the vectors together
+    fitnessvector <- rep(0,149)
+    for (j in 1:149){
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- 0
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- satvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- locationvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- (5/8) * satvector[j] + (3/8) * locationvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- 0.6 * locationvector[j] + 0.4 * diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- (5/7) * satvector[j] + (2/7) * diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- 0.5 * satvector[j] + 0.3 * locationvector[j] + 0.2 * diversityvector[j]
+      }
+    }
+    fitnessmatrixA <- data.frame(cbind(fitnessvector,full_LiberalArts$CollegeName))
     
-    # output should be the top 5 colleges in the filtered dataset that has the highest fitness index.
+    fitnessmatrixA <- fitnessmatrixA %>%
+      mutate(fitnessvector = as.numeric(as.character(fitnessvector)))
+
+    fittingcolleges <- rep(NA,dim(full_LiberalArts3)[1])
+    for (i in 1:dim(full_LiberalArts3)[1]){
+      fittingcolleges[i] = full_LiberalArts3[i,]$CollegeName
+    }  
+    fittingcolleges <- data.frame(fittingcolleges)
+    
+    fitnessmatrixB <- fitnessmatrixA %>%
+      semi_join(fittingcolleges, by = c("V2" = "fittingcolleges"))
+    
+    fitnessmatrixB <- fitnessmatrixB %>%
+      mutate(V2 = as.character(V2))
+    
+    fitnessmatrixB <- fitnessmatrixB[order(-fitnessmatrixB$fitnessvector),]
+    
+    fiveschools <- c(fitnessmatrixB[1,2],fitnessmatrixB[2,2],fitnessmatrixB[3,2],fitnessmatrixB[4,2],fitnessmatrixB[5,2])
+    fiveschoolindex <- c(fitnessmatrixB[1,1],fitnessmatrixB[2,1],fitnessmatrixB[3,1],fitnessmatrixB[4,1],fitnessmatrixB[5,1])
+    
+    output_table <- data.table(fiveschools,fiveschoolindex)
+    output_table
 
   })
-  
   
 }
 
@@ -88,12 +186,12 @@ ui4 <- fluidPage(
   headerPanel("Choose your inputs"),
     sidebarLayout(
         sidebarPanel(
-          numericInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 4000, step = 50, value = c(1000,2000)),
-          numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, step = NA),
+          sliderInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 4000, step = 50, value = c(0,4000)),
+          numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, value = 0, step = NA),
           selectInput("region", label = "Select **off** regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest","NA"), multiple = TRUE),
           selectInput("location", label = "Geographical Location:", choices = c("City","Suburb","Town","Rural")),
-          numericInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
-          numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, step = 0.01)
+          sliderInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
+          numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, value = 0, step = 0.01)
         ),
         mainPanel(
           h4("List of Schools"),
