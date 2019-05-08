@@ -8,15 +8,19 @@ Like we promised, students will be able to input their personal information and 
 
 Because of the difficulty of embedding a Shiny App in the bookdown, we instead include a link of our Shiny App that you could play around. Check out which colleges fit you the most!
 
+**For liberal arts colleges you are interested in**
+
 https://zuofuhuang.shinyapps.io/collegeranking/
 
-```{R eval = FALSE}
-iframe(width="450", height="400", scrolling="no", frameborder="no",  url_link="https://zuofuhuang.shinyapps.io/collegeranking/")
-```
+**For universities you are interested in**
+
+https://zuofuhuang.shinyapps.io/UniversityRanking/
 
 ## In case you are curious
 
-If you are curious about the code (which is somehow complicated), here it is! Email Zuofu for more details about the code.
+If you are curious about the code (which is somehow complicated), here it is! Email Zuofu for more details.
+
+### Code for Shiny App "collegeranking"
 
 ```{R message=FALSE, warning=FALSE, eval = FALSE}
 server4 <- function(input, output) {
@@ -34,8 +38,8 @@ server4 <- function(input, output) {
     } else {
       datasat = datasat * 40 + 160
     }
-    satvector <- rep(0,149)
-    for (i in 1:149){
+    satvector <- rep(0,147)
+    for (i in 1:147){
       if (is.na(full_LiberalArts[i,]$SAT_AVG_1617) == TRUE){
         satvector[i] <- NA
       } else if (datasat - full_LiberalArts[i,]$SAT_AVG_1617 > 0 & datasat - full_LiberalArts[i,]$SAT_AVG_1617 <= 130){
@@ -80,6 +84,10 @@ server4 <- function(input, output) {
       full_LiberalArts1 <- full_LiberalArts1 %>%
         filter(REGION_collapse != "NA")
     }
+    if ("MidEast" %in% dataregion){
+      full_LiberalArts1 <- full_LiberalArts1 %>%
+        filter(REGION_collapse != "MidEast")
+    }
     
     datalocation <- input$location
     if (datalocation == "City"){
@@ -91,8 +99,8 @@ server4 <- function(input, output) {
     } else {
       datalocation <- 0
     }
-    locationvector <- rep(NA,149)
-    for (i in 1:149){
+    locationvector <- rep(NA,147)
+    for (i in 1:147){
       locationvector[i] <- 15 * abs(datalocation - full_LiberalArts[i,]$LOCALE_collapse_lac3)
     }
     
@@ -111,8 +119,8 @@ server4 <- function(input, output) {
     full_LiberalArts3 <- full_LiberalArts2 %>%
       filter(UGDS_WHITE_1617 < datadiversityhigher) %>%
       filter(UGDS_WHITE_1617 > datadiversitylower)
-    diversityvector <- rep(NA,149)
-    for (i in 1:149){
+    diversityvector <- rep(NA,147)
+    for (i in 1:147){
       if (is.na(full_LiberalArts[i,]$UGDS_WHITE_1617) == TRUE){
         diversityvector[i] <- NA
       } else if (full_LiberalArts[i,]$UGDS_WHITE_1617 > datadiversityhigh){
@@ -124,8 +132,8 @@ server4 <- function(input, output) {
       }
     }
     
-    fitnessvector <- rep(0,149)
-    for (j in 1:149){
+    fitnessvector <- rep(0,147)
+    for (j in 1:147){
       if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == TRUE){
         fitnessvector[j] <- 0
       }
@@ -155,7 +163,7 @@ server4 <- function(input, output) {
     
     fitnessmatrixA <- fitnessmatrixA %>%
       mutate(fitnessvector = as.numeric(as.character(fitnessvector)))
-
+    
     fittingcolleges <- rep(NA,dim(full_LiberalArts3)[1])
     for (i in 1:dim(full_LiberalArts3)[1]){
       fittingcolleges[i] = full_LiberalArts3[i,]$CollegeName
@@ -175,7 +183,7 @@ server4 <- function(input, output) {
     
     output_table <- data.table(fiveschools,fiveschoolindex)
     output_table
-
+    
   })
   
 }
@@ -184,22 +192,208 @@ server4 <- function(input, output) {
 #build the user interface
 ui4 <- fluidPage(
   headerPanel("Choose your inputs"),
-    sidebarLayout(
-        sidebarPanel(
-          sliderInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 4000, step = 50, value = c(0,4000)),
-          numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, value = 0, step = NA),
-          selectInput("region", label = "Select **off** regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest","NA"), multiple = TRUE),
-          selectInput("location", label = "Geographical Location:", choices = c("City","Suburb","Town","Rural")),
-          sliderInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
-          numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, value = 0, step = 0.01)
-        ),
-        mainPanel(
-          h4("List of Schools"),
-          tableOutput("output_table")
-        )
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 4000, step = 50, value = c(0,4000)),
+      numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, value = 0, step = NA),
+      selectInput("region", label = "Select **off** regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest","NA"), multiple = TRUE),
+      selectInput("location", label = "Geographical Location:", choices = c("City","Suburb","Town","Rural")),
+      sliderInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
+      numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, value = 0, step = 0.01)
+    ),
+    mainPanel(
+      h4("List of Schools"),
+      tableOutput("output_table")
     )
+  )
 )
 
 shinyApp(ui = ui4, server = server4)
+```
 
+### Code for Shiny App "UuniversityRanking"
+
+```{R message=FALSE, warning=FALSE, eval = FALSE}
+server5 <- function(input, output) {
+  output$output_table <- renderTable({
+    datasize <- req(input$schoolsize)
+    lowersize <- datasize[1]
+    uppersize <- datasize[2]
+    fullUniversity1 <- fullUniversity %>%
+      filter(UGDS_1617 > lowersize) %>%
+      filter(UGDS_1617 < uppersize)
+    
+    datasat <- req(input$sat)
+    if (datasat > 36){
+      datasat = datasat
+    } else {
+      datasat = datasat * 40 + 160
+    }
+    satvector <- rep(0,120)
+    for (i in 1:120){
+      if (is.na(fullUniversity[i,]$SAT_AVG_1617) == TRUE){
+        satvector[i] <- NA
+      } else if (datasat - fullUniversity[i,]$SAT_AVG_1617 > 0 & datasat - fullUniversity[i,]$SAT_AVG_1617 <= 130){
+        satvector[i] <- datasat - fullUniversity[i,]$SAT_AVG_1617
+      } else if (datasat - fullUniversity[i,]$SAT_AVG_1617 > 130){
+        satvector[i] <- 130 - (datasat - fullUniversity[i,]$SAT_AVG_1617)*0.5
+      } else {
+        satvector[i] <- datasat - fullUniversity[i,]$SAT_AVG_1617
+      }
+    }
+    
+    dataregion <- input$region
+    if ("NewEngland" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "NewEngland")
+    }
+    if ("GreatLakes" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "GreatLakes")
+    }
+    if ("Plains" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "Plains")
+    }
+    if ("Southeast" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "Southeast")
+    }
+    if ("Southwest" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "Southwest")
+    }
+    if ("RockyMountains" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "RockyMountains")
+    }
+    if ("Farwest" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "Farwest")
+    }
+    if ("MidEast" %in% dataregion){
+      fullUniversity1 <- fullUniversity1 %>%
+        filter(REGION_collapse != "MidEast")
+    }
+    
+    datalocation <- input$location
+    if (datalocation == "City"){
+      datalocation <- 3
+    } else if (datalocation == "Suburb"){
+      datalocation <- 2
+    } else if (datalocation == "Town"){
+      datalocation <- 1
+    } else {
+      datalocation <- 0
+    }
+    locationvector <- rep(NA,120)
+    for (i in 1:120){
+      locationvector[i] <- 15 * abs(datalocation - fullUniversity[i,]$LOCALE_collapse3)
+    }
+    
+    datacost <- input$cost
+    lowercost <- datacost[1]
+    uppercost <- datacost[2]
+    fullUniversity2 <- fullUniversity1 %>%
+      filter(COSTT4_A_1617 > lowercost) %>%
+      filter(COSTT4_A_1617 < uppercost)
+    
+    datadiversity <- input$diversity
+    datadiversitylow <- datadiversity - 0.15
+    datadiversityhigh <- datadiversity + 0.15
+    datadiversitylower <- datadiversity - 0.35
+    datadiversityhigher <- datadiversity + 0.35
+    fullUniversity3 <- fullUniversity2 %>%
+      filter(UGDS_WHITE_1617 < datadiversityhigher) %>%
+      filter(UGDS_WHITE_1617 > datadiversitylower)
+    diversityvector <- rep(NA,120)
+    for (i in 1:120){
+      if (is.na(fullUniversity[i,]$UGDS_WHITE_1617) == TRUE){
+        diversityvector[i] <- NA
+      } else if (fullUniversity[i,]$UGDS_WHITE_1617 > datadiversityhigh){
+        diversityvector[i] <- -500*abs(fullUniversity[i,]$UGDS_WHITE_1617 - datadiversityhigh)
+      } else if (fullUniversity[i,]$UGDS_WHITE_1617 < datadiversitylow){
+        diversityvector[i] <- -500*abs(fullUniversity[i,]$UGDS_WHITE_1617 - datadiversitylow)
+      } else {
+        diversityvector[i] <- 0
+      }
+    }
+    
+    fitnessvector <- rep(0,120)
+    for (j in 1:120){
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- 0
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- satvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- locationvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == TRUE){
+        fitnessvector[j] <- (5/8) * satvector[j] + (3/8) * locationvector[j]
+      }
+      if (is.na(satvector[j]) == TRUE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- 0.6 * locationvector[j] + 0.4 * diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == TRUE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- (5/7) * satvector[j] + (2/7) * diversityvector[j]
+      }
+      if (is.na(satvector[j]) == FALSE & is.na(locationvector[j]) == FALSE & is.na(diversityvector[j]) == FALSE){
+        fitnessvector[j] <- 0.5 * satvector[j] + 0.3 * locationvector[j] + 0.2 * diversityvector[j]
+      }
+    }
+    fitnessmatrixA <- data.frame(cbind(fitnessvector,fullUniversity$UniversityName))
+    
+    fitnessmatrixA <- fitnessmatrixA %>%
+      mutate(fitnessvector = as.numeric(as.character(fitnessvector)))
+    
+    fittinguniversities <- rep(NA,dim(fullUniversity3)[1])
+    for (i in 1:dim(fullUniversity3)[1]){
+      fittinguniversities[i] = fullUniversity3[i,]$UniversityName
+    }  
+    fittinguniversities <- data.frame(fittinguniversities)
+    
+    fitnessmatrixB <- fitnessmatrixA %>%
+      semi_join(fittinguniversities, by = c("V2" = "fittinguniversities"))
+    
+    fitnessmatrixB <- fitnessmatrixB %>%
+      mutate(V2 = as.character(V2))
+    
+    fitnessmatrixB <- fitnessmatrixB[order(-fitnessmatrixB$fitnessvector),]
+    
+    fiveschools <- c(fitnessmatrixB[1,2],fitnessmatrixB[2,2],fitnessmatrixB[3,2],fitnessmatrixB[4,2],fitnessmatrixB[5,2])
+    fiveschoolindex <- c(fitnessmatrixB[1,1],fitnessmatrixB[2,1],fitnessmatrixB[3,1],fitnessmatrixB[4,1],fitnessmatrixB[5,1])
+    
+    output_table <- data.table(fiveschools,fiveschoolindex)
+    output_table
+    
+  })
+  
+}
+
+
+#build the user interface
+ui5 <- fluidPage(
+  headerPanel("Choose your inputs"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("schoolsize",label = "Acceptable range of school size:", min = 0, max = 60000, step = 500, value = c(0,60000)),
+      numericInput("sat", label = "Your standardized test score:", min = 0, max = 1600, value = 0, step = NA),
+      selectInput("region", label = "Select **off** regions:", choices = c("NewEngland","MidEast","GreatLakes","Plains","Southeast","Southwest","RockyMountains","FarWest"), multiple = TRUE),
+      selectInput("location", label = "Geographical Location:", choices = c("City","Suburb","Town","Rural")),
+      sliderInput("cost", label = "Ideal cost/yr range excluding scholarships:", min = 0, max = 100000, step = 100, value = c(0,100000)),
+      numericInput("diversity", label = "Input your ideal school racial diversity:", min = 0, max = 1, value = 0, step = 0.01)
+    ),
+    mainPanel(
+      h4("List of Schools"),
+      tableOutput("output_table")
+    )
+  )
+)
+
+shinyApp(ui = ui5, server = server5)
 ```
