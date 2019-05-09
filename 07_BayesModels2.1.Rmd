@@ -19,7 +19,7 @@ Racial diversity (UGDS_WHITE)     | racial diversity by the percentage of white 
 
 But still, ranking plays an important role in students' decision making process! We will keep working on predicting rankings and fitness with these in mind.
 
-## Possible data cleaning (Unexpected)
+## Possible data cleaning?
 
 **"Zuofu was on his way to create the best Bayesian model in the world when his dream got crushed."** 
 --Zuofu

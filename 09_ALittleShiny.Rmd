@@ -1,22 +1,22 @@
 # A Little Shiny
 
-Like we promised, students will be able to input their personal information and get a list of colleges and universities ranked top according to our **fitness index** system.
+Like we promised, students will be able to input their personal information and get a list of colleges and universities ranked top according to our **fitness index** algorithm.
 
 (In that way, Zuofu could pretend that there's such person **Zafo** with a 1580 SAT and want to go to a big school in the city.)
 
 ## Shiny App
 
-Because of the difficulty of embedding a Shiny App in the bookdown, we instead include a link of our Shiny App that you could play around. Check out which colleges fit you the most!
+Considering the difficulty of embedding a Shiny App in the bookdown, we instead include links of our Shiny App that you could play around. Check out which colleges fit you the most!
 
-**For liberal arts colleges you are interested in**
+**For liberal arts colleges you are interested in:**
 
 https://zuofuhuang.shinyapps.io/collegeranking/
 
-**For universities you are interested in**
+**For universities you are interested in:**
 
 https://zuofuhuang.shinyapps.io/UniversityRanking/
 
-## In case you are curious
+## In case you're curious
 
 If you are curious about the code (which is somehow complicated), here it is! Email Zuofu for more details.
 
@@ -211,7 +211,7 @@ ui4 <- fluidPage(
 shinyApp(ui = ui4, server = server4)
 ```
 
-### Code for Shiny App "UuniversityRanking"
+### Code for Shiny App "UniversityRanking"
 
 ```{R message=FALSE, warning=FALSE, eval = FALSE}
 server5 <- function(input, output) {

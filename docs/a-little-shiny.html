@@ -158,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.4" data-path="bayesian-models-part-1-2-liberal-arts.html"><a href="bayesian-models-part-1-2-liberal-arts.html#future-steps-1"><i class="fa fa-check"></i><b>7.4</b> Future steps</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html"><i class="fa fa-check"></i><b>8</b> Bayesian Models Part 2</a><ul>
-<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning-unexpected"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning (Unexpected)</a></li>
+<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning?</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#on-the-way-to-final-model"><i class="fa fa-check"></i><b>8.2</b> On the way to Final Model</a></li>
 <li class="chapter" data-level="8.3" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#what-are-we-thinking"><i class="fa fa-check"></i><b>8.3</b> What are we thinking?</a></li>
 </ul></li>
@@ -180,9 +180,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="10" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>10</b> A Little Shiny</a><ul>
 <li class="chapter" data-level="10.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>10.1</b> Shiny App</a></li>
-<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-you-are-curious"><i class="fa fa-check"></i><b>10.2</b> In case you are curious</a><ul>
+<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-youre-curious"><i class="fa fa-check"></i><b>10.2</b> In case you’re curious</a><ul>
 <li class="chapter" data-level="10.2.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-collegeranking"><i class="fa fa-check"></i><b>10.2.1</b> Code for Shiny App “collegeranking”</a></li>
-<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-uuniversityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UuniversityRanking”</a></li>
+<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-universityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UniversityRanking”</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -204,18 +204,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="a-little-shiny" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> A Little Shiny</h1>
-<p>Like we promised, students will be able to input their personal information and get a list of colleges and universities ranked top according to our <strong>fitness index</strong> system.</p>
+<p>Like we promised, students will be able to input their personal information and get a list of colleges and universities ranked top according to our <strong>fitness index</strong> algorithm.</p>
 <p>(In that way, Zuofu could pretend that there’s such person <strong>Zafo</strong> with a 1580 SAT and want to go to a big school in the city.)</p>
 <div id="shiny-app" class="section level2">
 <h2><span class="header-section-number">10.1</span> Shiny App</h2>
-<p>Because of the difficulty of embedding a Shiny App in the bookdown, we instead include a link of our Shiny App that you could play around. Check out which colleges fit you the most!</p>
-<p><strong>For liberal arts colleges you are interested in</strong></p>
+<p>Considering the difficulty of embedding a Shiny App in the bookdown, we instead include links of our Shiny App that you could play around. Check out which colleges fit you the most!</p>
+<p><strong>For liberal arts colleges you are interested in:</strong></p>
 <p><a href="https://zuofuhuang.shinyapps.io/collegeranking/" class="uri">https://zuofuhuang.shinyapps.io/collegeranking/</a></p>
-<p><strong>For universities you are interested in</strong></p>
+<p><strong>For universities you are interested in:</strong></p>
 <p><a href="https://zuofuhuang.shinyapps.io/UniversityRanking/" class="uri">https://zuofuhuang.shinyapps.io/UniversityRanking/</a></p>
 </div>
-<div id="in-case-you-are-curious" class="section level2">
-<h2><span class="header-section-number">10.2</span> In case you are curious</h2>
+<div id="in-case-youre-curious" class="section level2">
+<h2><span class="header-section-number">10.2</span> In case you’re curious</h2>
 <p>If you are curious about the code (which is somehow complicated), here it is! Email Zuofu for more details.</p>
 <div id="code-for-shiny-app-collegeranking" class="section level3">
 <h3><span class="header-section-number">10.2.1</span> Code for Shiny App “collegeranking”</h3>
@@ -406,8 +406,8 @@ ui4 &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 
 <span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui4, <span class="dt">server =</span> server4)</code></pre></div>
 </div>
-<div id="code-for-shiny-app-uuniversityranking" class="section level3">
-<h3><span class="header-section-number">10.2.2</span> Code for Shiny App “UuniversityRanking”</h3>
+<div id="code-for-shiny-app-universityranking" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Code for Shiny App “UniversityRanking”</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">server5 &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
   output<span class="op">$</span>output_table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({
     datasize &lt;-<span class="st"> </span><span class="kw">req</span>(input<span class="op">$</span>schoolsize)

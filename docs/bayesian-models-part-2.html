@@ -158,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.4" data-path="bayesian-models-part-1-2-liberal-arts.html"><a href="bayesian-models-part-1-2-liberal-arts.html#future-steps-1"><i class="fa fa-check"></i><b>7.4</b> Future steps</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html"><i class="fa fa-check"></i><b>8</b> Bayesian Models Part 2</a><ul>
-<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning-unexpected"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning (Unexpected)</a></li>
+<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning?</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#on-the-way-to-final-model"><i class="fa fa-check"></i><b>8.2</b> On the way to Final Model</a></li>
 <li class="chapter" data-level="8.3" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#what-are-we-thinking"><i class="fa fa-check"></i><b>8.3</b> What are we thinking?</a></li>
 </ul></li>
@@ -180,9 +180,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="10" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>10</b> A Little Shiny</a><ul>
 <li class="chapter" data-level="10.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>10.1</b> Shiny App</a></li>
-<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-you-are-curious"><i class="fa fa-check"></i><b>10.2</b> In case you are curious</a><ul>
+<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-youre-curious"><i class="fa fa-check"></i><b>10.2</b> In case you’re curious</a><ul>
 <li class="chapter" data-level="10.2.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-collegeranking"><i class="fa fa-check"></i><b>10.2.1</b> Code for Shiny App “collegeranking”</a></li>
-<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-uuniversityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UuniversityRanking”</a></li>
+<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-universityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UniversityRanking”</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -255,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </table>
 <p> </p>
 <p>But still, ranking plays an important role in students’ decision making process! We will keep working on predicting rankings and fitness with these in mind.</p>
-<div id="possible-data-cleaning-unexpected" class="section level2">
-<h2><span class="header-section-number">8.1</span> Possible data cleaning (Unexpected)</h2>
+<div id="possible-data-cleaning" class="section level2">
+<h2><span class="header-section-number">8.1</span> Possible data cleaning?</h2>
 <p><strong>“Zuofu was on his way to create the best Bayesian model in the world when his dream got crushed.”</strong> –Zuofu</p>
 <p>We were experimenting with our final model of rankings ~ predictors when we found out that more schools than we estimated had NA in their SAT score section (do not provide standardized test scores). We subsequently found that NAs exist throughout our dataset.</p>
 <p>Since our final goal is to create an interactive tool for students to evaluate their compatibility with colleges, we decide to <em>leave these NAs alone</em> until the final phase. The working plan is to re-weigh variables when building our fitness index algorithm. The weight of NA variables will be set to <span class="math inline">\(0\)</span> by an if statement, and other variables will have a higher weight proportionally in correspondence.</p>

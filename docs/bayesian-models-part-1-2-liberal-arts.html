@@ -158,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.4" data-path="bayesian-models-part-1-2-liberal-arts.html"><a href="bayesian-models-part-1-2-liberal-arts.html#future-steps-1"><i class="fa fa-check"></i><b>7.4</b> Future steps</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html"><i class="fa fa-check"></i><b>8</b> Bayesian Models Part 2</a><ul>
-<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning-unexpected"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning (Unexpected)</a></li>
+<li class="chapter" data-level="8.1" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#possible-data-cleaning"><i class="fa fa-check"></i><b>8.1</b> Possible data cleaning?</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#on-the-way-to-final-model"><i class="fa fa-check"></i><b>8.2</b> On the way to Final Model</a></li>
 <li class="chapter" data-level="8.3" data-path="bayesian-models-part-2.html"><a href="bayesian-models-part-2.html#what-are-we-thinking"><i class="fa fa-check"></i><b>8.3</b> What are we thinking?</a></li>
 </ul></li>
@@ -180,9 +180,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="10" data-path="a-little-shiny.html"><a href="a-little-shiny.html"><i class="fa fa-check"></i><b>10</b> A Little Shiny</a><ul>
 <li class="chapter" data-level="10.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#shiny-app"><i class="fa fa-check"></i><b>10.1</b> Shiny App</a></li>
-<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-you-are-curious"><i class="fa fa-check"></i><b>10.2</b> In case you are curious</a><ul>
+<li class="chapter" data-level="10.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#in-case-youre-curious"><i class="fa fa-check"></i><b>10.2</b> In case you’re curious</a><ul>
 <li class="chapter" data-level="10.2.1" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-collegeranking"><i class="fa fa-check"></i><b>10.2.1</b> Code for Shiny App “collegeranking”</a></li>
-<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-uuniversityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UuniversityRanking”</a></li>
+<li class="chapter" data-level="10.2.2" data-path="a-little-shiny.html"><a href="a-little-shiny.html#code-for-shiny-app-universityranking"><i class="fa fa-check"></i><b>10.2.2</b> Code for Shiny App “UniversityRanking”</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -287,7 +287,7 @@ liberal_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -1.708762                     63.59236</code></pre>
+## 1                     -2.44601                     62.88611</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-1,63)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -434,7 +434,7 @@ liberal_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                     -1835014                      1562267</code></pre>
+## 1                     -1811537                      1646786</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <strong>not pretty!</strong> This means that we over-evaluate the variability of a lot of predictors.</p>
 </div>
 </div>
