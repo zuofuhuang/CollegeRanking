@@ -24,6 +24,12 @@ It appears to be a linear relationship!
 
 ### Building the model
 
+$$\begin{align} Y_i & \sim N(\beta_0 + \beta_1X_i,\tau_0) \\ 
+\beta_0 & \sim N(300,250000^{-1}) \\ 
+\beta_1 & \sim N(0,100^{-1}) \\ 
+\tau_0 & \sim Gamma(7,4000) \end{align}$$
+
+
 ```{r}
 # DEFINE the model
 university_model_0 <- "model{
@@ -99,6 +105,13 @@ anova(university_linear_1)
 **For the sake of scientific experiment (and to catch the audience's interest)**, we still did a Bayesian model and Bayesian posterior inference. We found out that this model does a slightly better job at predicting college rankings (by eliminating negative rankings) because it naturally contains more information as we increase the number of predictors. The change is **not** significant enough to call it an improvement.
 
 ### Building the model
+
+$$\begin{align} Y_i & \sim N(\beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \beta_3X_{3i},\tau_{\text{big}}) \\ 
+\beta_0 & \sim N(0,250000^{-1}) \\ 
+\beta_1 & \sim N(0,0.01^{-1}) \\ 
+\beta_2 & \sim N(0,0.01^{-1}) \\ 
+\beta_3 & \sim N(0,0.01^{-1}) \\ 
+\tau_{\text{big}} & \sim Gamma(7,1000) \end{align}$$
 
 ```{r}
 university_model_1 <- "model{  
@@ -186,6 +199,20 @@ summary(lm(fullUniversity$Y2018 ~ fullUniversity$SAT_AVG_1617 + fullUniversity$A
 ```
 
 #### Step 2
+
+$$\begin{align} Y_i & \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big}[i]}) \\ 
+\beta_{0i} & \sim N(b_0,\tau_0) \\ 
+\beta_{1i} & \sim N(b_1,\tau_1) \\ 
+\beta_{2i} & \sim N(b_2,\tau_2) \\ 
+\tau_{\text{big}[i]} & \sim Gamma(s,r) \\
+b_0 & \sim N(180,4000^{-1}) \\ 
+\tau_0 & \sim N(30, 1/9) \\ 
+b_1 & \sim N(-0.1,0.001^{-1}) \\ 
+\tau_1 & \sim N(1000, 0.001^{-1}) \\ 
+b_2 & \sim N(80,100^{-1}) \\ 
+\tau_2 & \sim N(10, 1) \\ 
+s & \sim N(7,1) \\ 
+r & \sim N(10000, 10000^{-1}) \\  \end{align}$$
 
 ```{r}
 university_model_2 <- "model{  

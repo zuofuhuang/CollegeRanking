@@ -40,6 +40,16 @@ For more intuition, we start with more vague priors and slightly adjust the prio
 
 ### Building the model
 
+$$\begin{align} Y_i & \sim Pois(\lambda_i) \\ 
+log(\lambda_i) & =\beta_0 + \beta_1X_{1i} + \beta_2Z_i + \beta_3X_{3i} + \beta_4X_{4i} \\ 
+\beta_0 & \sim N(8,1) \\ 
+\beta_1 & \sim N(0,0.0001^{-1}) \\ 
+\beta_{21} &= 0 \\
+\beta_{22} & \sim N(0,100^{-1}) \\ 
+\beta_{23} & \sim N(0,100^{-1}) \\ 
+\beta_{3} & \sim N(0,0.1^{-1}) \\ 
+\beta_{4} & \sim N(0,100^{-1}) \end{align}$$
+
 ```{r}
 university_model_3 <- "model{  
     # Data: observations
@@ -137,6 +147,16 @@ grid.arrange(d1,d2,d3,nrow = 2)
 
 ### Building the model
 
+$$\begin{align} Y_i & \sim Pois(\lambda_i) \\ 
+log(\lambda_i) & =\beta_0 + \beta_1X_{1i} + \beta_2Z_i + \beta_3X_{3i} + \beta_4X_{4i} \\ 
+\beta_0 & \sim N(0,0.0001) \\ 
+\beta_1 & \sim N(0,0.0001^{-1}) \\ 
+\beta_{21} &= 0 \\
+\beta_{22} & \sim N(0,25^{-1}) \\ 
+\beta_{23} & \sim N(-10,25^{-1}) \\ 
+\beta_{23} & \sim N(-15,100^{-1}) \\ 
+\beta_{3} & \sim N(-0.3,0.01^{-1}) \\ 
+\beta_{4} & \sim N(36,0.1^{-1}) \end{align}$$
 
 ```{r message=FALSE, warning=FALSE}
 liberal_model_3 <- "model{  
