@@ -184,7 +184,6 @@ liberal_chains_3 <- data.frame(liberal_sim_3[[1]])
 summary(liberal_sim_3)
 ```
 
-
 ### Posterior inference
 
 For an unknown liberal arts college in a rural setting with 2000 undergraduates, student mean SAT score of 1400 and an admission rate of $25\%$ (e.g. Hvictor College), we could predict its ranking from our rjags simulation.
@@ -203,6 +202,6 @@ This is **totally reasonable**! The interval roughly reflects the intuitive esti
 
 Compared to the last attempts, our final model gives reasonable predictions, which is a huge progress! However, the 95% credible interval it provides doesn't provide an accurate enough interval as desired.
 
-By creating different imaginery universities and colleges, we are able to summarize the most important factors for universities and colleges respectively. We find that universities value SAT score as a more decisive indicator of both students' admission and their own ranking.
+By creating different imaginary universities and colleges, we are able to summarize the most important factors for universities and colleges respectively. We find that universities value SAT score as a more decisive indicator of both students' admission and their own ranking.
 
 

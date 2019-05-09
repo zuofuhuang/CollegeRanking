@@ -119,7 +119,7 @@ grid.arrange(p1, p2, nrow = 1)
 
 &nbsp;
 
-In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the cmommon trend between the size of the student body and diversity factors (namely, the precentage of white students and the cost of attending college).
+In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the common trend between the size of the student body and diversity factors (namely, the precentage of white students and the cost of attending college).
 
 ```{r}
 fullUniversity$UGDS_WHITE_1617_categ = cut(fullUniversity$UGDS_WHITE_1617, c(0,0.2,0.4,0.6,0.8,1))

@@ -8,16 +8,14 @@ We intend to create a Shiny App for students interested in finding colleges. Fin
 
 User Input in the Shiny App       | Description                                             | How users input
 ----------------------------------| --------------------------------------------------------|--------------------------------------------------
-Size of school (UGDS)             | number of undergraduate degree-seeking students         | Users can select one or more ranges below: (0,1000); (1000,1800); (1800,2500); (2500+)
+Size of school (UGDS)             | number of undergraduate degree-seeking students         | Users can select an acceptable range of undergraduate student size between 0-4000 (for LACs) or 0-60000 (for Us).
 SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with SAT  | Users can input their own SAT score. Our system will compare it with average SAT scores of each college and calculate students' compatibility. (ACT score will be automatically transformed.)
-A college's region (REGION)       | region-wise (e.g. Minnesota is in the Plains region)    | This is a decisive check-off box. Users can filter away regions where they don't want to attend college.
+A college's region (REGION)       | region-wise (e.g. Minnesota is in the Plains region)    | This is a decisive multi-checkbox. Users can filter off regions where they don't want to attend college.
 Setting (LOCALE)                  | setting (large city, small town, etc.)                  | This is a low weight variable where students can state their preference of the geographical location of colleges. Colleges that fit their description will be considered more **compatible** with students; schools will not be eliminated solely by this factor.
 Average Cost Per Year (COSTT4_A)  | average cost of attendance per year                     | Users can use a slidebar to set their preferred full tuition range.
 Racial diversity (UGDS_WHITE)     | racial diversity by the percentage of white students    | Users can select a preferred percentage. Schools with an incompatible percentage (>15% net difference) will be punished by the algorithm; schools will only be eliminated solely by this factor if net difference > 35%.
 
 &nbsp;
-
-But still, ranking plays an important role in students' decision making process! We will keep working on predicting rankings and fitness with these in mind.
 
 ## Possible data cleaning?
 
