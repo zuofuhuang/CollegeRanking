@@ -35,7 +35,6 @@ $$\begin{align} Y_i & \sim N(\beta_0 + \beta_1X_i,\tau_0) \\
 \beta_1 & \sim N(0,100^{-1}) \\ 
 \tau_0 & \sim Gamma(7,4000) \end{align}$$
 
-
 ```{r}
 # DEFINE the model
 university_model_0 <- "model{

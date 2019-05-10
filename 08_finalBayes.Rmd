@@ -42,7 +42,7 @@ For more intuition, we start with more vague priors and slightly adjust the prio
 
 Our final university model predicts 
 
-$$Y_i = \text{the predicted ranking of a university}$$
+$$Y_i = \text{the predicted 2018 ranking of a university}$$
 
 by
 
