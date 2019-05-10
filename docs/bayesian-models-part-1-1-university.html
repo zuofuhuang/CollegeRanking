@@ -216,6 +216,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="building-the-model" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Building the model</h3>
+<p>Let <span class="math inline">\(Y_i\)</span> denote the predicted ranking of a university in Year 2018. <span class="math inline">\(Y_i\)</span> is predicted by</p>
+<p><span class="math display">\[X_i = \text{student mean SAT score of Year 2016-17}\]</span></p>
+<p>Our model can be written as:</p>
 <p><span class="math display">\[\begin{align} Y_i &amp; \sim N(\beta_0 + \beta_1X_i,\tau_0) \\ 
 \beta_0 &amp; \sim N(300,250000^{-1}) \\ 
 \beta_1 &amp; \sim N(0,100^{-1}) \\ 
@@ -291,7 +294,7 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -18.85688                     62.33613</code></pre>
+## 1                    -19.53969                     62.47454</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -342,6 +345,12 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 </div>
 <div id="building-the-model-1" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Building the model</h3>
+<p>Similarly, we construct a linear regression model of</p>
+<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span></p>
+<p>by</p>
+<p><span class="math display">\[\begin{align} X_{1i} &amp; = \text{student mean SAT score of Year 2014-15} \\ 
+X_{2i} &amp; = \text{student mean SAT score of Year 2015-16} \\ 
+X_{3i} &amp; = \text{student mean SAT score of Year 2016-17} \end{align}\]</span></p>
 <p><span class="math display">\[\begin{align} Y_i &amp; \sim N(\beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \beta_3X_{3i},\tau_{\text{big}}) \\ 
 \beta_0 &amp; \sim N(0,250000^{-1}) \\ 
 \beta_1 &amp; \sim N(0,0.01^{-1}) \\ 
@@ -426,7 +435,7 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -14.39055                     62.92494</code></pre>
+## 1                    -15.08441                     63.07678</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
 </div>
 </div>
@@ -468,11 +477,16 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 </div>
 <div id="step-2" class="section level4">
 <h4><span class="header-section-number">6.3.2.2</span> Step 2</h4>
-<p><span class="math display">\[\begin{align} Y_i &amp; \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big}[i]}) \\ 
+<p>Next, we construct a <strong>hierarchical</strong> model (because we just learned this and wanted to show off) of</p>
+<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span></p>
+<p>by</p>
+<p><span class="math display">\[\begin{align} X_{1i} &amp; = \text{student mean SAT score of Year 2016-17} \\ 
+X_{2i} &amp; = \text{admissions rate during Year 2016-17} \end{align}\]</span></p>
+<p><span class="math display">\[\begin{align} Y_i &amp; \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big},i}) \\ 
 \beta_{0i} &amp; \sim N(b_0,\tau_0) \\ 
 \beta_{1i} &amp; \sim N(b_1,\tau_1) \\ 
 \beta_{2i} &amp; \sim N(b_2,\tau_2) \\ 
-\tau_{\text{big}[i]} &amp; \sim Gamma(s,r) \\
+\tau_{\text{big},i} &amp; \sim Gamma(s,r) \\
 b_0 &amp; \sim N(180,4000^{-1}) \\ 
 \tau_0 &amp; \sim N(30, 1/9) \\ 
 b_1 &amp; \sim N(-0.1,0.001^{-1}) \\ 
@@ -480,7 +494,7 @@ b_1 &amp; \sim N(-0.1,0.001^{-1}) \\
 b_2 &amp; \sim N(80,100^{-1}) \\ 
 \tau_2 &amp; \sim N(10, 1) \\ 
 s &amp; \sim N(7,1) \\ 
-r &amp; \sim N(10000, 10000^{-1}) \\  \end{align}\]</span></p>
+r &amp; \sim N(10000, 10000^{-1}) \end{align}\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">2</span> &lt;-<span class="st"> &quot;model{  </span>
 <span class="st">    # Data: observations</span>
 <span class="st">    for(i in 1:length(y)) {</span>
@@ -578,7 +592,7 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                     -82.3642                     144.4866</code></pre>
+## 1                    -83.63784                     144.3404</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
 </div>
 </div>

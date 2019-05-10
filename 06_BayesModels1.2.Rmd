@@ -24,6 +24,12 @@ It appears to be a linear relationship!
 
 ### Building the model
 
+Let $Y_i$ denote the predicted ranking of a liberal arts college in Year 2018. $Y_i$ is predicted by
+
+$$X_i = \text{student mean SAT score of Year 2016-17}$$
+
+Our model can be written as:
+
 $$\begin{align} Y_i & \sim N(\beta_0 + \beta_1X_i,\tau_0) \\ 
 \beta_0 & \sim N(300,250000^{-1}) \\ 
 \beta_1 & \sim N(0,100^{-1}) \\ 
@@ -125,6 +131,15 @@ summary(lm(full_LiberalArts$Y2018 ~ full_LiberalArts$SAT_AVG_1617 + full_Liberal
 
 #### Step 2
 
+Next, we construct a **hierarchical** model of 
+
+$$Y_i = \text{the predicted 2018 ranking of a liberal arts college}$$
+
+by
+
+$$\begin{align} X_{1i} & = \text{student mean SAT score of Year 2016-17} \\ 
+X_{2i} & = \text{admissions rate during Year 2016-17} \end{align}$$
+
 $$\begin{align} Y_i & \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big}[i]}) \\ 
 \beta_{0i} & \sim N(b_0,\tau_0) \\ 
 \beta_{1i} & \sim N(b_1,\tau_1) \\ 
@@ -137,7 +152,7 @@ b_1 & \sim N(-0.1,0.001^{-1}) \\
 b_2 & \sim N(80,100^{-1}) \\ 
 \tau_2 & \sim N(10, 1) \\ 
 s & \sim N(7,1) \\ 
-r & \sim N(10000, 10000^{-1}) \\  \end{align}$$
+r & \sim N(10000, 10000^{-1}) \end{align}$$
 
 ```{r}
 liberal_model_2 <- "model{  

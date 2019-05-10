@@ -40,15 +40,30 @@ For more intuition, we start with more vague priors and slightly adjust the prio
 
 ### Building the model
 
+Our final university model predicts 
+
+$$Y_i = \text{the predicted ranking of a university}$$
+
+by
+
+$$\begin{align} X_{1,i} & = \text{the number of undergraduate students in university i} \\ 
+Z_i & = \text{location of university i (City, Suburb, Town)} \\ 
+X_{3,i} & = \text{student mean SAT score of Year 2016-17} \\ 
+X_{3,i} & = \text{admissions rate during Year 2016-17} \end{align}$$
+
+Specifically:
+
 $$\begin{align} Y_i & \sim Pois(\lambda_i) \\ 
-log(\lambda_i) & =\beta_0 + \beta_1X_{1i} + \beta_2Z_i + \beta_3X_{3i} + \beta_4X_{4i} \\ 
+log(\lambda_i) & = \beta_0 + \beta_1X_{1,i} + \beta_{2,1}Z_{1,i} + \beta_{2,2}Z_{2,i} + \beta_{2,3}Z_{3,i} + \beta_3X_{3,i} + \beta_4X_{4,i} \\ 
 \beta_0 & \sim N(8,1) \\ 
 \beta_1 & \sim N(0,0.0001^{-1}) \\ 
-\beta_{21} &= 0 \\
-\beta_{22} & \sim N(0,100^{-1}) \\ 
-\beta_{23} & \sim N(0,100^{-1}) \\ 
+\beta_{2,1} & = 0 \\
+\beta_{2,2} & \sim N(0,100^{-1}) \\ 
+\beta_{2,3} & \sim N(0,100^{-1}) \\ 
 \beta_{3} & \sim N(0,0.1^{-1}) \\ 
 \beta_{4} & \sim N(0,100^{-1}) \end{align}$$
+
+where $Z_{1,i}$ indicates if a liberal arts college is in the city (reference level); $Z_{2,i}$ indicates if a college is in the suburb setting; $Z_{3,i}$ indicates if a college is in the town setting.
 
 ```{r}
 university_model_3 <- "model{  
@@ -147,16 +162,31 @@ grid.arrange(d1,d2,d3,nrow = 2)
 
 ### Building the model
 
+Our final liberal arts college model predicts 
+
+$$Y_i = \text{the predicted 2018 ranking of a liberal arts college}$$
+
+by
+
+$$\begin{align} X_{1,i} & = \text{the number of undergraduate students in liberal arts college i} \\ 
+Z_i & = \text{location of liberal arts college i (City, Rural, Suburb, Town)} \\ 
+X_{3,i} & = \text{student mean SAT score of Year 2016-17} \\ 
+X_{3,i} & = \text{admissions rate during Year 2016-17} \end{align}$$
+
+Specifically:
+
 $$\begin{align} Y_i & \sim Pois(\lambda_i) \\ 
-log(\lambda_i) & =\beta_0 + \beta_1X_{1i} + \beta_2Z_i + \beta_3X_{3i} + \beta_4X_{4i} \\ 
+log(\lambda_i) & = \beta_0 + \beta_1X_{1,i} + \beta_{2,1}Z_{1,i} + \beta_{2,2}Z_{2,i} + \beta_{2,3}Z_{3,i} + \beta_{2,4}Z_{4,i} + \beta_3X_{3,i} + \beta_4X_{4,i} \\ 
 \beta_0 & \sim N(0,0.0001) \\ 
 \beta_1 & \sim N(0,0.0001^{-1}) \\ 
-\beta_{21} &= 0 \\
-\beta_{22} & \sim N(0,25^{-1}) \\ 
-\beta_{23} & \sim N(-10,25^{-1}) \\ 
-\beta_{23} & \sim N(-15,100^{-1}) \\ 
+\beta_{2,1} &= 0 \\
+\beta_{2,2} & \sim N(0,25^{-1}) \\ 
+\beta_{2,3} & \sim N(-10,25^{-1}) \\ 
+\beta_{2,4} & \sim N(-15,100^{-1}) \\ 
 \beta_{3} & \sim N(-0.3,0.01^{-1}) \\ 
 \beta_{4} & \sim N(36,0.1^{-1}) \end{align}$$
+
+where $Z_{1,i}$ indicates if a liberal arts college is in the city (reference level); $Z_{2,i}$ indicates if a college is in the rural setting; $Z_{3,i}$ indicates if a college is in the suburb setting; $Z_{4,i}$ indicates if a college is in the town setting.
 
 ```{r message=FALSE, warning=FALSE}
 liberal_model_3 <- "model{  
