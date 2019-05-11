@@ -140,6 +140,8 @@ by
 $$\begin{align} X_{1i} & = \text{student mean SAT score of Year 2016-17} \\ 
 X_{2i} & = \text{admissions rate during Year 2016-17} \end{align}$$
 
+where
+
 $$\begin{align} Y_i & \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big}[i]}) \\ 
 \beta_{0i} & \sim N(b_0,\tau_0) \\ 
 \beta_{1i} & \sim N(b_1,\tau_1) \\ 

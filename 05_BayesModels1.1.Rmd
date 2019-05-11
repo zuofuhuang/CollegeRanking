@@ -121,6 +121,8 @@ $$\begin{align} X_{1i} & = \text{student mean SAT score of Year 2014-15} \\
 X_{2i} & = \text{student mean SAT score of Year 2015-16} \\ 
 X_{3i} & = \text{student mean SAT score of Year 2016-17} \end{align}$$
 
+where 
+
 $$\begin{align} Y_i & \sim N(\beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \beta_3X_{3i},\tau_{\text{big}}) \\ 
 \beta_0 & \sim N(0,250000^{-1}) \\ 
 \beta_1 & \sim N(0,0.01^{-1}) \\ 
@@ -223,6 +225,8 @@ by
 
 $$\begin{align} X_{1i} & = \text{student mean SAT score of Year 2016-17} \\ 
 X_{2i} & = \text{admissions rate during Year 2016-17} \end{align}$$
+
+where 
 
 $$\begin{align} Y_i & \sim N(\beta_{0i} + \beta_{1i}X_{1i} + \beta_{2i}X_{2i},\tau_{\text{big},i}) \\ 
 \beta_{0i} & \sim N(b_0,\tau_0) \\ 
