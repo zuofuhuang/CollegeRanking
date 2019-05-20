@@ -1,0 +1,42 @@
+# Keep Shining
+
+## The Good, The Bad & The Shiny
+
+**The Good (Major Takeaways)**
+
+We were able to model college rankings and discovered that predictors such as school size, average SAT score, setting (locale), and admission rate were especially valuable in determining the ranking a given school receives.
+
+We developed a tool for students to use that fits them with a school based on a series of inputs they produce. This allows for a more specialized ranking process for individual students.
+
+**The Bad (Limitations)**
+
+Our data does not include information such as professors' salaries, financial aid, & GPA (graduates in the top 10%) which based on the literature, we know are strong markers of "school quality". We were unable to take these into account in our analysis. As a result, our model range is not as specific as desired.
+
+We also had a lot of information that was missing for some schools and some designations that were rather unclear. In the future, we would love to include regions that are more meaningful to us and would appreciate more complete ranking information.
+
+
+**The Shiny (Further Research)**
+
+We only included 3 years of data--in the future, it would be interested to look at changes over longer spans of time.
+
+We would love to continue to add complexity to the Shiny App we created, take into account more variables, and potentially reconfigure some of the functionality. We might try to cluster schools. 
+
+It would be interesting to do a sentiment analysis and take a look at how school descriptions and admissions outreach affect ranking and student choice. Application data would also be a fascinating element to look at. 
+
+## Citations
+
+1. Dill, David D, and Maarja Soo. “Academic Quality, League Tables, and Public Policy: A Cross-National Analysis of University Ranking Systems.” Higher Education, vol. 49, no. 4, 2005, pp. 495–533.
+
+2. Hou, Angela Yung-Chi, et al. “Is There a Gap between Students’ Preference and University Presidents’ Concern Over College Ranking Indicators?: A Case Study of ‘College Navigator in Taiwan.’” Higher Education : The International Journal of Higher Education Research, vol. 64, no. 6, 2012, pp. 767–787., doi:10.1007/s10734-012-9524-5.
+
+3. Luca, Michael, and Jonathan Smith. “Salience in Quality Disclosure: Evidence from the U.s. News College Rankings.” Journal of Economics & Management Strategy, vol. 22, no. 1, 2013, pp. 58–77., doi:10.1111/jems.12003.
+
+4. Morse, Robert, and Matt Mason. "How U.S. News Collects Best Colleges Rankings Data." U.S. News & World Report. 9 Sept. 2018. U.S. News & World Report. 11 May 2019 &lt;https://www.usnews.com/education/best-colleges/articles/how-us-news-collects-rankings-data&gt;.
+
+## Special Thanks at Zuofu's Github
+
+Here, I want to offer special thanks to my project partner Kavya that offers me a tremendous amount of support. During almost two months of working eight hours an week on the project, Kavya has become a dear friend. Kavya graduated May 2019: I wish you all the best!
+
+It has not been easy (as I've learned myself :) to take two capstones in my sophomore year. An essential reason I pulled through is because I have two of the best professors in the world: Dr. Alicia Johnson (Bayesian Statistics) and Dr. Brianna Heggeseth (Mathematical Statistics). I thank Alicia for her help throughout the progress of this project; the project certainly wouldn't even come close without her. I thank Brianna for discussing bookdown and helping me debug Shiny App.
+
+Department of MSCS has also been offering me a great deal of support; it's my honor to be an AMS major at Macalester! 

@@ -1,48 +1,56 @@
-# Visualization
+# Visualizations
 
 **Intuitively, what's going on?**
 
 ## 1st & 2nd Peeks
 
-In our first and second peeks, we are interested in **geographical locations** of universities and colleges. It is surprising to learn that students, when choosing schools, give much weight to a school's geographical location. We investigate two variables that contribute to prospective students' choice, giving side-by-side plots that reflect how the variables vary between universities and liberal arts colleges.
+In our first and second peeks, we are interested in **geographical locations** of universities and colleges. It might be surprising to learn that students, when choosing schools, give quite a bit of weight to a school's geographical location. We investigate two variables that contribute to prospective students' choices, giving side-by-side plots that reflect how the variables vary between universities and liberal arts colleges.
 
-```{r}
+**Variable Collapses**
+
+We collapsed and renamed the "REGION" variable based on the College Scorecard Data Dictionary. Excluded are "0" which represents the US Service Schools and "9" which represents the Outlying Areas, since none of the schools on our list fall in either category. We also ensured that the REGION variable was being treated as a character instead of an integer.
+
+```{r message=FALSE, warning=FALSE}
 REGION_collapse <- fct_collapse(as.character(full_LiberalArts$REGION), NewEngland = "1", MidEast = "2", GreatLakes = "3", Plains = "4", Southeast = "5", Southwest = "6", RockyMountains = "7", FarWest = "8")
 
 full_LiberalArts$REGION_collapse <- REGION_collapse
 ```
 
-```{r}
+We did a similar process for the LOCALE variable. We collapsed and renamed the variable based on the College Scorecard Data Dictionary. We first collapsed LOCALE into the more general setting groups a user would recognize (city, town, suburb, and rural). We also preserved the original designations in order to look at distributions within the larger categories.
+
+```{r message=FALSE, warning=FALSE}
+
+
 LOCALE_collapse_lac1 <- fct_collapse(full_LiberalArts$LOCALE, City = c("11","12","13"), Suburb = c("21","22","23"), Town = c("31","32","33"), Rural = c("41","42","43"))
 
 LOCALE_collapse_lac2 <- fct_collapse(full_LiberalArts$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
 
-LOCALE_collapse_lac3 <- fct_collapse(full_LiberalArts$LOCALE, "3" = c("11","12","13"), "2" = c("21","22","23"), "1" = c("31","32","33"), "0" = c("41","42","43"))
-
 full_LiberalArts$LOCALE_collapse_lac1 <- LOCALE_collapse_lac1
 full_LiberalArts$LOCALE_collapse_lac2 <- LOCALE_collapse_lac2
-full_LiberalArts$LOCALE_collapse_lac3 <- as.numeric(as.character(LOCALE_collapse_lac3))
 ```
 
-```{r}
+**The process described above was repeated on the University dataset.**
+
+```{r message=FALSE, warning=FALSE}
+
 REGION_collapse <- fct_collapse(as.character(fullUniversity$REGION), NewEngland = "1", MidEast = "2", GreatLakes = "3", Plains = "4", Southeast = "5", Southwest = "6", RockyMountains = "7", FarWest = "8")
 
 fullUniversity$REGION_collapse <- REGION_collapse
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 LOCALE_collapse <- fct_collapse(fullUniversity$LOCALE, City = c("11","12","13"), Suburb = c("21","22","23"), Town = c("31","32","33"), Rural = c("41","42","43"))
 
 LOCALE_collapse2 <- fct_collapse(fullUniversity$LOCALE, LargeCity = "11", MidsizeCity = "12", SmallCity = "13", LargeSuburb = "21", MidsizeSuburb = "22", SmallSuburb = "23", FringeTown = "31", DistantTown = "32", RemoteTown = "33", FringeRural = "41", DistantRural = "42", RemoteTown = "43")
 
-LOCALE_collapse3 <- fct_collapse(fullUniversity$LOCALE, "3" = c("11","12","13"), "2" = c("21","22","23"), "1" = c("31","32","33"), "0" = c("41","42","43"))
-
 fullUniversity$LOCALE_collapse <- LOCALE_collapse
 fullUniversity$LOCALE_collapse2 <- LOCALE_collapse2
-fullUniversity$LOCALE_collapse3 <- as.numeric(as.character(LOCALE_collapse3))
 ```
 
-```{r message=FALSE, warning=FALSE}
+
+### Visualization 1: Region & Setting
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 g1 <- ggplot(fullUniversity, aes(x = REGION_collapse, fill = LOCALE_collapse)) +
   geom_bar() +
   xlab("Region") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
@@ -58,22 +66,29 @@ g2 <- ggplot(full_LiberalArts, aes(x = REGION_collapse, fill = LOCALE_collapse_l
 grid.arrange(g1, g2, nrow = 2)
 ```
 
-```{r message=FALSE, warning=FALSE}
+Aside from the fact that liberal arts colleges tend to have a little more variation in their setting (LOCALE) breakdown with the extra "rural" designation, we find that for universities, in all regions, a majority of the schools are in "city" locations. The largest proportion of schools are in the MidEast, then the Southeast, and then the Great Lakes region. For liberal arts colleges, there is a more even split regionally, with the MidEast and Southeast still having the most, but the GreatLakes, NewEngland, Plan, and FarWest not far behind. There are a lot of city schools (about half) in the Southeast, but otherwise, there seems to be either even splits or more schools that are in towns and suburbs.
+
+### Visualization 2: General Locale & Breakdown
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 g3 <- ggplot(fullUniversity, aes(x = LOCALE_collapse, fill = LOCALE_collapse2)) +
   geom_bar() +
   xlab("Geographical Location") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
   ggtitle("Location of Universities, broken down by size") +
-  theme(plot.title = element_text(size = 10))
+  theme(plot.title = element_text(size = 9))
 
 g4 <- ggplot(full_LiberalArts, aes(x = LOCALE_collapse_lac1, fill = LOCALE_collapse_lac2)) +
   geom_bar() +
   xlab("Geographical Location") + scale_fill_discrete(name = "Breakdown") + ylab("Count") +
   ggtitle("Location of Liberal Arts Colleges, broken down by size") +
-  theme(plot.title = element_text(size = 9.5))  +
+  theme(plot.title = element_text(size = 8))  +
   theme(axis.text.x = element_text(angle = 30))
   
 grid.arrange(g3, g4, nrow = 1)
 ```
+
+This next plot is looking at the distribution among and within the locale categories. We see again that a majority (almost 4 times) as many universities are in a cities as there are in suburbs and very few universities are located in towns. Of the cities, about half are in large cities, with about a quarter each in midsize and small cities. Of the suburbs, most are in large suburbs. As we saw before, liberal arts colleges are a little more geographically diverse, with roughly the same proportion of schools divides among the city, suburb, and town designations. Unlike universities, most liberal arts colleges located in cities are in smaller cities, large suburbs, and distant towns. 
+ 
  
 &nbsp;
 
@@ -89,7 +104,7 @@ Here's when people tend to (have the excuse to) get a little more utilitarian. S
 
 SAT is usually one of the major indicators of students' fitness with certain colleges, both from students' and colleges' perspective. We do a bi-variate visualization between average SAT score of 2016-2017 academic year and university ranking of Year 2018. If you look further in our project (which hopefully you do!), you will see this is the basis of our first introductory model.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 p1 <- ggplot(fullUniversity, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -111,6 +126,7 @@ p2 <- ggplot(full_LiberalArts, aes(x = SAT_AVG_1617, y = as.numeric(Y2018))) +
 grid.arrange(p1, p2, nrow = 1)
 ```
 
+In this plot, we investigate the correlation between standardized test scores (SAT) and college ranking. From the literature and past knowledge, we believe that test scores are one of the factors that can be a marker of quality for ranking compilers. In this case, we do see a generally negative correlation between average SAT score and ranking. As SAT scores go up, rankings get smaller (better). The university scores are a bit more clustered, while there is a larger spread between the liberal arts college scores. This might be an indication of the weight put on standardized test scores for larger universities and the more holistic approach liberal arts colleges have.
 &nbsp;
 
 ## 4th Peek
@@ -119,17 +135,17 @@ grid.arrange(p1, p2, nrow = 1)
 
 &nbsp;
 
-In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the common trend between the size of the student body and diversity factors (namely, the precentage of white students and the cost of attending college).
+In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the common trend between the size of the student body and diversity factors (namely, the percentage of white students and the cost of attending college).
 
 ```{r}
 fullUniversity$UGDS_WHITE_1617_categ = cut(fullUniversity$UGDS_WHITE_1617, c(0,0.2,0.4,0.6,0.8,1))
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(fullUniversity, aes(x = UGDS_1617, y = UGDS_WHITE_1617, color = COSTT4_A_1617)) +
   geom_point() +
-  xlab("Size of Undergraduate Student Body") + scale_fill_discrete(name = "Cost for Year 2017") + ylab("Percentage of White Students") +
-  ggtitle("Economic and Racial Diversity of Universities")
+  xlab("Size of Undergraduate Student Body") + ylab("Percentage of White Students") +
+  ggtitle("Economic and Racial Diversity of Universities") + labs(color="Cost for Year 2017")
 ```
 
 We didn't see an observable relationship between cost and the percentage of white students; we did observe that universities of a smaller size tend to correlate with a much larger cost.
@@ -138,11 +154,11 @@ We didn't see an observable relationship between cost and the percentage of whit
 full_LiberalArts$UGDS_WHITE_1617_categ = cut(full_LiberalArts$UGDS_WHITE_1617, c(0,0.2,0.4,0.6,0.8,1))
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(full_LiberalArts, aes(x = UGDS_1617, y = UGDS_WHITE_1617, color = COSTT4_A_1617)) +
   geom_point() +
-  xlab("Size of Undergraduate Student Body") + scale_fill_discrete(name = "Cost for Year 2017") + ylab("Percentage of White Students") +
-  ggtitle("Economic and Racial Diversity of Liberal Arts Colleges")
+  xlab("Size of Undergraduate Student Body") + ylab("Percentage of White Students") +
+  ggtitle("Economic and Racial Diversity of Liberal Arts Colleges") + labs(color = "Cost for Year 2017")
 ```
 
-In terms of liberal arts colleges, we can see that the data points (schools) are more clustered at the top section of the plot. This makes sense to us given that most liberal arts colleges are private compared to universities. We didn't see an observable relationship between cost and the percentage of white students
+In terms of liberal arts colleges, we can see that the data points (schools) are more clustered at the top section of the plot. This makes sense to us given that most liberal arts colleges are private compared to universities. We didn't see an observable relationship between cost and the percentage of white students.

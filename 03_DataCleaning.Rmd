@@ -18,8 +18,10 @@ library(knitr)
 
 ### Load data, select and rename columns
 
+**If you want to reproduce our work, make sure to change your file path :)**
+
 ```{r}
-myData1617 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv")
+myData1617 <- read.csv("/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv")
 
 myData1617_sub <- myData1617 %>%
   select(INSTNM,REGION,LOCALE,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
@@ -30,7 +32,7 @@ names(myData1617_sub) <- c("INSTNM", "REGION","LOCALE","UGDS_1617","ADM_RATE_161
 ```
 
 ```{r}
-myData1516 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv")
+myData1516 <- read.csv(file = "/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv")
 
 myData1516_sub <- myData1516 %>%
   select(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
@@ -41,7 +43,7 @@ names(myData1516_sub) <- c("INSTNM","UGDS_1516","ADM_RATE_1516","ACTCMMID_1516",
 ```
 
 ```{r}
-myData1415 <- read.csv(file = "/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv")
+myData1415 <- read.csv(file = "/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv")
 
 myData1415_sub <- myData1415 %>%
   select(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)
@@ -52,14 +54,14 @@ names(myData1415_sub) <- c("INSTNM","UGDS_1415","ADM_RATE_1415","ACTCMMID_1415",
 ```
 
 ```{r}
-USNewsUniversity <- read_excel("/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx")
+USNewsUniversity <- read_excel("/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx")
 newUniversity <- USNewsUniversity %>%
  select(c(UniversityName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) %>%
   na.omit()
 ```
 
 ```{r}
-USNewsLiberalArts <- read_excel("/Users/kevinhuang/Desktop/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx")
+USNewsLiberalArts <- read_excel("/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx")
 newLiberalArts <- USNewsLiberalArts %>%
  select(c(CollegeName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) %>%
   na.omit()

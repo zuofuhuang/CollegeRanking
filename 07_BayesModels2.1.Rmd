@@ -1,63 +1,37 @@
-# Bayesian Models Part 2
-
-**HINT: After you start SIMPLE, everything suddenly goes really complicated.**
-
-After the last checkpoint, we realize that ranking is not the sole factor in students' choice (sometimes not even an important factor). To accurately represent the school selection process, we find it more appropriate to create a new concept called **Fitness Index** that measures the level of fitness between the student and schools.
-
-We intend to create a Shiny App for students interested in finding colleges. Finding inputing predictive variables, the system will provide a list of top liberal arts colleges and universities.
-
-User Input in the Shiny App       | Description                                             | How users input
-----------------------------------| --------------------------------------------------------|--------------------------------------------------
-Size of school (UGDS)             | number of undergraduate degree-seeking students         | Users can select an acceptable range of undergraduate student size between 0-4000 (for LACs) or 0-60000 (for Us).
-SAT Scores (SAT_AVG)              | combined SAT average by year, interchangeable with SAT  | Users can input their own SAT score. Our system will compare it with average SAT scores of each college and calculate students' compatibility. (ACT score will be automatically transformed.)
-A college's region (REGION)       | region-wise (e.g. Minnesota is in the Plains region)    | This is a decisive multi-checkbox. Users can filter off regions where they don't want to attend college.
-Setting (LOCALE)                  | setting (large city, small town, etc.)                  | This is a low weight variable where students can state their preference of the geographical location of colleges. Colleges that fit their description will be considered more **compatible** with students; schools will not be eliminated solely by this factor.
-Average Cost Per Year (COSTT4_A)  | average cost of attendance per year                     | Users can use a slidebar to set their preferred full tuition range.
-Racial diversity (UGDS_WHITE)     | racial diversity by the percentage of white students    | Users can select a preferred percentage. Schools with an incompatible percentage (>15% net difference) will be punished by the algorithm; schools will only be eliminated solely by this factor if net difference > 35%.
-
-&nbsp;
-
-## Possible data cleaning?
-
-**"Zuofu was on his way to create the best Bayesian model in the world when his dream got crushed."** 
---Zuofu
-
-We were experimenting with our final model of rankings ~ predictors when we found out that more schools than we estimated had NA in their SAT score section (do not provide standardized test scores). We subsequently found that NAs exist throughout our dataset. 
-
-Since our final goal is to create an interactive tool for students to evaluate their compatibility with colleges, we decide to *leave these NAs alone* until the final phase. The working plan is to re-weigh variables when building our fitness index algorithm. The weight of NA variables will be set to $0$ by an if statement, and other variables will have a higher weight proportionally in correspondence.
-
-**"Wait for it. We will come back later to deal with you!"** --Zuofu again
+# Part 2: More Experimentation
 
 ## On the way to Final Model
 
-This is when we realize not all factors play an essential role in the college ranking algorithm. To check our understanding, we build a quick linear regression model. From its summary and anova table, we recognize the important factors: *size of undergraduate student*, *SAT score*, *admission rate*, *location* and of course *intercept*.
+After some of our previous trials, we realized that not all factors play an essential role in the college ranking algorithm. To check our understanding, we built a quick linear regression model. From its summary and anova table, we recognized the important factors were the following: *size of undergraduate student*, *SAT score*, *admission rate*, *location* and of course *intercept*.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 LinearModel <- lm(as.numeric(Y2018) ~ UGDS_1617 + LOCALE_collapse + SAT_AVG_1617 + ADM_RATE_1617 + COSTT4_A_1617 + UGDS_WHITE_1617, fullUniversity)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 summary(LinearModel)
 anova(LinearModel)
 ```
 
-OMG, what happened to the **cost** vairbale? Is it because I put the cost variable COSTT4_A_1617 in the last but two?
+OMG, what happened to the **cost** variable? Is it because we put the cost variable COSTT4_A_1617 in the second to last position?
 
-In the spirit of scientific experiment (which Kavya and Zuofu happen to have), we switch the order of our linear model and produce another anova test:
+In the spirit of scientific experiment (which Kavya and Zuofu happen to have), we switched the order of our linear model and produced another anova test:
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 LinearModel2 <- lm(as.numeric(Y2018) ~ UGDS_1617 + LOCALE_collapse + COSTT4_A_1617 + SAT_AVG_1617 + ADM_RATE_1617 + UGDS_WHITE_1617, fullUniversity)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 anova(LinearModel2)
 ```
 
-Certainly, cost remains one of the most important factors for students in the process of college selection. We also acknowledge the significant role that scholarships and financial aids play. However, the order switch experiment sufficiently shows that other variables explain an equal amount of variability.
+Certainly, cost remains one of the most important factors for students in the process of college selection. We also acknowledge the significant role that scholarships and financial aid play. However, the order switch experiment sufficiently shows that other variables explain an equal amount of variability.
 
 ## What are we thinking?
 
-From above, we made a final decision of incorporating the following variables into our Bayesian model of rankings: size of undergraduate student, SAT score, admission rate and location.
+**"Zuofu was on his way to create the best Bayesian model in the world when his dream got crushed."** --Zuofu
+
+From the above, we made the final decision to incorporate the following variables into our Bayesian model of rankings: size of undergraduate student body, average SAT score, admission rate, and location.
 
 To see how we do with universities and liberal arts colleges, check out our next chapter: **Becoming a proud Bayesian**.
 

@@ -17,7 +17,7 @@ github-repo: zuofuhuang/CollegeRanking
 
 Hello! Welcome to the bookdown of our MATH 454 Bayesian Statistics Project!
 
-We **are having** a lot of fun doing this project, and you are always welcome to come back at any point for our progress!
+We had a lot of fun doing this project, and you are always welcome to come back at any point for our progress!
 
 ![](StartingComic.png)
 
