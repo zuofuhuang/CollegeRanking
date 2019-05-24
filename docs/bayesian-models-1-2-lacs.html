@@ -300,7 +300,7 @@ liberal_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -1.804122                     63.86802</code></pre>
+## 1                    -1.917349                       63.312</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-1,63)\)</span>. Due to restrictions of this one-predictor model, we expect to see an improvement in later models.</p>
 </div>
 </div>
@@ -467,7 +467,7 @@ liberal_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                     -1926371                      2260702</code></pre>
+## 1                     -2280936                      1429255</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <strong>not pretty!</strong> This means that we over-evaluate the variability of a lot of predictors.</p>
 </div>
 </div>

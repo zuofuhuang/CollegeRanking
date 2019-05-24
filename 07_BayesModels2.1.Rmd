@@ -1,5 +1,7 @@
 # Part 2: More Experimentation
 
+**HINT: After you start simple, everything suddenly goes really complicated.**
+
 ## On the way to Final Model
 
 After some of our previous trials, we realized that not all factors play an essential role in the college ranking algorithm. To check our understanding, we built a quick linear regression model. From its summary and anova table, we recognized the important factors were the following: *size of undergraduate student*, *SAT score*, *admission rate*, *location* and of course *intercept*.
