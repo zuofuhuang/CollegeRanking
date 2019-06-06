@@ -17,7 +17,7 @@ We also had a lot of information that was missing for some schools and some desi
 
 **The Shiny (Further Research)**
 
-We only included 3 years of data--in the future, it would be interested to look at changes over longer spans of time.
+We only included 3 years of data--in the future, it would be interesting to look at changes over longer spans of time.
 
 We would love to continue to add complexity to the Shiny App we created, take into account more variables, and potentially reconfigure some of the functionality. We might try to cluster schools. 
 
