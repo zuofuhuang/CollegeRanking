@@ -31,7 +31,7 @@ grid.arrange(gg1, gg2, gg3, nrow = 2)
 
 After looking at the following plots and fitting them with generalized linear models (since Poisson models are on the log-scale), we saw generally linear relationships between rank and SAT score and admission rate. There was a pretty weak linear relationship between ranking and number of undergrads. However, having seen these plots and fit linear models to them, we were able to still move forward with our generalized linear model.
 
-### Some addition intuition
+### Some additional intuition
 
 For more intuition, we start with more vague priors and slightly adjust the priors based on the summary table. It’s important to note that the priors cannot be set too close to the means of the summary table in case of **overfitting**.
 
@@ -189,7 +189,7 @@ where $Z_{1,i}$ indicates if a liberal arts college is in the city (reference le
 $Z_{2,i}$ indicates if a college is in the rural setting; $Z_{3,i}$ indicates if a college
 is in the suburb setting; $Z_{4,i}$ indicates if a college is in the town setting.
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 liberal_model_3 <- "model{  
     # Data: observations
     for(i in 1:length(y)) {

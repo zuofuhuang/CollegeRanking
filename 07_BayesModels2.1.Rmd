@@ -1,6 +1,6 @@
 # Part 2: More Experimentation
 
-**HINT: After you start simple, everything suddenly goes really complicated.**
+**After you start simple, everything suddenly becomes really complicated.**
 
 ## On the way to Final Model
 
