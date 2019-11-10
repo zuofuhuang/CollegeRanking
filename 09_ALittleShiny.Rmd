@@ -1,6 +1,6 @@
 # A Little Shiny
 
-Websites like US News & World Report have a set of criteria with which they use to create their lists, but we ask the following: who's to say that their criteria matches yours? To accurately represent the school selection process, we found it more appropriate to create a new concept called **Fitness Index** that measures the level of fitness between a student and their school options.
+Websites like US News & World Report have a set of criteria with which they use to create their lists, but we ask the following: who's to say that their criteria matches yours? To accurately represent the school selection process, we found it more appropriate to evaluate the fitness level with a **Fitness Index** that measures the level of fitness between a student and their school options.
 
 (In that way, Zuofu could pretend that there's such person **Zafo** with a 1580 SAT who wants to go to a big school in the city.)
 
