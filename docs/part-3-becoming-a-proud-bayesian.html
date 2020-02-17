@@ -361,7 +361,7 @@ college is in the town setting.</p>
 <a class="sourceLine" id="cb89-4" data-line-number="4">university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb89-5" data-line-number="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                           20                           43</code></pre>
+## 1                           21                           42</code></pre>
 <p>The interval is more reflective of the intuitive estimate of Gvictor University’s ranking. We get a reasonable range of values <span class="math inline">\((1, 120)\)</span>, and we would predict that a school with a moderately selective admissions rate (<span class="math inline">\(25\%\)</span>) and an SAT score average of <span class="math inline">\(1400\)</span>, would fall into a “Tier 2” range (approximately between 25 and 50).</p>
 </div>
 </div>
