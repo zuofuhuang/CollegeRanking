@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Part 3: Becoming a proud Bayesian | MATH 454 Bayesian Statistics - College Ranking</title>
   <meta name="description" content="Chapter 9 Part 3: Becoming a proud Bayesian | MATH 454 Bayesian Statistics - College Ranking" />
-  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Part 3: Becoming a proud Bayesian | MATH 454 Bayesian Statistics - College Ranking" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="part-2-more-experimentation.html">
-<link rel="next" href="a-little-shiny.html">
+<link rel="prev" href="part-2-more-experimentation.html"/>
+<link rel="next" href="a-little-shiny.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -167,7 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html"><i class="fa fa-check"></i><b>9</b> Part 3: Becoming a proud Bayesian</a><ul>
 <li class="chapter" data-level="9.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#university-model"><i class="fa fa-check"></i><b>9.1</b> University Model</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#get-some-intuition"><i class="fa fa-check"></i><b>9.1.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-addition-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some addition intuition</a></li>
+<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-additional-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some additional intuition</a></li>
 <li class="chapter" data-level="9.1.3" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.3</b> Building the model</a></li>
 <li class="chapter" data-level="9.1.4" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.4</b> Model summary</a></li>
 <li class="chapter" data-level="9.1.5" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.5</b> Posterior inference</a></li>
@@ -219,8 +247,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="CollegeRanking_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <p>After looking at the following plots and fitting them with generalized linear models (since Poisson models are on the log-scale), we saw generally linear relationships between rank and SAT score and admission rate. There was a pretty weak linear relationship between ranking and number of undergrads. However, having seen these plots and fit linear models to them, we were able to still move forward with our generalized linear model.</p>
 </div>
-<div id="some-addition-intuition" class="section level3">
-<h3><span class="header-section-number">9.1.2</span> Some addition intuition</h3>
+<div id="some-additional-intuition" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Some additional intuition</h3>
 <p>For more intuition, we start with more vague priors and slightly adjust the priors based on the summary table. It’s important to note that the priors cannot be set too close to the means of the summary table in case of <strong>overfitting</strong>.</p>
 </div>
 <div id="building-the-model-5" class="section level3">
@@ -244,35 +272,37 @@ log(\lambda_i) &amp; = \beta_0 + \beta_1X_{1,i} + \beta_{2,1}Z_{1,i} + \beta_{2,
 \beta_{2,3} &amp; \sim N(0,100^{-1}) \\
 \beta_{3} &amp; \sim N(0,0.1^{-1}) \\
 \beta_{4} &amp; \sim N(0,100^{-1}) \end{align}\]</span></p>
-<p>where <span class="math inline">\(Z_{1,i}\)</span> indicates if a liberal arts college is in the city (reference level); <span class="math inline">\(Z_{2,i}\)</span> indicates if a college is in the suburb setting; <span class="math inline">\(Z_{3,i}\)</span> indicates if a college is in the town setting.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">3</span> &lt;-<span class="st"> &quot;model{  </span>
-<span class="st">    # Data: observations</span>
-<span class="st">    for(i in 1:length(y)) {</span>
-<span class="st">        y[i] ~ dpois(lambda[i])</span>
-<span class="st">        log(lambda[i]) = beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i]</span>
-<span class="st">    }</span>
-<span class="st">        # Data: subjects</span>
-<span class="st">        beta0 ~ dnorm(8, 1)</span>
-<span class="st">        beta1 ~ dnorm(0, 10000)</span>
-<span class="st">        beta2[1] &lt;- 0 </span>
-<span class="st">        beta2[2] ~ dnorm(0, 0.01)</span>
-<span class="st">        beta2[3] ~ dnorm(0, 0.01)</span>
-<span class="st">        beta3 ~ dnorm(0, 10)</span>
-<span class="st">        beta4 ~ dnorm(0, 0.01)</span>
-
-<span class="st">}&quot;</span>
-
-<span class="co"># COMPILE</span>
-
-y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(fullUniversity<span class="op">$</span>Y2018)
-
-model_data9 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>UGDS_<span class="dv">1617</span>, <span class="dt">z =</span> <span class="kw">as.numeric</span>(fullUniversity<span class="op">$</span>LOCALE_collapse), <span class="dt">x3 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>, <span class="dt">x4 =</span> fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>)
-
-model_data9 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data9)
-
-university_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">3</span>), 
-    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data9<span class="op">$</span>y, <span class="dt">x1 =</span> model_data9<span class="op">$</span>x1, <span class="dt">z =</span> <span class="kw">factor</span>(model_data9<span class="op">$</span>z), <span class="dt">x3 =</span> model_data9<span class="op">$</span>x3, <span class="dt">x4 =</span> model_data9<span class="op">$</span>x4),
-    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<p>where <span class="math inline">\(Z_{1,i}\)</span> indicates if a liberal arts college is in the city (reference level);
+<span class="math inline">\(Z_{2,i}\)</span> indicates if a college is in the suburb setting; <span class="math inline">\(Z_{3,i}\)</span> indicates if a
+college is in the town setting.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">university_model_<span class="dv">3</span> &lt;-<span class="st"> &quot;model{  </span></a>
+<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="st">    # Data: observations</span></a>
+<a class="sourceLine" id="cb84-3" data-line-number="3"><span class="st">    for(i in 1:length(y)) {</span></a>
+<a class="sourceLine" id="cb84-4" data-line-number="4"><span class="st">        y[i] ~ dpois(lambda[i])</span></a>
+<a class="sourceLine" id="cb84-5" data-line-number="5"><span class="st">        log(lambda[i]) = beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i]</span></a>
+<a class="sourceLine" id="cb84-6" data-line-number="6"><span class="st">    }</span></a>
+<a class="sourceLine" id="cb84-7" data-line-number="7"><span class="st">        # Data: subjects</span></a>
+<a class="sourceLine" id="cb84-8" data-line-number="8"><span class="st">        beta0 ~ dnorm(8, 1)</span></a>
+<a class="sourceLine" id="cb84-9" data-line-number="9"><span class="st">        beta1 ~ dnorm(0, 10000)</span></a>
+<a class="sourceLine" id="cb84-10" data-line-number="10"><span class="st">        beta2[1] &lt;- 0 </span></a>
+<a class="sourceLine" id="cb84-11" data-line-number="11"><span class="st">        beta2[2] ~ dnorm(0, 0.01)</span></a>
+<a class="sourceLine" id="cb84-12" data-line-number="12"><span class="st">        beta2[3] ~ dnorm(0, 0.01)</span></a>
+<a class="sourceLine" id="cb84-13" data-line-number="13"><span class="st">        beta3 ~ dnorm(0, 10)</span></a>
+<a class="sourceLine" id="cb84-14" data-line-number="14"><span class="st">        beta4 ~ dnorm(0, 0.01)</span></a>
+<a class="sourceLine" id="cb84-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb84-16" data-line-number="16"><span class="st">}&quot;</span></a>
+<a class="sourceLine" id="cb84-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb84-18" data-line-number="18"><span class="co"># COMPILE</span></a>
+<a class="sourceLine" id="cb84-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb84-20" data-line-number="20">y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(fullUniversity<span class="op">$</span>Y2018)</a>
+<a class="sourceLine" id="cb84-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb84-22" data-line-number="22">model_data9 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>UGDS_<span class="dv">1617</span>, <span class="dt">z =</span> <span class="kw">as.numeric</span>(fullUniversity<span class="op">$</span>LOCALE_collapse), <span class="dt">x3 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>, <span class="dt">x4 =</span> fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb84-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb84-24" data-line-number="24">model_data9 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data9)</a>
+<a class="sourceLine" id="cb84-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb84-26" data-line-number="26">university_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb84-27" data-line-number="27">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data9<span class="op">$</span>y, <span class="dt">x1 =</span> model_data9<span class="op">$</span>x1, <span class="dt">z =</span> <span class="kw">factor</span>(model_data9<span class="op">$</span>z), <span class="dt">x3 =</span> model_data9<span class="op">$</span>x3, <span class="dt">x4 =</span> model_data9<span class="op">$</span>x4),</a>
+<a class="sourceLine" id="cb84-28" data-line-number="28">    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</a></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -282,17 +312,17 @@ university_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span cl
 ##    Total graph size: 1137
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
-university_sim_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">3</span>,
-    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;beta4&quot;</span>),
-    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
-
-<span class="co"># STORE the chains in a data frame</span>
-university_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">3</span>[[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co"># SIMULATE the model</span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2">university_sim_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb86-3" data-line-number="3">    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;beta4&quot;</span>),</a>
+<a class="sourceLine" id="cb86-4" data-line-number="4">    <span class="dt">n.iter =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb86-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb86-6" data-line-number="6"><span class="co"># STORE the chains in a data frame</span></a>
+<a class="sourceLine" id="cb86-7" data-line-number="7">university_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">3</span>[[<span class="dv">1</span>]])</a></code></pre></div>
 </div>
 <div id="model-summary-5" class="section level3">
 <h3><span class="header-section-number">9.1.4</span> Model summary</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">summary</span>(university_sim_<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## 
 ## Iterations = 1001:11000
 ## Thinning interval = 1 
@@ -325,13 +355,13 @@ university_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span 
 <div id="posterior-inference-5" class="section level3">
 <h3><span class="header-section-number">9.1.5</span> Posterior inference</h3>
 <p>For an unknown university located in the city (<span class="math inline">\(\text{beta2} = 0\)</span>, since city is the reference level) with <span class="math inline">\(10000\)</span> undergraduates, student mean SAT score of <span class="math inline">\(1400\)</span> and an admission rate of <span class="math inline">\(25\%\)</span> (e.g. Gvictor University), we could predict its ranking from our rjags simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">3</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rpois</span>(<span class="dv">10000</span>, <span class="dt">lambda =</span> <span class="kw">exp</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">*</span><span class="st"> </span><span class="dv">10000</span> <span class="op">+</span><span class="st"> </span>beta3 <span class="op">*</span><span class="st"> </span><span class="dv">1400</span> <span class="op">+</span><span class="st"> </span>beta4 <span class="op">*</span><span class="st"> </span><span class="fl">0.25</span>)))
-
-university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">university_chains_<span class="dv">3</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rpois</span>(<span class="dv">10000</span>, <span class="dt">lambda =</span> <span class="kw">exp</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">*</span><span class="st"> </span><span class="dv">10000</span> <span class="op">+</span><span class="st"> </span>beta3 <span class="op">*</span><span class="st"> </span><span class="dv">1400</span> <span class="op">+</span><span class="st"> </span>beta4 <span class="op">*</span><span class="st"> </span><span class="fl">0.25</span>)))</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4">university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                           21                           43</code></pre>
+## 1                           20                           43</code></pre>
 <p>The interval is more reflective of the intuitive estimate of Gvictor University’s ranking. We get a reasonable range of values <span class="math inline">\((1, 120)\)</span>, and we would predict that a school with a moderately selective admissions rate (<span class="math inline">\(25\%\)</span>) and an SAT score average of <span class="math inline">\(1400\)</span>, would fall into a “Tier 2” range (approximately between 25 and 50).</p>
 </div>
 </div>
@@ -352,7 +382,9 @@ university_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
 arts college i} \\
 Z_i &amp; = \text{location of liberal arts college i (City, Rural, Suburb, Town)} \\
 X_{3,i} &amp; = \text{student mean SAT score of Year 2016-17} \\
-X_{3,i} &amp; = \text{admissions rate during Year 2016-17} \end{align}\]</span> Specifically: <span class="math display">\[\begin{align} Y_i &amp; \sim Pois(\lambda_i) \\
+X_{3,i} &amp; = \text{admissions rate during Year 2016-17} \end{align}\]</span>
+Specifically:
+<span class="math display">\[\begin{align} Y_i &amp; \sim Pois(\lambda_i) \\
 log(\lambda_i) &amp; = \beta_0 + \beta_1X_{1,i} + \beta_{2,1}Z_{1,i} + \beta_{2,2}Z_{2,i}
 + \beta_{2,3}Z_{3,i} + \beta_{2,4}Z_{4,i} + \beta_3X_{3,i} + \beta_4X_{4,i} \\
 \beta_0 &amp; \sim N(0,0.0001) \\
@@ -363,36 +395,36 @@ log(\lambda_i) &amp; = \beta_0 + \beta_1X_{1,i} + \beta_{2,1}Z_{1,i} + \beta_{2,
 \beta_{2,4} &amp; \sim N(-15,100^{-1}) \\
 \beta_{3} &amp; \sim N(-0.3,0.01^{-1}) \\
 \beta_{4} &amp; \sim N(36,0.1^{-1}) \end{align}\]</span></p>
-<p>where <span class="math inline">\(Z_{1,i}\)</span> indicates if a liberal arts college is in the city (reference level); <span class="math inline">\(Z_{2,i}\)</span> indicates if a college is in the rural setting; <span class="math inline">\(Z_{3,i}\)</span> indicates if a college is in the suburb setting; <span class="math inline">\(Z_{4,i}\)</span> indicates if a college is in the town setting.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_model_<span class="dv">3</span> &lt;-<span class="st"> &quot;model{  </span>
-<span class="st">    # Data: observations</span>
-<span class="st">    for(i in 1:length(y)) {</span>
-<span class="st">        y[i] ~ dpois(lambda[i])</span>
-<span class="st">        log(lambda[i]) = beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i]</span>
-<span class="st">    }</span>
-<span class="st">    # Data: subjects</span>
-<span class="st">    beta0 ~ dnorm(0, 0.0001)</span>
-<span class="st">    beta1 ~ dnorm(0, 10000)</span>
-<span class="st">    beta2[1] &lt;- 0 </span>
-<span class="st">    beta2[2] ~ dnorm(0, 0.04)</span>
-<span class="st">    beta2[3] ~ dnorm(-10, 0.04)</span>
-<span class="st">    beta2[4] ~ dnorm(-15, 0.01)</span>
-<span class="st">    beta3 ~ dnorm(-0.3, 100)</span>
-<span class="st">    beta4 ~ dnorm(36, 10)</span>
-
-<span class="st">}&quot;</span>
-
-<span class="co"># COMPILE</span>
-
-y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>Y2018)</code></pre></div>
-<pre><code>## Warning: 强制改变过程中产生了NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_data8 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, <span class="dt">x1 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>UGDS_<span class="dv">1617</span>), <span class="dt">z =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac1), <span class="dt">x3 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>), <span class="dt">x4 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))
-
-model_data8 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data8)
-
-liberal_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(liberal_model_<span class="dv">3</span>), 
-    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data8<span class="op">$</span>y, <span class="dt">x1 =</span> model_data8<span class="op">$</span>x1, <span class="dt">z =</span> <span class="kw">factor</span>(model_data8<span class="op">$</span>z), <span class="dt">x3 =</span> model_data8<span class="op">$</span>x3, <span class="dt">x4 =</span> model_data8<span class="op">$</span>x4),
-    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<p>where <span class="math inline">\(Z_{1,i}\)</span> indicates if a liberal arts college is in the city (reference level);
+<span class="math inline">\(Z_{2,i}\)</span> indicates if a college is in the rural setting; <span class="math inline">\(Z_{3,i}\)</span> indicates if a college
+is in the suburb setting; <span class="math inline">\(Z_{4,i}\)</span> indicates if a college is in the town setting.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">liberal_model_<span class="dv">3</span> &lt;-<span class="st"> &quot;model{  </span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="st">    # Data: observations</span></a>
+<a class="sourceLine" id="cb91-3" data-line-number="3"><span class="st">    for(i in 1:length(y)) {</span></a>
+<a class="sourceLine" id="cb91-4" data-line-number="4"><span class="st">        y[i] ~ dpois(lambda[i])</span></a>
+<a class="sourceLine" id="cb91-5" data-line-number="5"><span class="st">        log(lambda[i]) = beta0 + beta1*x1[i] + beta2[z[i]] + beta3*x3[i] + beta4*x4[i]</span></a>
+<a class="sourceLine" id="cb91-6" data-line-number="6"><span class="st">    }</span></a>
+<a class="sourceLine" id="cb91-7" data-line-number="7"><span class="st">    # Data: subjects</span></a>
+<a class="sourceLine" id="cb91-8" data-line-number="8"><span class="st">    beta0 ~ dnorm(0, 0.0001)</span></a>
+<a class="sourceLine" id="cb91-9" data-line-number="9"><span class="st">    beta1 ~ dnorm(0, 10000)</span></a>
+<a class="sourceLine" id="cb91-10" data-line-number="10"><span class="st">    beta2[1] &lt;- 0 </span></a>
+<a class="sourceLine" id="cb91-11" data-line-number="11"><span class="st">    beta2[2] ~ dnorm(0, 0.04)</span></a>
+<a class="sourceLine" id="cb91-12" data-line-number="12"><span class="st">    beta2[3] ~ dnorm(-10, 0.04)</span></a>
+<a class="sourceLine" id="cb91-13" data-line-number="13"><span class="st">    beta2[4] ~ dnorm(-15, 0.01)</span></a>
+<a class="sourceLine" id="cb91-14" data-line-number="14"><span class="st">    beta3 ~ dnorm(-0.3, 100)</span></a>
+<a class="sourceLine" id="cb91-15" data-line-number="15"><span class="st">    beta4 ~ dnorm(36, 10)</span></a>
+<a class="sourceLine" id="cb91-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb91-17" data-line-number="17"><span class="st">}&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># COMPILE</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>Y2018)</a>
+<a class="sourceLine" id="cb92-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb92-4" data-line-number="4">model_data8 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, <span class="dt">x1 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>UGDS_<span class="dv">1617</span>), <span class="dt">z =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac1), <span class="dt">x3 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>), <span class="dt">x4 =</span> <span class="kw">as.numeric</span>(full_LiberalArts<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))</a>
+<a class="sourceLine" id="cb92-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb92-6" data-line-number="6">model_data8 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data8)</a>
+<a class="sourceLine" id="cb92-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb92-8" data-line-number="8">liberal_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(liberal_model_<span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb92-9" data-line-number="9">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data8<span class="op">$</span>y, <span class="dt">x1 =</span> model_data8<span class="op">$</span>x1, <span class="dt">z =</span> <span class="kw">factor</span>(model_data8<span class="op">$</span>z), <span class="dt">x3 =</span> model_data8<span class="op">$</span>x3, <span class="dt">x4 =</span> model_data8<span class="op">$</span>x4),</a>
+<a class="sourceLine" id="cb92-10" data-line-number="10">    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</a></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -402,17 +434,17 @@ liberal_jags_<span class="dv">3</span> &lt;-<span class="st"> </span><span class
 ##    Total graph size: 1014
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
-liberal_sim_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(liberal_jags_<span class="dv">3</span>,
-    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;beta4&quot;</span>),
-    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
-
-<span class="co"># STORE the chains in a data frame</span>
-liberal_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(liberal_sim_<span class="dv">3</span>[[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="co"># SIMULATE the model</span></a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">liberal_sim_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(liberal_jags_<span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3">    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;beta4&quot;</span>),</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4">    <span class="dt">n.iter =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb94-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb94-6" data-line-number="6"><span class="co"># STORE the chains in a data frame</span></a>
+<a class="sourceLine" id="cb94-7" data-line-number="7">liberal_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(liberal_sim_<span class="dv">3</span>[[<span class="dv">1</span>]])</a></code></pre></div>
 </div>
 <div id="model-summary-6" class="section level3">
 <h3><span class="header-section-number">9.2.3</span> Model summary</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(liberal_sim_<span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">summary</span>(liberal_sim_<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## 
 ## Iterations = 1001:11000
 ## Thinning interval = 1 
@@ -447,13 +479,13 @@ liberal_chains_<span class="dv">3</span> &lt;-<span class="st"> </span><span cla
 <div id="posterior-inference-6" class="section level3">
 <h3><span class="header-section-number">9.2.4</span> Posterior inference</h3>
 <p>For an unknown liberal arts college in a city setting (<span class="math inline">\(\text{beta}2 = 0\)</span> given city is the reference level) with <span class="math inline">\(2000\)</span> undergraduates, student mean SAT score of <span class="math inline">\(1400\)</span> and an admission rate of <span class="math inline">\(25\%\)</span> (e.g. Hvictor College), we could predict its ranking from our rjags simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">liberal_chains_<span class="dv">3</span> &lt;-<span class="st"> </span>liberal_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rpois</span>(<span class="dv">10000</span>, <span class="kw">exp</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">*</span><span class="st"> </span><span class="dv">2000</span> <span class="op">+</span><span class="st"> </span>beta3 <span class="op">*</span><span class="st"> </span><span class="dv">1400</span> <span class="op">+</span><span class="st"> </span>beta4 <span class="op">*</span><span class="st"> </span><span class="fl">0.25</span>)))
-
-liberal_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">liberal_chains_<span class="dv">3</span> &lt;-<span class="st"> </span>liberal_chains_<span class="dv">3</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rpois</span>(<span class="dv">10000</span>, <span class="kw">exp</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">*</span><span class="st"> </span><span class="dv">2000</span> <span class="op">+</span><span class="st"> </span>beta3 <span class="op">*</span><span class="st"> </span><span class="dv">1400</span> <span class="op">+</span><span class="st"> </span>beta4 <span class="op">*</span><span class="st"> </span><span class="fl">0.25</span>)))</a>
+<a class="sourceLine" id="cb97-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">liberal_chains_<span class="dv">3</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb97-5" data-line-number="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                            5                           27</code></pre>
+## 1                            5                           26</code></pre>
 <p>This is <strong>totally reasonable</strong>. As mentioned earlier, liberal arts colleges tend to take a more holistic approach to their admissions processes and often have a smaller pool of applicants that is pretty self-selecting. Liberal arts colleges generally put less weight on standardized testing. As such, we can expect that such a school might have a pretty broad range of rankings it could receive. The interval reflects the intuitive estimate of Hvictor College’s ranking.</p>
 </div>
 </div>
@@ -475,11 +507,13 @@ liberal_chains_<span class="dv">3</span> <span class="op">%&gt;%</span>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -487,12 +521,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -504,6 +537,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -521,10 +558,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

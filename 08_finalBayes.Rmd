@@ -208,8 +208,10 @@ liberal_model_3 <- "model{
 
 }"
 
-# COMPILE
+```
 
+```{r warning=FALSE, message=FALSE}
+# COMPILE
 y <- as.numeric(full_LiberalArts$Y2018)
 
 model_data8 <- data.frame(y, x1 = as.numeric(full_LiberalArts$UGDS_1617), z = as.numeric(full_LiberalArts$LOCALE_collapse_lac1), x3 = as.numeric(full_LiberalArts$SAT_AVG_1617), x4 = as.numeric(full_LiberalArts$ADM_RATE_1617))

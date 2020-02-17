@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Data cleaning | MATH 454 Bayesian Statistics - College Ranking</title>
   <meta name="description" content="Chapter 4 Data cleaning | MATH 454 Bayesian Statistics - College Ranking" />
-  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Data cleaning | MATH 454 Bayesian Statistics - College Ranking" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-source.html">
-<link rel="next" href="visualizations.html">
+<link rel="prev" href="data-source.html"/>
+<link rel="next" href="visualizations.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -167,7 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html"><i class="fa fa-check"></i><b>9</b> Part 3: Becoming a proud Bayesian</a><ul>
 <li class="chapter" data-level="9.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#university-model"><i class="fa fa-check"></i><b>9.1</b> University Model</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#get-some-intuition"><i class="fa fa-check"></i><b>9.1.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-addition-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some addition intuition</a></li>
+<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-additional-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some additional intuition</a></li>
 <li class="chapter" data-level="9.1.3" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.3</b> Building the model</a></li>
 <li class="chapter" data-level="9.1.4" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.4</b> Model summary</a></li>
 <li class="chapter" data-level="9.1.5" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.5</b> Posterior inference</a></li>
@@ -213,148 +241,148 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="what-did-we-do" class="section level2">
 <h2><span class="header-section-number">4.1</span> What <strong>did</strong> we do?</h2>
 <p>If you don’t want to look at all the lengthy work, Kavya and Zuofu are excited to talk through the process with you!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(rjags)
-<span class="kw">library</span>(forcats)
-<span class="kw">library</span>(gridExtra)
-<span class="kw">library</span>(shiny)
-<span class="kw">library</span>(data.table)
-<span class="kw">library</span>(knitr)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(rjags)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(forcats)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(gridExtra)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(shiny)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(knitr)</a></code></pre></div>
 <div id="load-data-select-and-rename-columns" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Load data, select and rename columns</h3>
 <p><strong>If you want to reproduce our work, make sure to change your file path :)</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1617 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv&quot;</span>)
-
-myData1617_sub &lt;-<span class="st"> </span>myData1617 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(INSTNM,REGION,LOCALE,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1617_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>, <span class="st">&quot;REGION&quot;</span>,<span class="st">&quot;LOCALE&quot;</span>,<span class="st">&quot;UGDS_1617&quot;</span>,<span class="st">&quot;ADM_RATE_1617&quot;</span>,<span class="st">&quot;ACTCMMID_1617&quot;</span>,<span class="st">&quot;SAT_AVG_1617&quot;</span>,<span class="st">&quot;UGDS_WHITE_1617&quot;</span>,<span class="st">&quot;COSTT4_A_1617&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1516 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv&quot;</span>)
-
-myData1516_sub &lt;-<span class="st"> </span>myData1516 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1516_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1516&quot;</span>,<span class="st">&quot;ADM_RATE_1516&quot;</span>,<span class="st">&quot;ACTCMMID_1516&quot;</span>,<span class="st">&quot;SAT_AVG_1516&quot;</span>,<span class="st">&quot;UGDS_WHITE_1516&quot;</span>,<span class="st">&quot;COSTT4_A_1516&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv&quot;</span>)
-
-myData1415_sub &lt;-<span class="st"> </span>myData1415 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myData1415_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1415&quot;</span>,<span class="st">&quot;ADM_RATE_1415&quot;</span>,<span class="st">&quot;ACTCMMID_1415&quot;</span>,<span class="st">&quot;SAT_AVG_1415&quot;</span>,<span class="st">&quot;UGDS_WHITE_1415&quot;</span>,<span class="st">&quot;COSTT4_A_1415&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USNewsUniversity &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx&quot;</span>)
-newUniversity &lt;-<span class="st"> </span>USNewsUniversity <span class="op">%&gt;%</span>
-<span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(UniversityName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USNewsLiberalArts &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Semesters/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx&quot;</span>)
-newLiberalArts &lt;-<span class="st"> </span>USNewsLiberalArts <span class="op">%&gt;%</span>
-<span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(CollegeName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">myData1617 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Academics/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2016_17_PP.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">myData1617_sub &lt;-<span class="st"> </span>myData1617 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(INSTNM,REGION,LOCALE,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">names</span>(myData1617_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>, <span class="st">&quot;REGION&quot;</span>,<span class="st">&quot;LOCALE&quot;</span>,<span class="st">&quot;UGDS_1617&quot;</span>,<span class="st">&quot;ADM_RATE_1617&quot;</span>,<span class="st">&quot;ACTCMMID_1617&quot;</span>,<span class="st">&quot;SAT_AVG_1617&quot;</span>,<span class="st">&quot;UGDS_WHITE_1617&quot;</span>,<span class="st">&quot;COSTT4_A_1617&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">myData1516 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Past Academics/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2015_16_PP.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">myData1516_sub &lt;-<span class="st"> </span>myData1516 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">names</span>(myData1516_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1516&quot;</span>,<span class="st">&quot;ADM_RATE_1516&quot;</span>,<span class="st">&quot;ACTCMMID_1516&quot;</span>,<span class="st">&quot;SAT_AVG_1516&quot;</span>,<span class="st">&quot;UGDS_WHITE_1516&quot;</span>,<span class="st">&quot;COSTT4_A_1516&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">myData1415 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;/Users/kevinhuang/Desktop/Past Academics/Spring 2019/MATH 454/454 Project/CollegeScorecard_Raw_Data/MERGED2014_15_PP.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">myData1415_sub &lt;-<span class="st"> </span>myData1415 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(INSTNM,UGDS,ADM_RATE,ACTCMMID,SAT_AVG,UGDS_WHITE,COSTT4_A)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">names</span>(myData1415_sub) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;INSTNM&quot;</span>,<span class="st">&quot;UGDS_1415&quot;</span>,<span class="st">&quot;ADM_RATE_1415&quot;</span>,<span class="st">&quot;ACTCMMID_1415&quot;</span>,<span class="st">&quot;SAT_AVG_1415&quot;</span>,<span class="st">&quot;UGDS_WHITE_1415&quot;</span>,<span class="st">&quot;COSTT4_A_1415&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">USNewsUniversity &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Academics/Spring 2019/MATH 454/454 Project/USNewsUniversity.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">newUniversity &lt;-<span class="st"> </span>USNewsUniversity <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(UniversityName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">USNewsLiberalArts &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;/Users/kevinhuang/Desktop/Past Academics/Spring 2019/MATH 454/454 Project/USNewsLiberalArts.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">newLiberalArts &lt;-<span class="st"> </span>USNewsLiberalArts <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(CollegeName, State, Y2019, Y2018, Y2017, Y2016, Y2015, Y2014, Y2013, Y2012)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 </div>
 <div id="filter-schools-that-have-a-rank" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Filter schools that have a rank</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">college &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">149</span>){
-  college[i] =<span class="st"> </span>newLiberalArts[i,]<span class="op">$</span>CollegeName
-}
-university &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">120</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">120</span>){
-  university[i] =<span class="st"> </span>newUniversity[i,]<span class="op">$</span>UniversityName
-}
-schools &lt;-<span class="st"> </span><span class="kw">c</span>(college, university)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run tests to make sure that datasets are consistent:</span>
-check_1_Data1617 &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
-<span class="kw">dim</span>(check_1_Data1617)
-check_3_Data1415 &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
-<span class="kw">dim</span>(check_3_Data1415)
-check_2_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)
-<span class="kw">dim</span>(check_2_Data1516)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Identify class of each variable, in preparation for transformations.</span>
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>ACTCMMID_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1617_sub<span class="op">$</span>COSTT4_A_<span class="dv">1617</span>)
-<span class="kw">class</span>(myData1415_sub<span class="op">$</span>INSTNM)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415_sub_characterCollege &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))
-myData1516_sub_characterCollege &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))
-myData1617_sub_characterCollege &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To recheck that all three datasets are the same with regard to college names.</span>
-<span class="kw">dim</span>(myData1415_sub_characterCollege) 
-<span class="kw">dim</span>(myData1516_sub_characterCollege)
-<span class="kw">dim</span>(myData1617_sub_characterCollege)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">college &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">149</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">149</span>){</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  college[i] =<span class="st"> </span>newLiberalArts[i,]<span class="op">$</span>CollegeName</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">university &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">120</span>){</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  university[i] =<span class="st"> </span>newUniversity[i,]<span class="op">$</span>UniversityName</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">schools &lt;-<span class="st"> </span><span class="kw">c</span>(college, university)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Run tests to make sure that datasets are consistent:</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">check_<span class="dv">1</span>_Data1617 &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">dim</span>(check_<span class="dv">1</span>_Data1617)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">check_<span class="dv">3</span>_Data1415 &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="kw">dim</span>(check_<span class="dv">3</span>_Data1415)</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">check_<span class="dv">2</span>_Data1516 &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college)</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="kw">dim</span>(check_<span class="dv">2</span>_Data1516)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Identify class of each variable, in preparation for transformations.</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>ACTCMMID_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">class</span>(myData1617_sub<span class="op">$</span>COSTT4_A_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="kw">class</span>(myData1415_sub<span class="op">$</span>INSTNM)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">myData1415_sub_characterCollege &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">myData1516_sub_characterCollege &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</a>
+<a class="sourceLine" id="cb13-19" data-line-number="19">myData1617_sub_characterCollege &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>college) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># To recheck that all three datasets are the same with regard to college names.</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">dim</span>(myData1415_sub_characterCollege) </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">dim</span>(myData1516_sub_characterCollege)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="kw">dim</span>(myData1617_sub_characterCollege)</a></code></pre></div>
 </div>
 <div id="join-datasets" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Join datasets</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullLiberalArts &lt;-<span class="st"> </span>newLiberalArts <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) 
-
-<span class="kw">dim</span>(fullLiberalArts)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">fullLiberalArts &lt;-<span class="st"> </span>newLiberalArts <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterCollege, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;CollegeName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) </a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="kw">dim</span>(fullLiberalArts)</a></code></pre></div>
 <pre><code>## [1] 175  30</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_LiberalArts &lt;-<span class="st"> </span>fullLiberalArts[<span class="op">!</span><span class="kw">duplicated</span>(fullLiberalArts<span class="op">$</span>CollegeName), ]
-<span class="kw">dim</span>(full_LiberalArts) <span class="co"># After we removed the repetitive entries.</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">full_LiberalArts &lt;-<span class="st"> </span>fullLiberalArts[<span class="op">!</span><span class="kw">duplicated</span>(fullLiberalArts<span class="op">$</span>CollegeName), ]</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">dim</span>(full_LiberalArts) <span class="co"># After we removed the repetitive entries.</span></a></code></pre></div>
 <pre><code>## [1] 149  30</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myData1415_sub_characterUniversity &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))
-myData1516_sub_characterUniversity &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))
-myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullUniversity &lt;-<span class="st"> </span>newUniversity <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>))
-
-<span class="kw">dim</span>(fullUniversity)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">myData1415_sub_characterUniversity &lt;-<span class="st"> </span>myData1415_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1415</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1415 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1415</span>)))</a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">myData1516_sub_characterUniversity &lt;-<span class="st"> </span>myData1516_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1516</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1516 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1516</span>)))</a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-20" data-line-number="20"><span class="st">  </span><span class="kw">filter</span>(INSTNM <span class="op">%in%</span><span class="st"> </span>university) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-21" data-line-number="21"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">INSTNM =</span> <span class="kw">as.character</span>(INSTNM)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-22" data-line-number="22"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-23" data-line-number="23"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UGDS_WHITE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(UGDS_WHITE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-24" data-line-number="24"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">SAT_AVG_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(SAT_AVG_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-25" data-line-number="25"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ACTCMMID_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ACTCMMID_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-26" data-line-number="26"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ADM_RATE_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(ADM_RATE_<span class="dv">1617</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-27" data-line-number="27"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">COSTT4_A_1617 =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(COSTT4_A_<span class="dv">1617</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">fullUniversity &lt;-<span class="st"> </span>newUniversity <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">full_join</span>(myData1415_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw">full_join</span>(myData1516_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(myData1617_sub_characterUniversity, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;UniversityName&quot;</span> =<span class="st"> &quot;INSTNM&quot;</span>))</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="kw">dim</span>(fullUniversity)</a></code></pre></div>
 <pre><code>## [1] 120  30</code></pre>
 
 </div>
@@ -371,11 +399,13 @@ myData1617_sub_characterUniversity &lt;-<span class="st"> </span>myData1617_sub 
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -383,12 +413,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -400,6 +429,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -417,10 +450,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

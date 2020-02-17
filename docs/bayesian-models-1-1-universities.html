@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Bayesian Models 1.1 Universities | MATH 454 Bayesian Statistics - College Ranking</title>
   <meta name="description" content="Chapter 6 Bayesian Models 1.1 Universities | MATH 454 Bayesian Statistics - College Ranking" />
-  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Bayesian Models 1.1 Universities | MATH 454 Bayesian Statistics - College Ranking" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="visualizations.html">
-<link rel="next" href="bayesian-models-1-2-lacs.html">
+<link rel="prev" href="visualizations.html"/>
+<link rel="next" href="bayesian-models-1-2-lacs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -167,7 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html"><i class="fa fa-check"></i><b>9</b> Part 3: Becoming a proud Bayesian</a><ul>
 <li class="chapter" data-level="9.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#university-model"><i class="fa fa-check"></i><b>9.1</b> University Model</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#get-some-intuition"><i class="fa fa-check"></i><b>9.1.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-addition-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some addition intuition</a></li>
+<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-additional-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some additional intuition</a></li>
 <li class="chapter" data-level="9.1.3" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.3</b> Building the model</a></li>
 <li class="chapter" data-level="9.1.4" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.4</b> Model summary</a></li>
 <li class="chapter" data-level="9.1.5" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.5</b> Posterior inference</a></li>
@@ -222,35 +250,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="building-the-model" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Building the model</h3>
-<p>Let <span class="math inline">\(Y_i\)</span> denote the predicted ranking of a university in Year 2018. <span class="math inline">\(Y_i\)</span> is predicted by</p>
+<p>Let <span class="math inline">\(Y_i\)</span> denote the predicted ranking of a university in Year 2018. <span class="math inline">\(Y_i\)</span> is
+predicted by</p>
 <p><span class="math display">\[X_i = \text{student mean SAT score of Year 2016-17}\]</span></p>
 <p>Our model can be written as:</p>
 <p><span class="math display">\[\begin{align} Y_i &amp; \sim N(\beta_0 + \beta_1X_i,\tau_0) \\
 \beta_0 &amp; \sim N(300,250000^{-1}) \\
 \beta_1 &amp; \sim N(0,100^{-1}) \\
 \tau_0 &amp; \sim Gamma(7,4000) \end{align}\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DEFINE the model</span>
-university_model_<span class="dv">0</span> &lt;-<span class="st"> &quot;model{</span>
-<span class="st">    for(i in 1:length(y)) {</span>
-<span class="st">        # Data model</span>
-<span class="st">        y[i] ~ dnorm(beta0 + beta1 * x[i], tau0)</span>
-<span class="st">    }</span>
-
-<span class="st">    # Priors for theta</span>
-<span class="st">    beta0 ~ dnorm(300,1/250000)</span>
-<span class="st">    beta1 ~ dnorm(0, 1/100)</span>
-<span class="st">    tau0 ~ dgamma(7,4000)</span>
-
-<span class="st">}&quot;</span>
-
-
-<span class="co"># COMPILE the model</span>
-model_data0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> fullUniversity<span class="op">$</span>Y2018, <span class="dt">x =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)
-model_data0 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data0)
-
-university_jags_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">0</span>), 
-    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data0<span class="op">$</span>y, <span class="dt">x =</span> model_data0<span class="op">$</span>x),
-    <span class="dt">inits =</span> <span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># DEFINE the model</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">university_model_<span class="dv">0</span> &lt;-<span class="st"> &quot;model{</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">    for(i in 1:length(y)) {</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="st">        # Data model</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="st">        y[i] ~ dnorm(beta0 + beta1 * x[i], tau0)</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="st">    }</span></a>
+<a class="sourceLine" id="cb28-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb28-8" data-line-number="8"><span class="st">    # Priors for theta</span></a>
+<a class="sourceLine" id="cb28-9" data-line-number="9"><span class="st">    beta0 ~ dnorm(300,1/250000)</span></a>
+<a class="sourceLine" id="cb28-10" data-line-number="10"><span class="st">    beta1 ~ dnorm(0, 1/100)</span></a>
+<a class="sourceLine" id="cb28-11" data-line-number="11"><span class="st">    tau0 ~ dgamma(7,4000)</span></a>
+<a class="sourceLine" id="cb28-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb28-13" data-line-number="13"><span class="st">}&quot;</span></a>
+<a class="sourceLine" id="cb28-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb28-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb28-16" data-line-number="16"><span class="co"># COMPILE the model</span></a>
+<a class="sourceLine" id="cb28-17" data-line-number="17">model_data0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> fullUniversity<span class="op">$</span>Y2018, <span class="dt">x =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>)</a>
+<a class="sourceLine" id="cb28-18" data-line-number="18">model_data0 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data0)</a>
+<a class="sourceLine" id="cb28-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb28-20" data-line-number="20">university_jags_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">0</span>), </a>
+<a class="sourceLine" id="cb28-21" data-line-number="21">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data0<span class="op">$</span>y, <span class="dt">x =</span> model_data0<span class="op">$</span>x),</a>
+<a class="sourceLine" id="cb28-22" data-line-number="22">    <span class="dt">inits =</span> <span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</a></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -260,17 +289,17 @@ university_jags_<span class="dv">0</span> &lt;-<span class="st"> </span><span cl
 ##    Total graph size: 440
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
-university_sim_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">0</span>,
-    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>, <span class="st">&quot;beta1&quot;</span>, <span class="st">&quot;tau0&quot;</span>),
-    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
-
-<span class="co"># STORE the chains in a data frame</span>
-university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">0</span>[[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># SIMULATE the model</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">university_sim_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>, <span class="st">&quot;beta1&quot;</span>, <span class="st">&quot;tau0&quot;</span>),</a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">    <span class="dt">n.iter =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="co"># STORE the chains in a data frame</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">0</span>[[<span class="dv">1</span>]])</a></code></pre></div>
 </div>
 <div id="model-summary" class="section level3">
 <h3><span class="header-section-number">6.1.3</span> Model summary</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">summary</span>(university_sim_<span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## 
 ## Iterations = 1:10000
 ## Thinning interval = 1 
@@ -295,12 +324,12 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div id="posterior-inference" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Posterior inference</h3>
 <p>For an unknown university with a mean student SAT score of 1450 (e.g. Bvictor University), we could predict its ranking from our rjags simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">university_chains_<span class="dv">0</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -19.36168                     62.52115</code></pre>
+## 1                    -19.40776                     62.78438</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-20,62)\)</span>.Unfortunately, we ended up with range that included negative values, which led us to believe that we either needed more predictors, or we needed to change the model type. Due to restrictions of this one-predictor model, we expect to see an improvement in later models. We decided to try adding more predictors first.</p>
 </div>
 </div>
@@ -310,9 +339,9 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <h3><span class="header-section-number">6.2.1</span> First Impression</h3>
 <p>It’s harder to make predictions (and as it turns out, hard to make visualizations as well) with three years’ SAT score in the same linear model, as we can foresee significant multicollinearity. This is clearly seen that the coefficient for SAT average of Year 2014-15 (SAT_AVG_1415) variable is positive, meaning that school ranking worsens as the average SAT score increases.</p>
 <p>To further test our thinking, we created a linear model <em>university_linear_1</em>. From the ANOVA summary, we see that any one of these variables should be sufficient.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_linear_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">as.numeric</span>(Y2018) <span class="op">~</span><span class="st"> </span>SAT_AVG_<span class="dv">1617</span> <span class="op">+</span><span class="st"> </span>SAT_AVG_<span class="dv">1516</span> <span class="op">+</span><span class="st"> </span>SAT_AVG_<span class="dv">1415</span>, fullUniversity)
-
-<span class="kw">summary</span>(university_linear_<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">university_linear_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">as.numeric</span>(Y2018) <span class="op">~</span><span class="st"> </span>SAT_AVG_<span class="dv">1617</span> <span class="op">+</span><span class="st"> </span>SAT_AVG_<span class="dv">1516</span> <span class="op">+</span><span class="st"> </span>SAT_AVG_<span class="dv">1415</span>, fullUniversity)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">summary</span>(university_linear_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = as.numeric(Y2018) ~ SAT_AVG_1617 + SAT_AVG_1516 + 
@@ -335,7 +364,7 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 ##   (6 observations deleted due to missingness)
 ## Multiple R-squared:  0.7292, Adjusted R-squared:  0.7218 
 ## F-statistic: 98.75 on 3 and 110 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(university_linear_<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">anova</span>(university_linear_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: as.numeric(Y2018)
@@ -352,7 +381,8 @@ university_chains_<span class="dv">0</span> &lt;-<span class="st"> </span><span 
 <div id="building-the-model-1" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Building the model</h3>
 <p>Similarly, we construct a linear regression model of</p>
-<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span> by</p>
+<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span>
+by</p>
 <p><span class="math display">\[\begin{align} X_{1i} &amp; = \text{student mean SAT score of Year 2014-15} \\
 X_{2i} &amp; = \text{student mean SAT score of Year 2015-16} \\
 X_{3i} &amp; = \text{student mean SAT score of Year 2016-17} \end{align}\]</span></p>
@@ -364,31 +394,31 @@ X_{3i} &amp; = \text{student mean SAT score of Year 2016-17} \end{align}\]</span
 \beta_2 &amp; \sim N(0,0.01^{-1}) \\
 \beta_3 &amp; \sim N(0,0.01^{-1}) \\
 \tau_{\text{big}} &amp; \sim Gamma(7,1000) \end{align}\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">1</span> &lt;-<span class="st"> &quot;model{  </span>
-<span class="st">    # Data: observations</span>
-<span class="st">    for(i in 1:length(y)) {</span>
-<span class="st">        y[i] ~ dnorm(beta0 + beta1*x1[i] + beta2*x2[i] + beta3*x3[i], tau_big)</span>
-<span class="st">    }</span>
-
-<span class="st">        # Data: subjects</span>
-<span class="st">        beta0 ~ dnorm(0,1/250000)</span>
-<span class="st">        beta1 ~ dnorm(0,100)</span>
-<span class="st">        beta2 ~ dnorm(0,100)</span>
-<span class="st">        beta3 ~ dnorm(0,100)</span>
-<span class="st">        tau_big ~ dgamma(7,1000)</span>
-
-<span class="st">}&quot;</span>
-
-<span class="co"># COMPILE</span>
-
-y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018
-
-model_data1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1415</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1516</span>, <span class="dt">x3 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>))
-model_data1 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data1)
-
-university_jags_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">1</span>), 
-    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data1<span class="op">$</span>y, <span class="dt">x1 =</span> model_data1<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data1<span class="op">$</span>x2, <span class="dt">x3 =</span> model_data1<span class="op">$</span>x3),
-    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">university_model_<span class="dv">1</span> &lt;-<span class="st"> &quot;model{  </span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">    # Data: observations</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">    for(i in 1:length(y)) {</span></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="st">        y[i] ~ dnorm(beta0 + beta1*x1[i] + beta2*x2[i] + beta3*x3[i], tau_big)</span></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="st">    }</span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb40-7" data-line-number="7"><span class="st">        # Data: subjects</span></a>
+<a class="sourceLine" id="cb40-8" data-line-number="8"><span class="st">        beta0 ~ dnorm(0,1/250000)</span></a>
+<a class="sourceLine" id="cb40-9" data-line-number="9"><span class="st">        beta1 ~ dnorm(0,100)</span></a>
+<a class="sourceLine" id="cb40-10" data-line-number="10"><span class="st">        beta2 ~ dnorm(0,100)</span></a>
+<a class="sourceLine" id="cb40-11" data-line-number="11"><span class="st">        beta3 ~ dnorm(0,100)</span></a>
+<a class="sourceLine" id="cb40-12" data-line-number="12"><span class="st">        tau_big ~ dgamma(7,1000)</span></a>
+<a class="sourceLine" id="cb40-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb40-14" data-line-number="14"><span class="st">}&quot;</span></a>
+<a class="sourceLine" id="cb40-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb40-16" data-line-number="16"><span class="co"># COMPILE</span></a>
+<a class="sourceLine" id="cb40-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb40-18" data-line-number="18">y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018</a>
+<a class="sourceLine" id="cb40-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb40-20" data-line-number="20">model_data1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1415</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1516</span>, <span class="dt">x3 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>))</a>
+<a class="sourceLine" id="cb40-21" data-line-number="21">model_data1 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data1)</a>
+<a class="sourceLine" id="cb40-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb40-23" data-line-number="23">university_jags_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb40-24" data-line-number="24">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data1<span class="op">$</span>y, <span class="dt">x1 =</span> model_data1<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data1<span class="op">$</span>x2, <span class="dt">x3 =</span> model_data1<span class="op">$</span>x3),</a>
+<a class="sourceLine" id="cb40-25" data-line-number="25">    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</a></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -398,17 +428,17 @@ university_jags_<span class="dv">1</span> &lt;-<span class="st"> </span><span cl
 ##    Total graph size: 876
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
-university_sim_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">1</span>,
-    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;tau_big&quot;</span>),
-    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
-
-<span class="co"># STORE the chains in a data frame</span>
-university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">1</span>[[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># SIMULATE the model</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">university_sim_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;beta0&quot;</span>,<span class="st">&quot;beta1&quot;</span>,<span class="st">&quot;beta2&quot;</span>,<span class="st">&quot;beta3&quot;</span>,<span class="st">&quot;tau_big&quot;</span>),</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">    <span class="dt">n.iter =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="co"># STORE the chains in a data frame</span></a>
+<a class="sourceLine" id="cb42-7" data-line-number="7">university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">1</span>[[<span class="dv">1</span>]])</a></code></pre></div>
 </div>
 <div id="model-summary-1" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Model summary</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">summary</span>(university_sim_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## 
 ## Iterations = 1:10000
 ## Thinning interval = 1 
@@ -437,12 +467,12 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div id="posterior-inference-1" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Posterior inference</h3>
 <p>For an unknown university with three years’ mean student SAT score of 1450, 1440, 1420 (e.g. Cvictor University), we could predict its ranking from our rjags simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2<span class="op">*</span><span class="dv">1440</span> <span class="op">+</span>beta3<span class="op">*</span><span class="dv">1420</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2<span class="op">*</span><span class="dv">1440</span> <span class="op">+</span>beta3<span class="op">*</span><span class="dv">1420</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">university_chains_<span class="dv">1</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -14.13776                     63.80534</code></pre>
+## 1                    -14.52939                     63.60583</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-14,64)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval in the new model does a better job at eliminating negative rankings, which are impossible in reality.</p>
 </div>
 </div>
@@ -459,7 +489,7 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 <div id="step-1" class="section level4">
 <h4><span class="header-section-number">6.3.2.1</span> Step 1</h4>
 <p>A linear model provides some intuition about how the priors might be constructed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">lm</span>(fullUniversity<span class="op">$</span>Y2018 <span class="op">~</span><span class="st"> </span>fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span> <span class="op">+</span><span class="st"> </span>fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))</code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">lm</span>(fullUniversity<span class="op">$</span>Y2018 <span class="op">~</span><span class="st"> </span>fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span> <span class="op">+</span><span class="st"> </span>fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = fullUniversity$Y2018 ~ fullUniversity$SAT_AVG_1617 + 
@@ -484,8 +514,10 @@ university_chains_<span class="dv">1</span> &lt;-<span class="st"> </span><span 
 </div>
 <div id="step-2" class="section level4">
 <h4><span class="header-section-number">6.3.2.2</span> Step 2</h4>
-<p>Next, we construct a <strong>hierarchical</strong> model (because we just learned this and wanted to show off) of</p>
-<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span> by</p>
+<p>Next, we construct a <strong>hierarchical</strong> model (because we just learned this and
+wanted to show off) of</p>
+<p><span class="math display">\[Y_i = \text{the predicted 2018 ranking of a university}\]</span>
+by</p>
 <p><span class="math display">\[\begin{align} X_{1i} &amp; = \text{student mean SAT score of Year 2016-17} \\
 X_{2i} &amp; = \text{admissions rate during Year 2016-17} \end{align}\]</span></p>
 <p>where</p>
@@ -503,39 +535,39 @@ b_2 &amp; \sim N(80,100^{-1}) \\
 \tau_2 &amp; \sim N(10, 1) \\
 s &amp; \sim N(7,1) \\
 r &amp; \sim N(10000, 10000^{-1}) \end{align}\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_model_<span class="dv">2</span> &lt;-<span class="st"> &quot;model{  </span>
-<span class="st">    # Data: observations</span>
-<span class="st">    for(i in 1:length(y)) {</span>
-<span class="st">        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])</span>
-
-<span class="st">        # Data: subjects</span>
-<span class="st">        beta0[i] ~ dnorm(b0, tau0)</span>
-<span class="st">        beta1[i] ~ dnorm(b1,tau1)</span>
-<span class="st">        beta2[i] ~ dnorm(b2,tau2)</span>
-<span class="st">        tau_big[i] ~ dgamma(s,r)</span>
-<span class="st">    }</span>
-
-<span class="st">    # Hyperpriors</span>
-<span class="st">    b0 ~ dnorm(180,1/4000)</span>
-<span class="st">    tau0 ~ dnorm(30, 1/9)</span>
-<span class="st">    b1 ~ dnorm(-0.1,1000)</span>
-<span class="st">    tau1 ~ dnorm(1000,1000) </span>
-<span class="st">    b2 ~ dnorm(80,1/100)</span>
-<span class="st">    tau2 ~ dnorm(10,1)</span>
-<span class="st">    s ~ dnorm(7,1)</span>
-<span class="st">    r ~ dnorm(10000, 1/10000)</span>
-<span class="st">}&quot;</span>
-
-<span class="co"># COMPILE</span>
-
-y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018
-
-model_data2 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))
-model_data2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data2)
-
-university_jags_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">2</span>), 
-    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data2<span class="op">$</span>y, <span class="dt">x1 =</span> model_data2<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data2<span class="op">$</span>x2),
-    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">university_model_<span class="dv">2</span> &lt;-<span class="st"> &quot;model{  </span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">    # Data: observations</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">    for(i in 1:length(y)) {</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="st">        y[i] ~ dnorm(beta0[i] + beta1[i]*x1[i] + beta2[i]*x2[i], tau_big[i])</span></a>
+<a class="sourceLine" id="cb50-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="st">        # Data: subjects</span></a>
+<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="st">        beta0[i] ~ dnorm(b0, tau0)</span></a>
+<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="st">        beta1[i] ~ dnorm(b1,tau1)</span></a>
+<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="st">        beta2[i] ~ dnorm(b2,tau2)</span></a>
+<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="st">        tau_big[i] ~ dgamma(s,r)</span></a>
+<a class="sourceLine" id="cb50-11" data-line-number="11"><span class="st">    }</span></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb50-13" data-line-number="13"><span class="st">    # Hyperpriors</span></a>
+<a class="sourceLine" id="cb50-14" data-line-number="14"><span class="st">    b0 ~ dnorm(180,1/4000)</span></a>
+<a class="sourceLine" id="cb50-15" data-line-number="15"><span class="st">    tau0 ~ dnorm(30, 1/9)</span></a>
+<a class="sourceLine" id="cb50-16" data-line-number="16"><span class="st">    b1 ~ dnorm(-0.1,1000)</span></a>
+<a class="sourceLine" id="cb50-17" data-line-number="17"><span class="st">    tau1 ~ dnorm(1000,1000) </span></a>
+<a class="sourceLine" id="cb50-18" data-line-number="18"><span class="st">    b2 ~ dnorm(80,1/100)</span></a>
+<a class="sourceLine" id="cb50-19" data-line-number="19"><span class="st">    tau2 ~ dnorm(10,1)</span></a>
+<a class="sourceLine" id="cb50-20" data-line-number="20"><span class="st">    s ~ dnorm(7,1)</span></a>
+<a class="sourceLine" id="cb50-21" data-line-number="21"><span class="st">    r ~ dnorm(10000, 1/10000)</span></a>
+<a class="sourceLine" id="cb50-22" data-line-number="22"><span class="st">}&quot;</span></a>
+<a class="sourceLine" id="cb50-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb50-24" data-line-number="24"><span class="co"># COMPILE</span></a>
+<a class="sourceLine" id="cb50-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb50-26" data-line-number="26">y &lt;-<span class="st"> </span>fullUniversity<span class="op">$</span>Y2018</a>
+<a class="sourceLine" id="cb50-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb50-28" data-line-number="28">model_data2 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(y, <span class="dt">x1 =</span> fullUniversity<span class="op">$</span>SAT_AVG_<span class="dv">1617</span>, <span class="dt">x2 =</span> fullUniversity<span class="op">$</span>ADM_RATE_<span class="dv">1617</span>))</a>
+<a class="sourceLine" id="cb50-29" data-line-number="29">model_data2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(model_data2)</a>
+<a class="sourceLine" id="cb50-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb50-31" data-line-number="31">university_jags_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">jags.model</span>(<span class="kw">textConnection</span>(university_model_<span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb50-32" data-line-number="32">    <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> model_data2<span class="op">$</span>y, <span class="dt">x1 =</span> model_data2<span class="op">$</span>x1, <span class="dt">x2 =</span> model_data2<span class="op">$</span>x2),</a>
+<a class="sourceLine" id="cb50-33" data-line-number="33">    <span class="dt">inits=</span><span class="kw">list</span>(<span class="dt">.RNG.name =</span> <span class="st">&quot;base::Wichmann-Hill&quot;</span>, <span class="dt">.RNG.seed =</span> <span class="dv">454</span>))</a></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -545,18 +577,18 @@ university_jags_<span class="dv">2</span> &lt;-<span class="st"> </span><span cl
 ##    Total graph size: 1165
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SIMULATE the model</span>
-university_sim_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">2</span>,
-    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;b0&quot;</span>,<span class="st">&quot;tau0&quot;</span>,<span class="st">&quot;b1&quot;</span>,<span class="st">&quot;tau1&quot;</span>,<span class="st">&quot;b2&quot;</span>,<span class="st">&quot;tau2&quot;</span>,<span class="st">&quot;s&quot;</span>,<span class="st">&quot;r&quot;</span>),
-    <span class="dt">n.iter =</span> <span class="dv">10000</span>)
-
-<span class="co"># STORE the chains in a data frame</span>
-university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">2</span>[[<span class="dv">1</span>]])</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># SIMULATE the model</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">university_sim_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">coda.samples</span>(university_jags_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">    <span class="dt">variable.names =</span> <span class="kw">c</span>(<span class="st">&quot;b0&quot;</span>,<span class="st">&quot;tau0&quot;</span>,<span class="st">&quot;b1&quot;</span>,<span class="st">&quot;tau1&quot;</span>,<span class="st">&quot;b2&quot;</span>,<span class="st">&quot;tau2&quot;</span>,<span class="st">&quot;s&quot;</span>,<span class="st">&quot;r&quot;</span>),</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">    <span class="dt">n.iter =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="co"># STORE the chains in a data frame</span></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(university_sim_<span class="dv">2</span>[[<span class="dv">1</span>]])</a></code></pre></div>
 </div>
 </div>
 <div id="model-summary-2" class="section level3">
 <h3><span class="header-section-number">6.3.3</span> Model summary</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(university_sim_<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">summary</span>(university_sim_<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 
 ## Iterations = 1001:11000
 ## Thinning interval = 1 
@@ -591,16 +623,16 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
 <div id="posterior-inference-2" class="section level3">
 <h3><span class="header-section-number">6.3.4</span> Posterior inference</h3>
 <p>For an unknown university with student mean SAT score of 1450 and an admission rate of <span class="math inline">\(30\%\)</span> (e.g. Dvictor University), we could predict its ranking from our rjags simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">beta0_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b0,(<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta1_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b1,(<span class="dv">1</span><span class="op">/</span>tau1)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta2_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b2,(<span class="dv">1</span><span class="op">/</span>tau2)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">tau_big_new =</span> <span class="kw">rgamma</span>(<span class="dv">10000</span>,s,r)) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0_new <span class="op">+</span><span class="st"> </span>beta1_new <span class="op">*</span><span class="st"> </span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2_new <span class="op">*</span><span class="st"> </span><span class="fl">0.3</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big_new)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span>university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">beta0_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b0,(<span class="dv">1</span><span class="op">/</span>tau0)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta1_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b1,(<span class="dv">1</span><span class="op">/</span>tau1)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="st">           </span><span class="kw">mutate</span>(<span class="dt">beta2_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>,b2,(<span class="dv">1</span><span class="op">/</span>tau2)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="st">           </span><span class="kw">mutate</span>(<span class="dt">tau_big_new =</span> <span class="kw">rgamma</span>(<span class="dv">10000</span>,s,r)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="st">           </span><span class="kw">mutate</span>(<span class="dt">ranking_new =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean =</span> beta0_new <span class="op">+</span><span class="st"> </span>beta1_new <span class="op">*</span><span class="st"> </span><span class="dv">1450</span> <span class="op">+</span><span class="st"> </span>beta2_new <span class="op">*</span><span class="st"> </span><span class="fl">0.3</span>, <span class="dt">sd =</span> (<span class="dv">1</span><span class="op">/</span>tau_big_new)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">university_chains_<span class="dv">2</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">quantile</span>(ranking_new,<span class="fl">0.025</span>),<span class="kw">quantile</span>(ranking_new,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##   quantile(ranking_new, 0.025) quantile(ranking_new, 0.975)
-## 1                    -82.28166                     143.5477</code></pre>
+## 1                    -81.84403                     142.8057</code></pre>
 <p>A <span class="math inline">\(95\%\)</span> credible interval is <span class="math inline">\((-86,142)\)</span>. The <span class="math inline">\(95\%\)</span> credible interval does a poor job at eliminating negative rankings or making an accurate prediction. We propose that this may be due to the variability of the priors and hyperpriors set in our Hierarchical Model.</p>
 </div>
 </div>
@@ -621,11 +653,13 @@ university_chains_<span class="dv">2</span> &lt;-<span class="st"> </span><span 
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -633,12 +667,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -650,6 +683,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -667,10 +704,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

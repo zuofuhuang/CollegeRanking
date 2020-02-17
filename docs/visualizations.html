@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Visualizations | MATH 454 Bayesian Statistics - College Ranking</title>
   <meta name="description" content="Chapter 5 Visualizations | MATH 454 Bayesian Statistics - College Ranking" />
-  <meta name="generator" content="bookdown  and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Visualizations | MATH 454 Bayesian Statistics - College Ranking" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-cleaning.html">
-<link rel="next" href="bayesian-models-1-1-universities.html">
+<link rel="prev" href="data-cleaning.html"/>
+<link rel="next" href="bayesian-models-1-1-universities.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -167,7 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html"><i class="fa fa-check"></i><b>9</b> Part 3: Becoming a proud Bayesian</a><ul>
 <li class="chapter" data-level="9.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#university-model"><i class="fa fa-check"></i><b>9.1</b> University Model</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#get-some-intuition"><i class="fa fa-check"></i><b>9.1.1</b> Get some intuition</a></li>
-<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-addition-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some addition intuition</a></li>
+<li class="chapter" data-level="9.1.2" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#some-additional-intuition"><i class="fa fa-check"></i><b>9.1.2</b> Some additional intuition</a></li>
 <li class="chapter" data-level="9.1.3" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#building-the-model-5"><i class="fa fa-check"></i><b>9.1.3</b> Building the model</a></li>
 <li class="chapter" data-level="9.1.4" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#model-summary-5"><i class="fa fa-check"></i><b>9.1.4</b> Model summary</a></li>
 <li class="chapter" data-level="9.1.5" data-path="part-3-becoming-a-proud-bayesian.html"><a href="part-3-becoming-a-proud-bayesian.html#posterior-inference-5"><i class="fa fa-check"></i><b>9.1.5</b> Posterior inference</a></li>
@@ -216,26 +244,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In our first and second peeks, we are interested in <strong>geographical locations</strong> of universities and colleges. It might be surprising to learn that students, when choosing schools, give quite a bit of weight to a school’s geographical location. We investigate two variables that contribute to prospective students’ choices, giving side-by-side plots that reflect how the variables vary between universities and liberal arts colleges.</p>
 <p><strong>Variable Collapses</strong></p>
 <p>We collapsed and renamed the “REGION” variable based on the College Scorecard Data Dictionary. Excluded are “0” which represents the US Service Schools and “9” which represents the Outlying Areas, since none of the schools on our list fall in either category. We also ensured that the REGION variable was being treated as a character instead of an integer.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">REGION_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(<span class="kw">as.character</span>(full_LiberalArts<span class="op">$</span>REGION), <span class="dt">NewEngland =</span> <span class="st">&quot;1&quot;</span>, <span class="dt">MidEast =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">GreatLakes =</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Plains =</span> <span class="st">&quot;4&quot;</span>, <span class="dt">Southeast =</span> <span class="st">&quot;5&quot;</span>, <span class="dt">Southwest =</span> <span class="st">&quot;6&quot;</span>, <span class="dt">RockyMountains =</span> <span class="st">&quot;7&quot;</span>, <span class="dt">FarWest =</span> <span class="st">&quot;8&quot;</span>)
-
-full_LiberalArts<span class="op">$</span>REGION_collapse &lt;-<span class="st"> </span>REGION_collapse</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">REGION_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(<span class="kw">as.character</span>(full_LiberalArts<span class="op">$</span>REGION), <span class="dt">NewEngland =</span> <span class="st">&quot;1&quot;</span>, <span class="dt">MidEast =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">GreatLakes =</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Plains =</span> <span class="st">&quot;4&quot;</span>, <span class="dt">Southeast =</span> <span class="st">&quot;5&quot;</span>, <span class="dt">Southwest =</span> <span class="st">&quot;6&quot;</span>, <span class="dt">RockyMountains =</span> <span class="st">&quot;7&quot;</span>, <span class="dt">FarWest =</span> <span class="st">&quot;8&quot;</span>)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">full_LiberalArts<span class="op">$</span>REGION_collapse &lt;-<span class="st"> </span>REGION_collapse</a></code></pre></div>
 <p>We did a similar process for the LOCALE variable. We collapsed and renamed the variable based on the College Scorecard Data Dictionary. We first collapsed LOCALE into the more general setting groups a user would recognize (city, town, suburb, and rural). We also preserved the original designations in order to look at distributions within the larger categories.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LOCALE_collapse_lac1 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(full_LiberalArts<span class="op">$</span>LOCALE, <span class="dt">City =</span> <span class="kw">c</span>(<span class="st">&quot;11&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;13&quot;</span>), <span class="dt">Suburb =</span> <span class="kw">c</span>(<span class="st">&quot;21&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;23&quot;</span>), <span class="dt">Town =</span> <span class="kw">c</span>(<span class="st">&quot;31&quot;</span>,<span class="st">&quot;32&quot;</span>,<span class="st">&quot;33&quot;</span>), <span class="dt">Rural =</span> <span class="kw">c</span>(<span class="st">&quot;41&quot;</span>,<span class="st">&quot;42&quot;</span>,<span class="st">&quot;43&quot;</span>))
-
-LOCALE_collapse_lac2 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(full_LiberalArts<span class="op">$</span>LOCALE, <span class="dt">LargeCity =</span> <span class="st">&quot;11&quot;</span>, <span class="dt">MidsizeCity =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">SmallCity =</span> <span class="st">&quot;13&quot;</span>, <span class="dt">LargeSuburb =</span> <span class="st">&quot;21&quot;</span>, <span class="dt">MidsizeSuburb =</span> <span class="st">&quot;22&quot;</span>, <span class="dt">SmallSuburb =</span> <span class="st">&quot;23&quot;</span>, <span class="dt">FringeTown =</span> <span class="st">&quot;31&quot;</span>, <span class="dt">DistantTown =</span> <span class="st">&quot;32&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;33&quot;</span>, <span class="dt">FringeRural =</span> <span class="st">&quot;41&quot;</span>, <span class="dt">DistantRural =</span> <span class="st">&quot;42&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;43&quot;</span>)
-
-full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac1 &lt;-<span class="st"> </span>LOCALE_collapse_lac1
-full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac2 &lt;-<span class="st"> </span>LOCALE_collapse_lac2</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">LOCALE_collapse_lac1 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(full_LiberalArts<span class="op">$</span>LOCALE, <span class="dt">City =</span> <span class="kw">c</span>(<span class="st">&quot;11&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;13&quot;</span>), <span class="dt">Suburb =</span> <span class="kw">c</span>(<span class="st">&quot;21&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;23&quot;</span>), <span class="dt">Town =</span> <span class="kw">c</span>(<span class="st">&quot;31&quot;</span>,<span class="st">&quot;32&quot;</span>,<span class="st">&quot;33&quot;</span>), <span class="dt">Rural =</span> <span class="kw">c</span>(<span class="st">&quot;41&quot;</span>,<span class="st">&quot;42&quot;</span>,<span class="st">&quot;43&quot;</span>))</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">LOCALE_collapse_lac2 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(full_LiberalArts<span class="op">$</span>LOCALE, <span class="dt">LargeCity =</span> <span class="st">&quot;11&quot;</span>, <span class="dt">MidsizeCity =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">SmallCity =</span> <span class="st">&quot;13&quot;</span>, <span class="dt">LargeSuburb =</span> <span class="st">&quot;21&quot;</span>, <span class="dt">MidsizeSuburb =</span> <span class="st">&quot;22&quot;</span>, <span class="dt">SmallSuburb =</span> <span class="st">&quot;23&quot;</span>, <span class="dt">FringeTown =</span> <span class="st">&quot;31&quot;</span>, <span class="dt">DistantTown =</span> <span class="st">&quot;32&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;33&quot;</span>, <span class="dt">FringeRural =</span> <span class="st">&quot;41&quot;</span>, <span class="dt">DistantRural =</span> <span class="st">&quot;42&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;43&quot;</span>)</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac1 &lt;-<span class="st"> </span>LOCALE_collapse_lac1</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">full_LiberalArts<span class="op">$</span>LOCALE_collapse_lac2 &lt;-<span class="st"> </span>LOCALE_collapse_lac2</a></code></pre></div>
 <p><strong>The process described above was repeated on the University dataset.</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">REGION_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(<span class="kw">as.character</span>(fullUniversity<span class="op">$</span>REGION), <span class="dt">NewEngland =</span> <span class="st">&quot;1&quot;</span>, <span class="dt">MidEast =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">GreatLakes =</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Plains =</span> <span class="st">&quot;4&quot;</span>, <span class="dt">Southeast =</span> <span class="st">&quot;5&quot;</span>, <span class="dt">Southwest =</span> <span class="st">&quot;6&quot;</span>, <span class="dt">RockyMountains =</span> <span class="st">&quot;7&quot;</span>, <span class="dt">FarWest =</span> <span class="st">&quot;8&quot;</span>)
-
-fullUniversity<span class="op">$</span>REGION_collapse &lt;-<span class="st"> </span>REGION_collapse</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LOCALE_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(fullUniversity<span class="op">$</span>LOCALE, <span class="dt">City =</span> <span class="kw">c</span>(<span class="st">&quot;11&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;13&quot;</span>), <span class="dt">Suburb =</span> <span class="kw">c</span>(<span class="st">&quot;21&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;23&quot;</span>), <span class="dt">Town =</span> <span class="kw">c</span>(<span class="st">&quot;31&quot;</span>,<span class="st">&quot;32&quot;</span>,<span class="st">&quot;33&quot;</span>), <span class="dt">Rural =</span> <span class="kw">c</span>(<span class="st">&quot;41&quot;</span>,<span class="st">&quot;42&quot;</span>,<span class="st">&quot;43&quot;</span>))
-
-LOCALE_collapse2 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(fullUniversity<span class="op">$</span>LOCALE, <span class="dt">LargeCity =</span> <span class="st">&quot;11&quot;</span>, <span class="dt">MidsizeCity =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">SmallCity =</span> <span class="st">&quot;13&quot;</span>, <span class="dt">LargeSuburb =</span> <span class="st">&quot;21&quot;</span>, <span class="dt">MidsizeSuburb =</span> <span class="st">&quot;22&quot;</span>, <span class="dt">SmallSuburb =</span> <span class="st">&quot;23&quot;</span>, <span class="dt">FringeTown =</span> <span class="st">&quot;31&quot;</span>, <span class="dt">DistantTown =</span> <span class="st">&quot;32&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;33&quot;</span>, <span class="dt">FringeRural =</span> <span class="st">&quot;41&quot;</span>, <span class="dt">DistantRural =</span> <span class="st">&quot;42&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;43&quot;</span>)
-
-fullUniversity<span class="op">$</span>LOCALE_collapse &lt;-<span class="st"> </span>LOCALE_collapse
-fullUniversity<span class="op">$</span>LOCALE_collapse2 &lt;-<span class="st"> </span>LOCALE_collapse2</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">REGION_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(<span class="kw">as.character</span>(fullUniversity<span class="op">$</span>REGION), <span class="dt">NewEngland =</span> <span class="st">&quot;1&quot;</span>, <span class="dt">MidEast =</span> <span class="st">&quot;2&quot;</span>, <span class="dt">GreatLakes =</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Plains =</span> <span class="st">&quot;4&quot;</span>, <span class="dt">Southeast =</span> <span class="st">&quot;5&quot;</span>, <span class="dt">Southwest =</span> <span class="st">&quot;6&quot;</span>, <span class="dt">RockyMountains =</span> <span class="st">&quot;7&quot;</span>, <span class="dt">FarWest =</span> <span class="st">&quot;8&quot;</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">fullUniversity<span class="op">$</span>REGION_collapse &lt;-<span class="st"> </span>REGION_collapse</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">LOCALE_collapse &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(fullUniversity<span class="op">$</span>LOCALE, <span class="dt">City =</span> <span class="kw">c</span>(<span class="st">&quot;11&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;13&quot;</span>), <span class="dt">Suburb =</span> <span class="kw">c</span>(<span class="st">&quot;21&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;23&quot;</span>), <span class="dt">Town =</span> <span class="kw">c</span>(<span class="st">&quot;31&quot;</span>,<span class="st">&quot;32&quot;</span>,<span class="st">&quot;33&quot;</span>), <span class="dt">Rural =</span> <span class="kw">c</span>(<span class="st">&quot;41&quot;</span>,<span class="st">&quot;42&quot;</span>,<span class="st">&quot;43&quot;</span>))</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">LOCALE_collapse2 &lt;-<span class="st"> </span><span class="kw">fct_collapse</span>(fullUniversity<span class="op">$</span>LOCALE, <span class="dt">LargeCity =</span> <span class="st">&quot;11&quot;</span>, <span class="dt">MidsizeCity =</span> <span class="st">&quot;12&quot;</span>, <span class="dt">SmallCity =</span> <span class="st">&quot;13&quot;</span>, <span class="dt">LargeSuburb =</span> <span class="st">&quot;21&quot;</span>, <span class="dt">MidsizeSuburb =</span> <span class="st">&quot;22&quot;</span>, <span class="dt">SmallSuburb =</span> <span class="st">&quot;23&quot;</span>, <span class="dt">FringeTown =</span> <span class="st">&quot;31&quot;</span>, <span class="dt">DistantTown =</span> <span class="st">&quot;32&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;33&quot;</span>, <span class="dt">FringeRural =</span> <span class="st">&quot;41&quot;</span>, <span class="dt">DistantRural =</span> <span class="st">&quot;42&quot;</span>, <span class="dt">RemoteTown =</span> <span class="st">&quot;43&quot;</span>)</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">fullUniversity<span class="op">$</span>LOCALE_collapse &lt;-<span class="st"> </span>LOCALE_collapse</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">fullUniversity<span class="op">$</span>LOCALE_collapse2 &lt;-<span class="st"> </span>LOCALE_collapse2</a></code></pre></div>
 <div id="visualization-1-region-setting" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Visualization 1: Region &amp; Setting</h3>
 <p><img src="CollegeRanking_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
@@ -256,17 +284,18 @@ fullUniversity<span class="op">$</span>LOCALE_collapse2 &lt;-<span class="st"> <
 <p>Here’s when people tend to (have the excuse to) get a little more utilitarian. Studies find that people pay more attention to ranking when ranking data is available. We (or more precisely, Zuofu) are just like that.</p>
 <p>SAT is usually one of the major indicators of students’ fitness with certain colleges, both from students’ and colleges’ perspective. We do a bi-variate visualization between average SAT score of 2016-2017 academic year and university ranking of Year 2018. If you look further in our project (which hopefully you do!), you will see this is the basis of our first introductory model.</p>
 <p><img src="CollegeRanking_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>In this plot, we investigate the correlation between standardized test scores (SAT) and college ranking. From the literature and past knowledge, we believe that test scores are one of the factors that can be a marker of quality for ranking compilers. In this case, we do see a generally negative correlation between average SAT score and ranking. As SAT scores go up, rankings get smaller (better). The university scores are a bit more clustered, while there is a larger spread between the liberal arts college scores. This might be an indication of the weight put on standardized test scores for larger universities and the more holistic approach liberal arts colleges have.  </p>
+<p>In this plot, we investigate the correlation between standardized test scores (SAT) and college ranking. From the literature and past knowledge, we believe that test scores are one of the factors that can be a marker of quality for ranking compilers. In this case, we do see a generally negative correlation between average SAT score and ranking. As SAT scores go up, rankings get smaller (better). The university scores are a bit more clustered, while there is a larger spread between the liberal arts college scores. This might be an indication of the weight put on standardized test scores for larger universities and the more holistic approach liberal arts colleges have.
+ </p>
 </div>
 <div id="th-peek" class="section level2">
 <h2><span class="header-section-number">5.3</span> 4th Peek</h2>
 <p>“Diversity: the art of thinking independently together.” -Malcolm Forbes</p>
 <p> </p>
 <p>In an effort to create a more just and inclusive world, the opportunity to engage with people of different backgrounds and identities plays an increasingly important role. We plan to look into the common trend between the size of the student body and diversity factors (namely, the percentage of white students and the cost of attending college).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullUniversity<span class="op">$</span>UGDS_WHITE_1617_categ =<span class="st"> </span><span class="kw">cut</span>(fullUniversity<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>, <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0.8</span>,<span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">fullUniversity<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>_categ =<span class="st"> </span><span class="kw">cut</span>(fullUniversity<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>, <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0.8</span>,<span class="dv">1</span>))</a></code></pre></div>
 <p><img src="CollegeRanking_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>We didn’t see an observable relationship between cost and the percentage of white students; we did observe that universities of a smaller size tend to correlate with a much larger cost.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_LiberalArts<span class="op">$</span>UGDS_WHITE_1617_categ =<span class="st"> </span><span class="kw">cut</span>(full_LiberalArts<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>, <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0.8</span>,<span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">full_LiberalArts<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>_categ =<span class="st"> </span><span class="kw">cut</span>(full_LiberalArts<span class="op">$</span>UGDS_WHITE_<span class="dv">1617</span>, <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.2</span>,<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0.8</span>,<span class="dv">1</span>))</a></code></pre></div>
 <p><img src="CollegeRanking_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>In terms of liberal arts colleges, we can see that the data points (schools) are more clustered at the top section of the plot. This makes sense to us given that most liberal arts colleges are private compared to universities. We didn’t see an observable relationship between cost and the percentage of white students.</p>
 
@@ -283,11 +312,13 @@ fullUniversity<span class="op">$</span>LOCALE_collapse2 &lt;-<span class="st"> <
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -295,12 +326,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -312,6 +342,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -329,10 +363,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
